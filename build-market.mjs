@@ -8,8 +8,10 @@ for(const name of readdirSync('app/fonts'))assets['/fonts/'+name]=[name.endsWith
 const logoTypes={png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',webp:'image/webp',svg:'image/svg+xml'};
 if(existsSync('assets/partners'))for(const name of readdirSync('assets/partners')){const type=logoTypes[name.split('.').pop().toLowerCase()];if(type&&/^[a-z0-9._-]+$/i.test(name))assets['/partners/'+name]=[type,readFileSync('assets/partners/'+name).toString('base64')]}
 const html=readFileSync('app/index.html','utf8');
+const calendar=readFileSync('demo-calendar.mjs','utf8');
 assets.hashes={};
 for(const lang of ['ru','en','uz']){
+ assets['/demo-calendar.'+lang+'.mjs']=['text/javascript; charset=utf-8',Buffer.from(localizeScript(calendar,lang)).toString('base64')];
  const page=localizePage(html,lang);
  const js=page.match(/<script>([\s\S]+?)<\/script>/)[1].replace(/\r\n?/g,'\n');
  assets.hashes[lang]=createHash('sha256').update(js).digest('base64');

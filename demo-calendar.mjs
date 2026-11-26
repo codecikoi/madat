@@ -30,7 +30,18 @@ function workingStarts(now) {
  return starts;
 }
 let starts=[], days=new Map(), selected='', month='', timeFormat, localDayFormat, chosen=null, busy=new Set(), sending=false, ready=false, revision=0, attempt=null;
-const localeDate=(timeZone,options)=>new Intl.DateTimeFormat(document.documentElement.lang,{timeZone,...options});
+// Browsers ship no Uzbek month or weekday names (Chrome prints "M11 27, Fri"), so Uzbek dates are composed by hand.
+const UZ_MONTHS=['yanvar','fevral','mart','aprel','may','iyun','iyul','avgust','sentyabr','oktyabr','noyabr','dekabr'];
+const UZ_DAYS={Mon:'duşanba',Tue:'seşanba',Wed:'çorşanba',Thu:'payşanba',Fri:'juma',Sat:'şanba',Sun:'yakşanba'};
+const localeDate=(timeZone,options)=>{
+ if(document.documentElement.lang!=='uz'||!options.month)return new Intl.DateTimeFormat(document.documentElement.lang,{timeZone,...options});
+ const numeric=new Intl.DateTimeFormat('en-US',{timeZone,weekday:'short',year:'numeric',month:'numeric',day:'numeric'});
+ return {format(date){
+  const p=Object.fromEntries(numeric.formatToParts(date).map(part=>[part.type,part.value])),name=UZ_MONTHS[p.month-1];
+  if(!options.day)return name+' '+p.year;
+  return (options.weekday?UZ_DAYS[p.weekday]+', ':'')+p.day+'-'+name+(options.year?', '+p.year+'-yil':'');
+ }};
+};
 function rebuild(preferredDate) {
  const zone=id('zone').value;
  const keyFormat=new Intl.DateTimeFormat('en-CA',{timeZone:zone,year:'numeric',month:'2-digit',day:'2-digit'});

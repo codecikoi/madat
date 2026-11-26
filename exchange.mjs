@@ -203,8 +203,11 @@ export async function exchange({request,env,ctx,url,path,method,db,profile,body,
   }catch{return error('Не удалось распознать речь. Попробуйте ещё раз.',502)}
  }
  if(path==='/api/jobs/latest'&&method==='GET'){
-  const {results}=await db.prepare(`SELECT j.*,p.name AS ownerName,p.city AS ownerCity,(SELECT COUNT(*) FROM bids b WHERE b.job=j.id AND b.created<=?) AS bids FROM jobs j JOIN profiles p ON p.id=j.owner WHERE j.status='open' ORDER BY j.created DESC LIMIT 30`).bind(now).all();
-  return json({jobs:results.map(row=>{const v=jobView(row,lang);delete v.text;return v})});
+  const [{results},open]=await Promise.all([
+   db.prepare(`SELECT j.*,p.name AS ownerName,p.city AS ownerCity,(SELECT COUNT(*) FROM bids b WHERE b.job=j.id AND b.created<=?) AS bids FROM jobs j JOIN profiles p ON p.id=j.owner WHERE j.status='open' ORDER BY j.created DESC LIMIT 30`).bind(now).all(),
+   db.prepare(`SELECT COUNT(*) AS n FROM jobs WHERE status='open'`).first('n')
+  ]);
+  return json({open,jobs:results.map(row=>{const v=jobView(row,lang);delete v.text;return v})});
  }
  if(!profile)return null;
  const me=profile.id;
