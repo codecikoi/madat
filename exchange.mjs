@@ -244,7 +244,7 @@ export async function exchange({request,env,ctx,url,path,method,db,profile,body,
    const after=int(url.searchParams.get('after')||0,0,Number.MAX_SAFE_INTEGER);
    const {results}=await db.prepare('SELECT id,sender,text,created FROM messages WHERE bid=? AND id>? ORDER BY id LIMIT 200').bind(thread.bid,after).all();
    const other=await db.prepare('SELECT name,city,phone,telegram FROM profiles WHERE id=?').bind(thread.jobOwner===me?thread.bidOwner:thread.jobOwner).first();
-   return json({title:tr(JSON.parse(thread.jobData).title,lang),job:thread.job,other:other&&{...other,city:tr(other.city,lang)},messages:results.map(m=>({id:m.id,mine:m.sender===me,text:tr(m.text,lang),created:m.created}))});
+   return json({title:tr(JSON.parse(thread.jobData).title,lang),job:thread.job,owner:thread.jobOwner===me,other:other&&{...other,city:tr(other.city,lang)},messages:results.map(m=>({id:m.id,mine:m.sender===me,text:tr(m.text,lang),created:m.created}))});
   }
   return undefined;
  }

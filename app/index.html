@@ -533,10 +533,11 @@ function facts(job){
 }
 
 /* ---------- nav ---------- */
+// The tabs follow the two sides of the exchange: Главная is what I need (a new request and my requests),
+// Лента заявок and Мои отклики are what I can offer. A job or chat page marks its tab once it knows whose it is.
+let navTab='';
 function nav(){
- const path=location.pathname;
- const on=test=>test?' class="on"':'';
- const links=me?`<a href="/jobs" data-link${on(path==='/jobs')}>${'Лента заявок'}</a><a href="/my" data-link${on(path==='/my'||/^\/(jobs|chat)\//.test(path))}>${'Мои заявки'}</a><a href="/" data-link${on(path==='/'||path==='/new')}>${'Новая заявка'}</a>`:'';
+ const links=me?[['/','Главная'],['/jobs','Лента заявок'],['/my','Мои отклики']].map(([href,label])=>`<a href="${href}" data-link${href===navTab?' class="on"':''}>${label}</a>`).join(''):'';
  $('#links').innerHTML=links;
  $('#tabbar').innerHTML=links;
  $('#tabbar').classList.toggle('on',!!me);
@@ -544,6 +545,7 @@ function nav(){
  const langs=['ru','en','uz'].map(l=>`<a href="?lang=${l}"${l===lang?' class="on"':''}>${l.toUpperCase()}</a>`).join('');
  $('#navRight').innerHTML=`<div class="lang">${langs}</div>`+(me?`<a class="avatar" href="/account" data-link title="${h(me.name)}">${h(initials(me.name))}</a>`:`<button class="btn ghost" data-open-auth="login">${'Войти'}</button><button class="btn primary" data-open-auth="register">${'Начать'}</button>`);
 }
+function markTab(href){navTab=href;$$('#links a,#tabbar a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')===href))}
 // The footer skyline is one stroke laid out in pixels for the footer's width: in along the ground,
 // over Bukhara (trading domes, Kalyan), Samarkand (Registan, Gur-e-Amir) and Khiva (Kalta Minor), and out.
 const SKY='M40 96V79H56A16 16 0 0 1 88 79H100A20 20 0 0 1 140 79H150V96H198L202 28H199V14H203A7 7 0 0 1 217 14H221V28H218L222 96H250V36A6 6 0 0 1 262 36V60H280V50C276 42 280 30 292 28L292 22L292 28C304 30 308 42 304 50V60H312V18H388V60H396V50C392 42 396 30 408 28L408 22L408 28C420 30 424 42 420 50V60H438V36A6 6 0 0 1 450 36V96H492V70H516V46C504 40 506 12 540 10L540 3L540 10C574 12 576 40 564 46V70H588V96H620L623 52H621V47H661V52H659L662 96';
@@ -589,8 +591,9 @@ const routes=[[/^\/$/,home],[/^\/start$/,home],[/^\/new$/,draftPage],[/^\/jobs$/
 function go(path,replace){if(replace)history.replaceState(history.state,'',path);else history.pushState({app:true},'',path);render()}
 async function render(){
  timers.forEach(clearInterval);timers=[];
- nav();
  const path=location.pathname;
+ navTab=['/','/start','/new'].includes(path)?'/':['/jobs','/my'].includes(path)?path:'';
+ nav();
  for(const [re,view] of routes){const m=path.match(re);if(m){scrollTo(0,0);try{await view(...m.slice(1))}catch(e){app.innerHTML=`<div class="wrap page"><div class="empty"><h3>${h(e.message)}</h3><a class="btn line" href="/" data-link>${'На главную'}</a></div></div>`}return}}
  go('/',true);
 }
@@ -735,13 +738,17 @@ async function home(){
   </form>
   <div class="examples">${EXAMPLES.map(x=>`<button class="chip" type="button" data-ex="${h(x)}">${h(x)}</button>`).join('')}</div>
   <div class="supply">${'Есть свободные автобусы, гиды или номера?'} <a href="/jobs" data-link>${'Смотреть заявки агентств →'}</a></div>
-  <div class="partners"><p>${'С нами готовы работать'}</p><div class="logos"><div class="logos-track">${[false,true].map(dup=>PARTNERS.map(([file,name])=>`<img src="/partners/${file}.png" alt="${dup?'':h(name)}" title="${h(name)}"${dup?' aria-hidden="true"':''}>`).join('')).join('')}</div></div></div>
+  ${me?'':`<div class="partners"><p>${'С нами готовы работать'}</p><div class="logos"><div class="logos-track">${[false,true].map(dup=>PARTNERS.map(([file,name])=>`<img src="/partners/${file}.png" alt="${dup?'':h(name)}" title="${h(name)}"${dup?' aria-hidden="true"':''}>`).join('')).join('')}</div></div></div>`}
  </div></section>
+ ${me?`<section class="section hidden" id="mineBox"><div class="wrap">
+  <div class="section-head"><h2>${'Мои заявки'}</h2></div>
+  <div class="grid" id="mine"></div>
+ </div></section>`:''}
  <section class="section"><div class="wrap">
   <div class="section-head"><h2>${'Сейчас ищут партнёров'}</h2><a class="btn line sm" href="/jobs" data-link>${'Все заявки'}</a></div>
   <div class="grid" id="latest"><div class="card"><div class="skeleton" style="width:60%"></div><div class="skeleton"></div></div></div>
  </div></section>
- <section class="section" style="padding-top:8px"><div class="wrap">
+ ${me?'':`<section class="section" style="padding-top:8px"><div class="wrap">
   <div class="section-head"><h2>${'Как это работает'}</h2></div>
   <ol class="steps" id="steps">
    <li class="step">
@@ -768,7 +775,7 @@ async function home(){
     <b class="step-n">03</b><h3>${'Выберите и договоритесь'}</h3><p>${'Сравните цены и отзывы, выберите партнёра и обсудите детали в чате'}</p>
    </li>
   </ol>
- </div></section>`;
+ </div></section>`}`;
  const ask=$('#ask'),send=$('#send');
  const sync=()=>{send.disabled=ask.value.trim().length<8;ask.style.height='auto';ask.style.height=Math.min(240,Math.max(78,ask.scrollHeight))+'px'};
  ask.addEventListener('input',sync);
@@ -776,12 +783,23 @@ async function home(){
  $$('[data-ex]').forEach(b=>b.addEventListener('click',()=>{ask.value=b.dataset.ex;sync();ask.focus()}));
  typePlaceholder(ask,[EXAMPLES[0],EXAMPLES[1]]);
  setupVoice(ask,sync);
- playOnView($('#steps'));
+ if($('#steps'))playOnView($('#steps'));
  $('#prompt').addEventListener('submit',e=>{e.preventDefault();store.set('tm-draft',{text:ask.value.trim(),draft:null});go('/new')});
  const saved=store.get('tm-draft');if(saved?.text&&!saved.draft){ask.value=saved.text;sync()}
- api('/api/jobs/latest').then(d=>{
+ // Signed in, the home page is also where your own requests live: the newest six, the rest one click away.
+ const mine=me?api('/api/my').then(d=>d.jobs).catch(()=>[]):Promise.resolve([]);
+ mine.then(jobs=>{
+  const box=$('#mineBox');if(!box||!jobs.length)return;
+  $('#mine').innerHTML=jobs.slice(0,6).map(myJobCard).join('');
+  if(jobs.length>6)$('#mine').insertAdjacentHTML('afterend',`<div style="text-align:center;margin-top:16px"><button class="btn line sm" id="mineAll" type="button">${'Показать все'} · ${jobs.length}</button></div>`);
+  $('#mineAll')?.addEventListener('click',e=>{$('#mine').innerHTML=jobs.map(myJobCard).join('');e.target.parentElement.remove()});
+  box.classList.remove('hidden');
+ });
+ // The feed preview leaves out your own requests: they are already listed above it.
+ Promise.all([api('/api/jobs/latest'),mine]).then(([d,jobs])=>{
   const pulse=$('#pulse');if(pulse&&d.open>0)pulse.innerHTML=`<b class="live"><i></i>${d.open}</b>${h(plural(d.open,'заявка','заявки','заявок'))} ${'от проверенных агентств'}`;
-  $('#latest').innerHTML=d.jobs.slice(0,6).map(jobCard).join('')||`<div class="empty">${'Пока нет открытых заявок.'}</div>`}).catch(()=>{$('#latest').innerHTML=''});
+  const own=new Set(jobs.map(j=>j.id));
+  $('#latest').innerHTML=d.jobs.filter(j=>!own.has(j.id)).slice(0,6).map(jobCard).join('')||`<div class="empty">${'Пока нет открытых заявок.'}</div>`}).catch(()=>{$('#latest').innerHTML=''});
 }
 // Hides the element's .a children, then plays their entrance once it scrolls into view.
 function playOnView(el){
@@ -961,6 +979,7 @@ function summary(job,extra=''){
 async function jobPage(id){
  if(!me)return needAuthPage(()=>jobPage(id));
  const data=await api('/api/jobs/'+id);
+ markTab(data.owner?'/':data.myBid?'/my':'/jobs');
  if(data.owner)return ownerView(id,data);
  return bidderView(id,data);
 }
@@ -994,7 +1013,7 @@ async function ownerView(id,data){
  let sort='price',known=new Set();
  const profile=await api('/api/profile').catch(()=>null);
  const tgNudge=profile&&!profile.profile.telegramConnected&&profile.bot?`<div class="nudge"><span><b>${'Получайте отклики в Telegram'}</b> ${'— сразу, как только агентство ответит.'}</span><a class="btn primary sm" href="/account" data-link>${'Подключить'}</a></div>`:'';
- app.innerHTML=`<div class="wrap page"><a class="back" href="/my" data-link>${icon('i-back',16)}${'Мои заявки'}</a><div class="job-layout">
+ app.innerHTML=`<div class="wrap page"><a class="back" href="/" data-link>${icon('i-back',16)}${'Мои заявки'}</a><div class="job-layout">
   <section class="bids-col" style="display:flex;flex-direction:column;gap:14px">
    <div class="page-head" style="margin:0"><h1 id="bidsTitle" style="font-size:24px">${'Отклики'}</h1><div class="tabs" id="sort"><button data-s="price" class="on">${'Дешевле'}</button><button data-s="rating">${'Рейтинг'}</button></div></div>
    <div id="chosenBox"></div>
@@ -1060,7 +1079,7 @@ function bidderView(id,data){
    <button class="btn primary lg" id="bSend" type="submit">${'Отправить отклик'}</button>
   </form>`;
  }
- app.innerHTML=`<div class="wrap page"><a class="back" href="/jobs" data-link>${icon('i-back',16)}${'Все заявки'}</a><div class="job-layout" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)"><div>${summary(job)}</div><div>${right}</div></div></div>`;
+ app.innerHTML=`<div class="wrap page">${mine?`<a class="back" href="/my" data-link>${icon('i-back',16)}${'Мои отклики'}</a>`:`<a class="back" href="/jobs" data-link>${icon('i-back',16)}${'Все заявки'}</a>`}<div class="job-layout" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)"><div>${summary(job)}</div><div>${right}</div></div></div>`;
  const form=$('#bidForm');
  if(form)form.addEventListener('submit',async e=>{
   e.preventDefault();const btn=$('#bSend');btn.disabled=true;
@@ -1071,29 +1090,24 @@ function bidderView(id,data){
 }
 
 /* ---------- my ---------- */
+function myJobCard(j){
+ return `<a class="card link" href="/jobs/${j.id}" data-link><div class="job-top">${serviceTags(j)}${j.status==='open'?`<span class="tag wait">${j.bids?h(bidsLabel(j.bids)):'Ждёт откликов'}</span>`:`<span class="tag ok">${'Исполнитель выбран'}</span>`}<span class="muted" style="font-size:12px;margin-left:auto">${h(ago(j.created))}</span></div><div class="job-title">${h(j.title)}</div>${facts(j)}</a>`;
+}
+// Offers I sent to other agencies' requests; my own requests live on the home page.
 async function myPage(){
  if(!me)return needAuthPage(myPage);
  const data=await api('/api/my');
- let tab=store.get('tm-tab')||'jobs';
  app.innerHTML=`<div class="wrap page">
-  <div class="page-head"><h1>${'Мои заявки'}</h1><div class="tabs" id="myTabs"><button data-t="jobs">${'Я ищу партнёра'}</button><button data-t="bids">${'Мои отклики'}</button></div></div>
-  <div id="myList"></div></div>`;
- const draw=()=>{
-  $$('#myTabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===tab));
-  if(tab==='jobs'){
-   $('#myList').innerHTML=data.jobs.length?`<div class="grid">${data.jobs.map(j=>`<a class="card link" href="/jobs/${j.id}" data-link><div class="job-top">${serviceTags(j)}${j.status==='open'?`<span class="tag wait">${j.bids?h(bidsLabel(j.bids)):'Ждёт откликов'}</span>`:`<span class="tag ok">${'Исполнитель выбран'}</span>`}<span class="muted" style="font-size:12px;margin-left:auto">${h(ago(j.created))}</span></div><div class="job-title">${h(j.title)}</div>${facts(j)}</a>`).join('')}</div>`:`<div class="empty"><h3>${'У вас пока нет заявок'}</h3><p>${'Опишите, что нужно, — агентства пришлют цены.'}</p><a class="btn primary" href="/" data-link>${'Разместить заявку'}</a></div>`;
-  }else{
-   $('#myList').innerHTML=data.bids.length?`<div class="grid">${data.bids.map(b=>`<a class="card link" href="${b.status==='chosen'?'/chat/'+b.id:'/jobs/'+b.job.id}" data-link><div class="job-top">${b.status==='chosen'?`<span class="tag ok">${'Вас выбрали'}</span>`:b.status==='sent'?`<span class="tag wait">${'Ждёт ответа'}</span>`:`<span class="tag">${'Закрыта'}</span>`}<span class="muted" style="font-size:12px;margin-left:auto">${h(ago(b.created))}</span></div><div class="job-title">${h(b.job.title)}</div><div class="facts"><span>${h(b.job.owner)}</span><span class="num"><b style="color:var(--ink)">${money(b.price,b.currency)}</b>&nbsp;${h(UNIT[b.unit]||'')}</span></div></a>`).join('')}</div>`:`<div class="empty"><h3>${'Вы ещё не откликались'}</h3><p>${'Посмотрите, кому сейчас нужен партнёр.'}</p><a class="btn primary" href="/jobs" data-link>${'Смотреть заявки'}</a></div>`;
-  }
- };
- $('#myTabs').addEventListener('click',e=>{const b=e.target.closest('[data-t]');if(!b)return;tab=b.dataset.t;store.set('tm-tab',tab);draw()});
- draw();
+  <div class="page-head"><h1>${'Мои отклики'}</h1></div>
+  ${data.bids.length?`<div class="grid">${data.bids.map(b=>`<a class="card link" href="${b.status==='chosen'?'/chat/'+b.id:'/jobs/'+b.job.id}" data-link><div class="job-top">${b.status==='chosen'?`<span class="tag ok">${'Вас выбрали'}</span>`:b.status==='sent'?`<span class="tag wait">${'Ждёт ответа'}</span>`:`<span class="tag">${'Закрыта'}</span>`}<span class="muted" style="font-size:12px;margin-left:auto">${h(ago(b.created))}</span></div><div class="job-title">${h(b.job.title)}</div><div class="facts"><span>${h(b.job.owner)}</span><span class="num"><b style="color:var(--ink)">${money(b.price,b.currency)}</b>&nbsp;${h(UNIT[b.unit]||'')}</span></div></a>`).join('')}</div>`:`<div class="empty"><h3>${'Вы ещё не откликались'}</h3><p>${'Посмотрите, кому сейчас нужен партнёр.'}</p><a class="btn primary" href="/jobs" data-link>${'Смотреть заявки'}</a></div>`}
+ </div>`;
 }
 
 /* ---------- chat ---------- */
 async function chatPage(bid){
  if(!me)return needAuthPage(()=>chatPage(bid));
  const data=await api('/api/chat/'+bid);
+ markTab(data.owner?'/':'/my');
  let last=0;
  const o=data.other||{};
  const contacts=[o.phone?`<a class="btn line sm" href="tel:${h(o.phone.replace(/[^+\d]/g,''))}">${icon('i-phone',14)}${h(o.phone)}</a>`:'',o.telegram?`<a class="btn line sm" href="https://t.me/${h(o.telegram)}" target="_blank" rel="noopener"><svg width="16" height="16"><use href="#i-tg"/></svg>@${h(o.telegram)}</a>`:''].join('');
