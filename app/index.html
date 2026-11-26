@@ -333,17 +333,33 @@ dialog::backdrop{background:rgba(14,23,38,.36);backdrop-filter:blur(2px)}
 @media (max-width:720px){.demo-grid{grid-template-columns:1fr}#demo-open{display:none}}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);opacity:0;background:var(--ink);color:#fff;border-radius:var(--r-pill);padding:11px 18px;font-size:14px;font-weight:500;transition:.25s;z-index:60;pointer-events:none;max-width:calc(100vw - 32px)}
 .toast.show{opacity:1;transform:translateX(-50%)}
-.foot{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:13px}
-.foot .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+/* footer: plain text on purpose, nothing here navigates */
+.foot{background:var(--panel);color:var(--muted);font-size:14px}
+/* one blue line: the footer's top edge, rising into old Bukhara, Samarkand and Khiva */
+.foot-sky{background:var(--bg);border-bottom:2px solid var(--blue);pointer-events:none}
+.foot-sky .wrap{display:flex;justify-content:flex-end}
+.foot-sky svg{display:block;width:100%;max-width:720px;height:auto;overflow:visible;color:var(--blue);clip-path:inset(0 0 0 0);transition:clip-path 2.6s cubic-bezier(.5,.1,.25,1)}
+.foot-sky.wait svg{clip-path:inset(0 100% 0 0);transition:none}
+.foot-sky path{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.foot-top{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(3,minmax(0,1fr));gap:32px;padding:48px 0 40px}
+.foot .brand{color:var(--ink);margin-bottom:14px}
+.foot-about p{margin:0;max-width:340px;line-height:1.55}
+.foot-about .foot-note{margin-top:16px;font-size:13px}
+.foot-h{font-size:13px;font-weight:600;letter-spacing:0;color:var(--ink);margin:0 0 14px}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;gap:10px 24px;flex-wrap:wrap;border-top:1px solid var(--line);padding:20px 0 24px;font-size:13px}
+.foot .foot-legal{display:flex;flex-wrap:wrap;gap:8px 20px}
 
 @media (max-width:900px){
  .job-layout{grid-template-columns:minmax(0,1fr)}
  .summary{position:static}
  .steps{grid-template-columns:1fr;max-width:520px}
  .step:not(:last-child)::after{right:auto;left:50%;top:auto;bottom:-24px;margin:0 0 0 -16px;transform:rotate(90deg)}
+ .foot-top{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .foot-about{grid-column:1/-1}
 }
 @media (max-width:720px){
- .wrap{padding:0 16px}
+ .wrap{padding-left:16px;padding-right:16px}
  .links{display:none}
  .tabbar.on{display:flex}
  body.authed{padding-bottom:64px}
@@ -360,6 +376,7 @@ dialog::backdrop{background:rgba(14,23,38,.36);backdrop-filter:blur(2px)}
  .page-head h1{font-size:21px}
  .nav-right .btn.ghost{display:none}
  .logos img{height:32px;max-width:120px;margin:0 16px}
+ .foot-top{grid-template-columns:1fr 1fr;gap:28px 16px;padding:36px 0 32px}
 }
 </style>
 </head>
@@ -390,7 +407,29 @@ dialog::backdrop{background:rgba(14,23,38,.36);backdrop-filter:blur(2px)}
 </header>
 <nav class="tabbar" id="tabbar"></nav>
 <main id="app"></main>
-<footer class="foot"><div class="wrap"><span>TOURMESH — биржа заявок между турагентствами Узбекистана</span><span>Команда Madat · Tourism Hackathon 2026</span></div></footer>
+<footer class="foot">
+ <div class="foot-sky" id="sky" aria-hidden="true"><div class="wrap"><svg viewBox="0 0 720 92" width="720" height="92">
+  <path d="M0 96H40V79H56A16 16 0 0 1 88 79H100A20 20 0 0 1 140 79H150V96H198L202 28H199V14H203A7 7 0 0 1 217 14H221V28H218L222 96H250V36A6 6 0 0 1 262 36V60H280V50C276 42 280 30 292 28L292 22L292 28C304 30 308 42 304 50V60H312V18H388V60H396V50C392 42 396 30 408 28L408 22L408 28C420 30 424 42 420 50V60H438V36A6 6 0 0 1 450 36V96H492V70H516V46C504 40 506 12 540 10L540 3L540 10C574 12 576 40 564 46V70H588V96H620L623 52H621V47H661V52H659L662 96H720"/>
+  <path d="M330 96V58A24 24 0 0 1 350 34.3A24 24 0 0 1 370 58V96M280 50H304M396 50H420M516 46H564M528 46C521 32 527 16 540 10C553 16 559 32 552 46M622.1 64H659.9M621.1 78H660.9"/>
+ </svg></div></div>
+ <div class="wrap">
+  <div class="foot-top">
+   <div class="foot-about">
+    <div class="brand"><svg aria-hidden="true"><use href="#logo"/></svg>TOURMESH</div>
+    <p>Биржа заявок между турагентствами Узбекистана. Гиды, транспорт, гостиницы и туры под ключ — от партнёров по всей стране.</p>
+    <p class="foot-note">Ташкент, Узбекистан</p>
+    <p class="foot-note" style="margin-top:4px">Команда Madat · Tourism Hackathon 2026</p>
+   </div>
+   <div><h2 class="foot-h">Платформа</h2><ul><li>Биржа заявок</li><li>Разместить заявку</li><li>Как это работает</li><li>Тарифы</li></ul></div>
+   <div><h2 class="foot-h">Компания</h2><ul><li>О проекте</li><li>Партнёрам</li><li>Новости</li><li>Контакты</li></ul></div>
+   <div><h2 class="foot-h">Поддержка</h2><ul><li>Центр помощи</li><li>Частые вопросы</li><li>Правила площадки</li><li>Сообщить о проблеме</li></ul></div>
+  </div>
+  <div class="foot-bottom">
+   <span>© 2026 TOURMESH. Все права защищены.</span>
+   <ul class="foot-legal"><li>Условия использования</li><li>Политика конфиденциальности</li><li>Публичная оферта</li></ul>
+  </div>
+ </div>
+</footer>
 
 <dialog id="auth">
  <form class="modal" id="authForm" method="dialog">
@@ -485,6 +524,16 @@ function nav(){
  document.body.classList.toggle('authed',!!me);
  const langs=['ru','en','uz'].map(l=>`<a href="?lang=${l}"${l===lang?' class="on"':''}>${l.toUpperCase()}</a>`).join('');
  $('#navRight').innerHTML=`<div class="lang">${langs}</div>`+(me?`<a class="avatar" href="/account" data-link title="${h(me.name)}">${h(initials(me.name))}</a>`:`<button class="btn ghost" data-open-auth="login">${'Войти'}</button><button class="btn primary" data-open-auth="register">${'Начать'}</button>`);
+}
+// The footer skyline draws itself once, the first time it scrolls into view.
+if('IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+ const sky=$('#sky');sky.classList.add('wait');let check;
+ // Until a page renders, #app is empty and the footer sits in view, so draw only if it is still in view a moment later.
+ const seen=new IntersectionObserver(entries=>{
+  clearTimeout(check);
+  if(entries.some(e=>e.isIntersecting))check=setTimeout(()=>{const r=sky.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0){sky.classList.remove('wait');seen.disconnect()}},400);
+ },{threshold:.5});
+ seen.observe(sky);
 }
 addEventListener('scroll',()=>$('#nav').classList.toggle('scrolled',scrollY>4),{passive:true});
 
