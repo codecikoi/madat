@@ -555,11 +555,11 @@ async function home(){
  app.innerHTML=`
  <section class="hero"><div class="wrap">
   <div class="eyebrow" id="pulse"><b>${icon('i-check',12)}</b>${'Только проверенные турагентства'}</div>
-  <h1>${'Найдите партнёра под вашу группу за минуты'}</h1>
+  <h1>${'Что нужно для вашего тура?'}</h1>
   <p class="lead">${'Опишите задачу своими словами. Агентства со свободными гидами, автобусами и гостиницами пришлют свои цены напрямую — без наценки посредников.'}</p>
   <form class="prompt" id="prompt">
    <textarea id="ask" rows="3" maxlength="1500" placeholder="${'Например: 2 группы по 15 человек в Самарканд на 7 дней, гид на английском, гостиница 3★'}"></textarea>
-   <div class="prompt-bar"><span class="hint" id="hint">${icon('i-spark')}${'ИИ оформит аккуратную заявку'}</span><button class="mic" id="mic" type="button" aria-label="${'Надиктовать голосом'}" title="${'Надиктовать голосом'}"><span class="bars"><i></i><i></i><i></i><i></i><i></i></span></button><button class="send" id="send" type="submit" aria-label="${'Отправить'}" disabled><svg><use href="#i-up"/></svg></button></div>
+   <div class="prompt-bar"><span class="hint" id="hint">${icon('i-spark')}${'Пишите как удобно — заявку оформим сами'}</span><button class="mic" id="mic" type="button" aria-label="${'Надиктовать голосом'}" title="${'Надиктовать голосом'}"><span class="bars"><i></i><i></i><i></i><i></i><i></i></span></button><button class="send" id="send" type="submit" aria-label="${'Отправить'}" disabled><svg><use href="#i-up"/></svg></button></div>
   </form>
   <div class="examples">${EXAMPLES.map(x=>`<button class="chip" type="button" data-ex="${h(x)}">${h(x)}</button>`).join('')}</div>
   <div class="supply">${'Есть свободные автобусы, гиды или номера?'} <a href="/jobs" data-link>${'Смотреть заявки агентств →'}</a></div>
@@ -577,7 +577,7 @@ async function home(){
      <div class="say a" style="--d:.1s">${'Гид на испанском в Бухаре на 3 дня для 18 человек'}</div>
      <div class="parsed"><span class="spark a" style="--d:.55s">${icon('i-spark',14)}</span><span class="a" style="--d:.7s">${icon('i-pin',13)}${'Бухара'}</span><span class="a" style="--d:.8s">${icon('i-cal',13)}${'3 дня'}</span><span class="a" style="--d:.9s">${icon('i-people',13)}18</span></div>
     </div>
-    <b class="step-n">01</b><h3>${'Опишите задачу'}</h3><p>${'Как пишете коллеге в Telegram. ИИ превратит текст в понятную заявку'}</p>
+    <b class="step-n">01</b><h3>${'Опишите задачу'}</h3><p>${'Как пишете коллеге в Telegram — а мы превратим текст в понятную заявку'}</p>
    </li>
    <li class="step">
     <div class="art" aria-hidden="true">
@@ -705,7 +705,7 @@ async function draftPage(){
  const saved=store.get('tm-draft');
  if(!saved?.text)return go('/',true);
  if(!saved.draft){
-  app.innerHTML=`<div class="wrap page"><div class="loading"><div class="spinner"><svg viewBox="0 0 20 20"><path d="M4 5 L16 5 L10 15 Z" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".35"/><circle cx="4" cy="5" r="2.6" fill="currentColor"/><circle cx="16" cy="5" r="2.6" fill="currentColor"/><circle cx="10" cy="15" r="2.6" fill="currentColor"/></svg></div><h2 style="font-size:22px">${'ИИ оформляет заявку…'}</h2><p class="muted">${'Выделяем город, даты, число людей и требования.'}</p><div class="skeleton" style="width:70%;margin-top:28px"></div><div class="skeleton" style="width:85%"></div><div class="skeleton" style="width:55%"></div></div></div>`;
+  app.innerHTML=`<div class="wrap page"><div class="loading"><div class="spinner"><svg viewBox="0 0 20 20"><path d="M4 5 L16 5 L10 15 Z" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".35"/><circle cx="4" cy="5" r="2.6" fill="currentColor"/><circle cx="16" cy="5" r="2.6" fill="currentColor"/><circle cx="10" cy="15" r="2.6" fill="currentColor"/></svg></div><h2 style="font-size:22px">${'Оформляем заявку…'}</h2><p class="muted">${'Выделяем город, даты, число людей и требования.'}</p><div class="skeleton" style="width:70%;margin-top:28px"></div><div class="skeleton" style="width:85%"></div><div class="skeleton" style="width:55%"></div></div></div>`;
   try{const data=await api('/api/parse',{text:saved.text,lang});saved.draft=data.draft;saved.ai=data.ai;store.set('tm-draft',saved)}
   catch(e){toast(e.message);return go('/',true)}
   if(location.pathname!=='/new')return;
@@ -714,7 +714,7 @@ async function draftPage(){
  const val=v=>h(v||'');
  app.innerHTML=`<div class="wrap page"><div class="draft">
   <a class="back" href="/" data-link>${icon('i-back',16)}${'Изменить текст'}</a>
-  <div class="ai-note">${icon('i-spark',20)}<div><b>${saved.ai?'ИИ оформил вашу заявку.':'Заявка оформлена.'}</b> ${'Проверьте и поправьте, если нужно. Ваш текст:'} <q>${h(saved.text)}</q></div></div>
+  <div class="ai-note">${icon('i-spark',20)}<div><b>${'Заявка готова.'}</b> ${'Проверьте и поправьте, если нужно. Ваш текст:'} <q>${h(saved.text)}</q></div></div>
   <form class="card" id="draftForm">
    <div class="field"><label for="dTitle">${'Заголовок'}</label><input class="input title-input" id="dTitle" value="${val(d.title)}" maxlength="80" required></div>
    <div class="field"><label>${'Что нужно'}</label><div class="seg">${Object.entries(SERVICE).map(([k,v])=>`<label><input type="radio" name="service" value="${k}"${d.service===k?' checked':''}><span>${h(v)}</span></label>`).join('')}</div></div>
