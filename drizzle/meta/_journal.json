@@ -1,0 +1,48 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1795700000000,
+      "tag": "0000_market",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1795700001000,
+      "tag": "0001_accounts",
+      "breakpoints": true
+    },
+    {
+      "breakpoints": true,
+      "tag": "0002_demo_slots",
+      "idx": 2,
+      "when": 1795700002000,
+      "version": "6"
+    },
+    {
+      "breakpoints": true,
+      "tag": "0003_partners_demo_identity",
+      "idx": 3,
+      "when": 1795700003000,
+      "version": "6"
+    },
+    {
+      "breakpoints": true,
+      "tag": "0004_dolina_fleet",
+      "idx": 4,
+      "when": 1795700004000,
+      "version": "6"
+    },
+    {
+      "breakpoints": true,
+      "tag": "0005_partner_contacts",
+      "idx": 5,
+      "when": 1795700005000,
+      "version": "6"
+    }
+  ]
+}

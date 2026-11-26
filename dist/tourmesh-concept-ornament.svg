@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="232" viewBox="0 0 400 232">
+  <defs>
+    <path id="star" d="M0-49 14-39 28-36 32-23 48 0 40 13 36 25 25 31 12 38 0 49-14 40-28 36-32 23-48 0-40-13-36-25-25-31-12-38Z"/>
+    <path id="spindle" d="M0-49 24-34 19-15 19 15 24 34 0 49-24 34-19 15-19-15-24-34Z"/>
+    <path id="cell" d="M-24-7-14-22 7-24 24-8 23 12 5 24-15 19-25 3Z"/>
+    <path id="bow" d="M-24-12-8-8 14-15 24-1 14 15-8 8-24 12-21 0Z"/>
+    <path id="gap" d="M-9-7 8-5-1 9Z"/>
+    <g id="junction">
+      <use href="#bow" x="100"/>
+      <use href="#cell" transform="translate(66 58) rotate(16)"/>
+      <use href="#cell" transform="translate(134 58) rotate(-29)"/>
+      <use href="#gap" transform="translate(39 42) rotate(-18)"/>
+      <use href="#gap" transform="translate(161 42) rotate(81)"/>
+      <use href="#gap" transform="translate(39 74) rotate(-108)"/>
+      <use href="#gap" transform="translate(161 74) rotate(171)"/>
+    </g>
+    <pattern id="screen" width="400" height="232" patternUnits="userSpaceOnUse">
+      <rect width="400" height="232" fill="#e8e1d4"/>
+      <g fill="#282e37" stroke="#d0c9bc" stroke-width="1" stroke-linejoin="round">
+        <use href="#star"/><use href="#star" x="400"/>
+        <use href="#star" x="200" y="116"/>
+        <use href="#star" y="232"/><use href="#star" x="400" y="232"/>
+        <use href="#spindle" x="200"/><use href="#spindle" x="200" y="232"/>
+        <use href="#spindle" y="116"/><use href="#spindle" x="400" y="116"/>
+        <use href="#junction"/><use href="#junction" x="200"/>
+        <use href="#junction" y="116"/><use href="#junction" x="200" y="116"/>
+        <use href="#junction" y="232"/><use href="#junction" x="200" y="232"/>
+      </g>
+    </pattern>
+  </defs>
+  <rect width="400" height="232" fill="url(#screen)"/>
+</svg>

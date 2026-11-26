@@ -1,0 +1,856 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preload" href="/MedeoSansVariable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="/tourmesh-relief.jpg">
+<title>TOURMESH — Найдите поставщиков для тура</title>
+<style>
+@font-face{font-family:"Medeo Sans";src:url("/MedeoSansVariable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+:root{--paper:#f7f7f2;--white:#fff;--ink:#242c27;--muted:#506057;--green:#254639;--line:#d9dfd6;--soft:#edf2ec}
+*,*::before,*::after{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 "Medeo Sans",system-ui,sans-serif}button,input,select,textarea{font:inherit;color:inherit}button,a{touch-action:manipulation}button{cursor:pointer}button:disabled{cursor:default}button:focus-visible,a:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #527b68;outline-offset:3px}[hidden]{display:none!important}h1,h2,h3,p{margin:0}.wrap{width:min(1120px,calc(100% - 64px));margin-inline:auto}.top{position:relative;z-index:2;background:var(--paper);border-bottom:1px solid var(--line)}.nav{min-height:71px;display:flex;align-items:center;justify-content:space-between;gap:14px}.brand{display:inline-flex;align-items:center;gap:9px;font-size:18px;font-weight:830;letter-spacing:.07em;color:var(--ink);text-decoration:none}.brand svg{width:27px;color:var(--green)}.btn{border:1px solid var(--green);border-radius:8px;padding:10px 16px;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;background:var(--green);color:white;font-weight:650;text-decoration:none}.btn:hover{background:#355c49}.quiet{border-color:#a9b8ad;color:var(--green);background:transparent}.quiet:hover{background:var(--soft)}.mast{isolation:isolate;position:relative;padding-block:clamp(52px,8vw,115px) 38px}.mast::before{content:"";position:absolute;pointer-events:none;z-index:-1;inset:0 0 auto auto;width:min(65%,970px);height:590px;background:radial-gradient(ellipse at 100% 0%,#f9f1e753,transparent 53%),url("tourmesh-concept-ornament.svg") right -27px top -12px/460px auto repeat;mask-image:radial-gradient(ellipse 106% 98% at 95% 2%,#000 22%,#000f 35%,#0009 53%,transparent 83%)}.hint{font-size:.9rem;font-weight:650;color:var(--muted)}h1{font-size:clamp(3rem,7vw,6.6rem);line-height:.97;letter-spacing:-.075em;font-weight:730;margin:.15em 0 .22em;max-width:750px}.lead{color:var(--muted);margin-bottom:24px;max-width:30ch}.composer{max-width:740px;background:var(--white);border:1px solid #bac9be;border-radius:15px;box-shadow:0 14px 35px #253b2814;padding:14px}.composer textarea{display:block;width:100%;min-height:120px;resize:vertical;padding:6px 8px 12px;border:0;background:transparent;line-height:1.55;color:var(--ink);border-radius:6px}.composer textarea::placeholder{color:#56635a}.tools{display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid var(--line);padding-top:11px}.tools svg{width:19px;height:19px}.voice[aria-pressed=true]{background:#e5eee6}.assist{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:13px;color:var(--muted);font-size:.875rem}.text-btn{border:0;background:none;color:var(--green);font-weight:650;padding:5px 0;text-decoration:underline;text-underline-offset:3px}.message{color:var(--muted);font-size:.875rem}.foot{margin-top:44px;padding-block:16px;border-top:1px solid var(--line);color:var(--muted);font-size:.875rem}.results{padding:20px 0 0;position:relative}.results h2,.dialog h2{font-size:clamp(1.65rem,4vw,2.3rem);letter-spacing:-.045em;line-height:1.12}.result-meta{margin:9px 0 14px;color:var(--muted)}.summary{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:15px 17px;background:var(--soft);border:1px solid var(--line);border-radius:8px}.summary span{color:var(--muted)}.group{margin-top:16px}.group h3{font-size:1.15rem;margin-bottom:8px}.offer{display:flex;gap:16px;align-items:center;justify-content:space-between;background:white;border-top:1px solid var(--line);padding:12px 0}.offer-wrap{background:#fff;padding:0 15px;border:1px solid var(--line);border-radius:8px}.offer:first-child{border-top:0}.offer-info{display:flex;align-items:center;gap:12px;min-width:0}.offer img{width:76px;height:66px;border-radius:5px;object-fit:cover}.offer p,.offer small{color:var(--muted);font-size:.875rem}.offer-actions{display:flex;gap:8px;align-items:center;justify-content:end;flex-wrap:wrap}.offer strong{overflow-wrap:anywhere}.offer .btn{font-size:.875rem;padding:7px 11px}.dialog{width:min(580px,calc(100% - 24px));max-height:calc(100dvh - 30px);border:1px solid var(--line);border-radius:13px;padding:20px;color:var(--ink)}.dialog::backdrop{background:#16261fc2}.dialog-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.close{min-width:44px;padding:8px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}.field{display:grid;gap:5px;font-weight:600;font-size:.875rem}.field input,.field select{min-width:0;width:100%;padding:9px;border:1px solid #b9c4bb;border-radius:6px;background:white}.field select{appearance:none;padding-right:28px;background:white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cpath d='m4 6 4 4 4-4' fill='none' stroke='%23254639' stroke-width='1.7'/%3E%3C/svg%3E") right 8px center no-repeat}.wide{grid-column:1/-1}.preview{width:130px;max-height:95px;object-fit:cover;border-radius:6px}.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media(max-width:740px){.wrap{width:calc(100% - 32px)}.nav{min-height:62px}.brand{font-size:15px}.brand svg{width:23px}.mast{padding-top:54px}.mast::before{width:60%;height:320px;background-size:auto,255px auto;opacity:.65;mask-image:radial-gradient(ellipse 95% 92% at 100% 0%,#000 14%,#0009 35%,transparent 80%)}.composer textarea{min-height:126px}.offer{align-items:start;flex-direction:column}.offer-actions{justify-content:start}.foot{margin-top:21px}}
+@media(max-width:390px){.btn{font-size:.875rem;padding-inline:10px}.brand{gap:5px}.form-grid{grid-template-columns:1fr}}
+.mast::before{background:radial-gradient(ellipse at 100% 0%,#fff4,transparent 52%),url("/tourmesh-relief.jpg") right top/cover no-repeat;filter:grayscale(1);mask-image:radial-gradient(ellipse 102% 98% at 100% 0%,#000 16%,#000c 39%,#0005 59%,transparent 87%)}
+@media(max-width:740px){.mast::before{background-position:right top;background-size:cover;opacity:.53}}
+.nav-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.dialog textarea{width:100%;border:1px solid #b9c4bb;border-radius:6px;padding:8px}.dialog article{border-top:1px solid var(--line);padding-top:12px}.dialog article p{overflow-wrap:anywhere}
+.workspace{padding-block:48px 18px}.workspace h1{font-size:clamp(2rem,5vw,3.8rem);letter-spacing:-.055em}.workspace-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;margin-top:24px;align-items:start}.sheet{background:#fff;border:1px solid var(--line);border-radius:12px;padding:clamp(16px,3vw,25px)}.sheet h2{font-size:1.35rem}.sheet textarea{width:100%;border:1px solid #b9c4bb;border-radius:6px;padding:8px}.sheet article p{overflow-wrap:anywhere}.role-list{display:grid;gap:10px;margin:16px 0}.role-option{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--line);border-radius:8px;padding:12px;cursor:pointer}.role-option:has(:checked){border-color:var(--green);background:var(--soft)}.role-option input{margin-top:6px}.role-option small{display:block;color:var(--muted)}#entry-message:empty{display:none}#operator-office{margin-top:24px}@media(max-width:740px){.workspace-grid{grid-template-columns:1fr}.workspace{padding-top:26px}}
+@media(max-width:450px){.nav{align-items:center;flex-wrap:wrap;padding-block:7px}.nav-actions .btn{font-size:.875rem;padding-inline:8px}}
+</style>
+<style>
+.access{display:grid;grid-template-columns:minmax(250px,.85fr) minmax(320px,1fr);gap:clamp(28px,6vw,100px);align-items:start;margin-block:clamp(36px,7vw,82px);max-width:1030px}
+.welcome{position:relative;isolation:isolate;overflow:hidden;min-height:425px;padding:35px 30px;color:var(--green);border-radius:26px 4px 64px 4px;background:#e6ebe6}
+.welcome:before{position:absolute;content:'';z-index:-1;inset:26% -18% -11% 0;background:url('/tourmesh-relief.jpg') center/cover;filter:grayscale(1);mix-blend-mode:multiply;mask-image:linear-gradient(160deg,transparent 9%,#0002 31%,#000b 67%,#000 95%)}
+.welcome[data-role=supplier]:before{transform:translate3d(-8px,4px,0) scale(1.045)}.welcome[data-role=operator]:before{transform:translate3d(5px,-3px,0) scale(1.035)}
+.welcome h1{font-size:clamp(2.5rem,5vw,4.55rem);max-width:10ch;line-height:1.02;letter-spacing:-.06em;margin:0 0 13px;overflow-wrap:break-word}
+.welcome p{max-width:32ch;color:#44594d}.access-panel{min-width:0;padding-block:3px}.mode-switch{position:relative;isolation:isolate;display:grid;grid-template-columns:1fr 1fr;background:#e6ebe5;border-radius:12px;padding:4px;margin-bottom:24px}
+.mode-switch::before{content:'';position:absolute;inset:4px auto 4px 4px;width:calc(50% - 4px);background:#fff;border-radius:9px;box-shadow:0 1px 5px #243c2c21;z-index:-1;transform:translateX(0)}
+.mode-switch[data-mode=login]::before,.mode-switch[data-mode=recover]::before{transform:translateX(100%)}
+.mode-switch button{background:transparent;border:0;border-radius:8px;min-height:44px;font-weight:650;color:var(--muted)}.mode-switch [aria-pressed=true]{color:var(--green)}
+.access-panel form{display:grid;gap:15px}.access-panel input:not([type=radio]),.security input{padding:11px 12px;border:1px solid #9cab9f;border-radius:8px;background:#fff;font-size:1rem}.access-panel input:focus,.security input:focus{border-color:var(--green)}
+.access-roles{border:0;padding:0;margin:0;min-width:0}.access-roles legend{font-weight:650;font-size:.9rem;margin-bottom:8px}.access-roles .role-list{grid-template-columns:repeat(2,minmax(0,1fr));margin:0;gap:8px}.role-option{position:relative;align-items:center;padding:12px 10px;background:#fff;gap:8px}.role-option input{accent-color:var(--green);margin:0}.role-option strong{font-size:.94rem}.role-option small{font-size:.84rem;line-height:1.25;margin-top:3px}.role-option:has(:checked){box-shadow:inset 0 0 0 1px var(--green)}
+.access-panel .message{line-height:1.4}.access-panel .message:empty{display:none}.access-panel .text-btn{justify-self:start}.access-panel .btn{min-height:47px}.auth-notice{color:#873e2f}.security{margin-top:24px;color:var(--muted)}.security summary{cursor:pointer;color:var(--green);width:fit-content;min-height:44px;display:list-item;padding:10px 0;font-weight:600}.security form{display:grid;gap:12px;max-width:420px}.backup{font-family:ui-monospace,monospace;overflow-wrap:anywhere;user-select:all}
+@media(max-width:740px){.access{grid-template-columns:1fr;gap:22px;margin-block:23px}.welcome{min-height:135px;padding:20px;border-radius:18px 4px 32px 4px}.welcome h1{font-size:2.15rem;max-width:82%;margin-bottom:8px}.welcome p{max-width:76%}.welcome:before{inset:0 0 0 42%;mask-image:linear-gradient(90deg,transparent,#0009)}}
+@media(max-width:365px){.access-roles .role-list{grid-template-columns:1fr}}
+.summary:has(.budget-track){position:relative;overflow:hidden}
+.budget-track{position:absolute;inset:auto 0 0;height:3px;background:#d4ded5}
+.budget-track i{display:block;height:100%;background:#47765c;transform-origin:left}.budget-track[data-over] i{background:#956147}
+.changed-row{position:relative;isolation:isolate}.changed-row:focus{outline:0}.changed-row:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.changed-row::before{content:'';position:absolute;z-index:-1;inset:-5px -7px;border-radius:5px;background:#e2efe5;opacity:0;pointer-events:none}
+.btn[aria-busy=true]{cursor:progress;position:relative;overflow:hidden}
+.request-state{font-size:.85rem;font-weight:650;color:var(--muted)}.request-state[data-status=accepted]{color:#305d42}
+.composer:focus-within{border-color:#587863;box-shadow:0 0 0 3px #527b6817,0 14px 35px #253b2814}
+.result-heading{display:flex;align-items:baseline;justify-content:space-between;gap:4px 18px;flex-wrap:wrap}
+.result-heading .text-btn,.assist>.text-btn{min-height:44px}.result-heading h2{line-height:1.15}
+#result-title:focus{outline:0}#result-title:focus-visible{box-shadow:inset 0 -2px #9bab9e}
+.result-category{display:flex;gap:9px;align-items:center}.result-category svg{width:22px;height:22px;flex:none;color:var(--green)}
+.results .group+.group{margin-top:22px}.offer-actions small{line-height:1.35}
+.offer{padding-block:15px}.offer-info strong{font-size:1.04rem}.offer-cost{display:grid;justify-items:end;gap:2px}.offer-cost b,.summary strong{font-variant-numeric:tabular-nums}.offer-cost b{color:var(--green);font-size:1.08rem}
+.offer-actions{gap:10px 18px}.offer .btn{min-height:44px}.summary{align-items:baseline;padding-block:16px 18px}.summary strong{font-size:clamp(1.08rem,2vw,1.38rem);line-height:1.25}
+.request-context{margin-bottom:16px;border-inline-start:3px solid #8da795;padding-inline-start:12px;overflow-wrap:anywhere}.request-context strong,.request-context small{display:block}.request-context small{color:var(--muted);font-size:.9rem}
+.dialog .field textarea{padding:10px;resize:vertical}.dialog .message:not(:empty){margin:9px 0}.dialog form>.btn{margin-top:12px}
+.receipt{display:grid;justify-items:start;gap:12px}.receipt svg{width:32px;height:32px;color:var(--green)}
+@media(max-width:740px){.offer-actions{align-self:stretch;justify-content:space-between}.offer-cost{justify-items:start}.offer-info{width:100%}.result-heading .text-btn{font-size:.9rem}}
+@media(prefers-reduced-motion:no-preference){
+ @view-transition{navigation:auto}
+ ::view-transition-old(root){animation:scene-out 105ms ease-in both}::view-transition-new(root){animation:scene-in 240ms cubic-bezier(.22,.7,.25,1) both}
+ .btn,.role-option{transition:background-color 160ms,border-color 160ms,box-shadow 160ms,transform 130ms}.btn:active:not(:disabled){transform:scale(.975)}
+ .mode-switch:before{transition:transform 230ms cubic-bezier(.22,.8,.25,1)}.reveal{animation:scene-in 220ms cubic-bezier(.22,.7,.25,1) both}
+ .welcome:before{transition:transform 480ms cubic-bezier(.2,.75,.22,1)}
+ .workspace-grid>.sheet{animation:panel-in 360ms cubic-bezier(.18,.78,.25,1) backwards}.workspace-grid>.sheet:nth-child(2){animation-delay:65ms}
+ .changed-row::before{animation:saved-light 980ms ease-out both}
+ .preview:not([hidden]){animation:panel-in 230ms ease-out both}
+ .composer{transition:border-color 160ms,box-shadow 180ms}.receipt path{stroke-dasharray:1;stroke-dashoffset:0;animation:receipt-check 290ms ease-out backwards}
+ @keyframes receipt-check{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+ .dialog{opacity:0;transform:translateY(9px) scale(.985);transition:opacity 160ms,transform 210ms cubic-bezier(.16,.78,.22,1),display 210ms allow-discrete,overlay 210ms allow-discrete}
+ .dialog[open]{opacity:1;transform:none}
+ @starting-style{.dialog[open]{opacity:0;transform:translateY(12px) scale(.975)}}
+ @keyframes panel-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+ @keyframes saved-light{0%{opacity:0}18%,40%{opacity:1}100%{opacity:0}}
+ .btn[aria-busy=true]::after{content:'';pointer-events:none;position:absolute;inset:auto auto 2px 0;width:32%;height:2px;border-radius:4px;background:currentColor;opacity:.8;animation:button-progress .95s ease-in-out infinite}
+ @keyframes scene-in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}@keyframes scene-out{to{opacity:0}}@keyframes button-progress{from{transform:translateX(-105%)}to{transform:translateX(325%)}}
+}
+</style>
+<style>
+.demo-dialog{width:min(820px,calc(100% - 24px));padding:clamp(18px,3vw,32px)}
+.demo-description{color:var(--muted);margin:0 0 14px}.demo-zone{max-width:28rem;margin:18px 0}.demo-grid{display:grid;grid-template-columns:minmax(240px,1fr) minmax(180px,.7fr);gap:clamp(18px,4vw,42px);border-top:1px solid var(--line);padding-top:15px}
+.demo-grid h3{font-size:1.05rem;color:var(--green);text-transform:capitalize}.demo-month-bar,.demo-month-bar>div{display:flex;align-items:center;gap:6px}.demo-month-bar{justify-content:space-between;margin-bottom:8px}
+.demo-month-bar button,.demo-days button{background:transparent;border:1px solid transparent;min-height:40px;border-radius:8px}.demo-month-bar button{width:40px;font-size:1.25rem}.demo-dialog button:disabled{color:#9aa49e}
+.demo-week,.demo-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:2px;text-align:center}.demo-week{font-size:.85rem;color:var(--muted);margin-bottom:4px}.demo-days button:not(:disabled):hover,.demo-month-bar button:not(:disabled):hover{background:var(--soft)}
+.demo-days button[aria-pressed=true],.demo-days button[aria-pressed=true]:hover{color:white;background:var(--green)}
+.demo-times{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:5px;margin:10px 0;font-size:.9rem;font-variant-numeric:tabular-nums}.demo-times span{padding-block:5px;border-bottom:1px solid var(--line)}
+#demo-frame iframe{display:block;width:100%;height:min(660px,65dvh);border:0;margin-top:8px}
+@media(max-width:620px){.demo-grid{grid-template-columns:1fr}.demo-dialog{max-height:90dvh}.demo-days button{min-height:40px}.nav:has(#demo-open:not([hidden])){flex-wrap:wrap}}
+@media(prefers-reduced-motion:no-preference){.demo-days button{transition:background-color 145ms,color 145ms}}
+.language select{width:5.1em;color:var(--green);background:transparent;font:inherit;font-weight:650;border:1px solid var(--line);border-radius:8px;min-height:40px;padding:0 3px;cursor:pointer}.nav-actions{flex-wrap:wrap}.demo-times button{border:1px solid var(--line);border-radius:7px;background:white;color:var(--ink);min-height:38px;font:inherit;cursor:pointer}.demo-times button[aria-pressed=true]{background:var(--green);color:white}.demo-times button:disabled{background:var(--soft);cursor:default}.demo-times small{display:block}.demo-times button:focus-visible,.language select:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+@media(max-width:510px){.nav{flex-wrap:wrap;gap:8px}.nav-actions{gap:6px}.nav-actions .btn{padding-inline:10px}.nav-actions{margin-left:auto}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap nav"><a class="brand" href="/" aria-label="TOURMESH, главная"><svg viewBox="0 0 32 32" aria-hidden="true" fill="currentColor"><path d="M16 1.8 20 7l6.3-1.4L25 12l5.2 4-5.2 4 1.3 6.4L20 25l-4 5.2L12 25l-6.3 1.4L7 20l-5.2-4L7 12 5.7 5.6 12 7z"/><path d="m16 9 7 7-7 7-7-7z" fill="#f7f7f2"/></svg>TOURMESH</a><div class="nav-actions"><label class="language"><span class="sr">Язык</span><select id="language" aria-label="Язык"><option value="ru" label="RU · Русский">RU</option><option value="en" label="EN · English">EN</option><option value="uz" label="UZ · Özbekça">UZ</option></select></label><button class="btn" id="demo-open" aria-haspopup="dialog" type="button">Заказать демо</button><a class="btn quiet" id="entry" href="/start">Войти</a></div></div></header>
+<main>
+ <p class="wrap message" id="entry-message" role="status"></p>
+ <div id="operator-view" hidden>
+  <section class="mast"><div class="wrap">
+    <p class="hint">Для турбизнеса Узбекистана</p>
+    <h1>Что нужно<br>для вашего тура?</h1>
+    <p class="lead">Опишите поездку. Мы подберём поставщиков и покажем смету.</p>
+    <form class="composer" id="search">
+      <label class="sr" for="brief">Что нужно для тура</label>
+      <textarea id="brief" required maxlength="1800" placeholder="Например: нужен отель в Самарканде на 2 ночи и автобус из Самарканда в Бухару для 20 человек."></textarea>
+      <div class="tools"><button class="btn quiet voice" id="voice" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11v1a7 7 0 0 0 14 0v-1m-7 8v3m-3 0h6"/></svg><span>Голосом</span></button><button class="btn" type="submit">Найти поставщиков</button></div>
+    </form>
+    <div class="assist"><button class="text-btn" id="example" type="button">Попробовать пример</button><button class="text-btn" id="skip-ai" type="button" hidden>Продолжить без ИИ</button><p class="message" id="message" role="status"></p></div>
+  </div></section>
+  <section class="wrap results" id="results" aria-labelledby="result-title" hidden>
+    <div class="result-heading"><h2 id="result-title" tabindex="-1">Подбор поставщиков</h2><button type="button" class="text-btn" id="edit-brief">Изменить запрос</button></div>
+    <p class="result-meta" id="meta"></p>
+    <div class="summary" id="summary" aria-live="polite"></div>
+    <div id="groups"></div>
+  </section>
+  <section class="wrap sheet" id="operator-office" hidden></section>
+ </div>
+ <section class="wrap access" id="start-view" aria-labelledby="access-title" hidden>
+  <div class="welcome"><h1 id="access-title">Ваш кабинет</h1><p id="access-lead">Выберите, как вы работаете с турами.</p></div>
+  <div class="access-panel">
+   <div class="mode-switch" id="mode-switch" role="group" aria-label="Доступ в TOURMESH" data-mode="register"><button type="button" id="register-mode" aria-pressed="true">Регистрация</button><button type="button" id="login-mode" aria-pressed="false">Вход</button></div>
+   <form id="office-form" method="post">
+    <div id="legacy-option" hidden><label><input type="checkbox" name="legacy"> Привязать мой прежний кабинет <strong id="legacy-name"></strong></label></div>
+    <fieldset id="register-role" class="access-roles"><legend>Ваша роль</legend><div class="role-list">
+     <label class="role-option"><input type="radio" name="role" value="operator" required><span><strong>Туроператор</strong><small>Ищу услуги</small></span></label>
+     <label class="role-option"><input type="radio" name="role" value="supplier" required><span><strong>Поставщик</strong><small>Предлагаю услуги</small></span></label>
+    </div></fieldset>
+    <label class="field" id="company-field">Название компании<input name="company" required minlength="2" maxlength="90" autocomplete="organization"><small class="message">Это название видят ваши партнёры.</small></label>
+    <label class="field">Логин<input name="login" required minlength="3" maxlength="40" autocapitalize="none" spellcheck="false" autocomplete="username" placeholder="silkroad.uz" aria-describedby="login-hint"><small class="message" id="login-hint">Латинские буквы, цифры, точка, дефис или подчёркивание.</small></label>
+    <label class="field" id="code-field" hidden>Резервный код<input name="code" disabled maxlength="48" autocomplete="off" spellcheck="false"></label>
+    <label class="field"><span id="password-label">Пароль</span><input type="password" name="password" minlength="15" required autocomplete="new-password" aria-describedby="password-hint"><small class="message" id="password-hint">От 15 символов. Можно использовать фразу из нескольких слов.</small></label>
+    <p id="auth-message" class="message auth-notice" role="status"></p>
+    <button class="btn" type="submit" id="auth-submit">Создать кабинет</button>
+    <button class="text-btn" type="button" id="recover-mode" hidden>Забыли пароль?</button>
+   </form>
+  </div>
+ </section>
+ <section class="wrap workspace" id="supplier-view" hidden>
+  <p class="hint" id="supplier-company"></p><h1>Кабинет поставщика</h1>
+  <div class="workspace-grid"><section class="sheet" id="supplier-editor"><h2>Добавить услугу</h2></section><section class="sheet" id="supplier-office"></section></div>
+ </section>
+ <section class="wrap workspace" id="account-view" hidden aria-labelledby="account-title">
+  <h1 id="account-title">Мой кабинет</h1>
+  <p id="account-identity" class="result-meta" style="overflow-wrap:anywhere"></p>
+  <nav class="assist" aria-label="Работа с турами">
+   <a href="/operator" id="account-search" class="btn" hidden>Найти поставщиков</a>
+   <a href="/supplier#supplier-editor" id="account-publish" class="btn" hidden>Добавить услугу</a>
+  </nav>
+  <div id="account-office" class="sheet group"></div>
+  <details id="account-security" class="security"><summary>Вход и восстановление</summary>
+  <form id="backup-form" method="post"><p>Сохраните резервный код отдельно. С ним можно выбрать новый пароль. При выпуске нового кода прежний перестаёт действовать.</p>
+   <label class="field">Текущий пароль<input type="password" name="password" required autocomplete="current-password"></label><button class="btn quiet">Получить резервный код</button>
+   <p id="backup-status" class="message" role="status"></p><output class="backup" id="backup-code"></output>
+  </form>
+  </details>
+  <div class="group"><button class="btn quiet" id="account-logout" type="button">Выйти</button><p class="message" id="logout-message" role="status"></p></div>
+ </section>
+</main>
+<footer class="partners" aria-labelledby="partners-title"><div class="wrap"><h2 id="partners-title">Наши партнёры</h2><div class="partner-window"><div class="partner-track" id="partner-track"></div></div><div class="partner-detail" id="partner-detail" hidden aria-live="polite"></div><p class="message" id="partners-status" role="status"></p></div></footer>
+<dialog class="dialog demo-dialog" id="demo-dialog" aria-labelledby="demo-title">
+ <div class="dialog-top"><h2 id="demo-title">Демо TOURMESH</h2><button type="button" class="btn quiet close" id="demo-close" aria-label="Закрыть календарь">✕</button></div>
+ <p class="demo-description">30 минут · Пн–Пт, 09:00–14:00 по Ташкенту</p>
+ <p class="message" id="demo-status" role="status"></p><div id="demo-receipt" class="demo-receipt" hidden role="status"></div>
+ <button type="button" id="demo-retry" class="text-btn" hidden>Попробовать снова</button>
+ <div id="demo-hours" hidden>
+  <label class="field demo-zone">Ваш часовой пояс<select id="demo-zone"></select></label>
+  <div class="demo-grid">
+   <section aria-label="Календарь рабочих часов">
+    <div class="demo-month-bar"><h3 id="demo-month" aria-live="polite"></h3><div><button id="demo-prev" aria-label="Предыдущий месяц" type="button">‹</button><button id="demo-next" aria-label="Следующий месяц" type="button">›</button></div></div>
+    <div class="demo-week" aria-hidden="true"><span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span></div>
+    <div id="demo-days" class="demo-days" role="group" aria-labelledby="demo-month"></div>
+   </section>
+   <section aria-labelledby="demo-date"><h3 id="demo-date" aria-live="polite"></h3><p class="message" id="demo-offset"></p><div class="demo-times" id="demo-times"></div><button type="button" class="btn" id="demo-confirm" disabled>Оставить заявку на демо</button></section>
+  </div>
+ </div>
+</dialog>
+<dialog class="dialog" id="request-dialog" aria-labelledby="request-title">
+ <div class="dialog-top"><h2 id="request-title">Отправить заявку</h2><button class="btn quiet close" id="request-close" type="button" aria-label="Закрыть">✕</button></div>
+ <div class="request-context"><strong id="request-service"></strong><small id="request-supplier"></small></div>
+ <form id="request-form"><label class="field">Сообщение поставщику<textarea name="note" rows="5" required maxlength="1800"></textarea></label><p class="message" id="request-message" role="status"></p><button class="btn">Отправить заявку</button></form>
+ <div id="request-receipt" class="receipt" hidden><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#e5eee6"/><path d="m9 16 5 5 9-11" pathLength="1" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><p>Ответ поставщика появится в вашем кабинете.</p><a class="btn quiet" href="/account">Мои заявки</a></div>
+</dialog>
+<div id="supplier-fields" hidden>
+  <p class="message">Опубликованную услугу увидят операторы, которым она подходит.</p>
+  <form id="supplier-form">
+    <div class="form-grid">
+      <label class="field wide">Название компании / услуги<input name="name" required maxlength="90"></label>
+      <label class="field">Категория<select name="category"><option value="hotel">Отель</option><option value="transport">Транспорт</option><option value="restaurant">Ресторан</option><option value="guide">Гид</option></select></label>
+      <label class="field">Город / отправление<select name="city"><option value="Самарканд">Самарканд</option><option value="Бухара">Бухара</option><option value="Ташкент">Ташкент</option><option value="Хива">Хива</option></select></label>
+      <label class="field wide" id="destination" hidden>Куда едет транспорт<select name="destination"><option value="">По городу / по договорённости</option><option value="Самарканд">Самарканд</option><option value="Бухара">Бухара</option><option value="Ташкент">Ташкент</option><option value="Хива">Хива</option></select></label>
+      <label class="field">Цена в сумах<input name="price" type="number" min="1" max="1000000000" required></label>
+      <label class="field">Цена за<select name="unit"></select></label>
+      <label class="field"><span id="capacity-label">Человек на номер</span><input name="capacity" type="number" min="1" max="500" required></label>
+      <label class="field" id="rooms-field">Номеров всего<input name="rooms" type="number" min="1" max="500"></label>
+      <label class="field wide">Фото услуги (JPG, PNG или WebP, до 5 МБ)<input name="photo" type="file" accept="image/jpeg,image/png,image/webp"></label>
+      <img id="photo-preview" class="preview" alt="Предпросмотр фото услуги" hidden>
+    </div>
+    <p id="publish-message" class="message" role="status"></p>
+    <button class="btn" id="publish" type="submit">Опубликовать услугу</button>
+  </form>
+</div>
+<style>
+.partners{padding:56px 0 64px;background:#f7f7f2;overflow:hidden;border-top:1px solid var(--line)}.partners h2{text-align:center;font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:650;letter-spacing:-.035em;margin:0 0 22px}.partner-window{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}.partner-track{display:flex;gap:18px;width:max-content;animation:partners-roll 48s linear infinite}.partner-track:hover{animation-play-state:paused}.partner-card{min-width:185px;max-width:245px;display:flex;flex-direction:column;justify-content:center;gap:7px;padding:16px 22px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--green)}.partner-card strong{font-size:1.12rem;letter-spacing:-.035em;white-space:nowrap}.partner-card small{font-size:.84rem;color:var(--muted)}@keyframes partners-roll{to{transform:translateX(-50%)}}@media(prefers-reduced-motion:reduce){.partner-track{animation:none}.partner-window{overflow:auto;mask-image:none}.partner-card{min-width:170px}}.demo-receipt{font-size:clamp(1.45rem,4vw,2.2rem);line-height:1.25;font-weight:680;letter-spacing:-.035em;color:var(--green);padding:25px 10px;max-width:26rem}.demo-receipt[hidden]{display:none}
+.partner-card button{border:0;background:none;padding:0;color:var(--green);font:inherit;font-size:.9rem;font-weight:650;text-align:left;cursor:pointer}.partner-card button:hover{text-decoration:underline}.partner-detail{margin:28px auto 0;max-width:720px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:20px}.partner-detail h3{margin:0 0 6px;font-size:1.25rem}.partner-detail p{margin:0 0 14px;color:var(--muted)}.partner-links{display:flex;flex-wrap:wrap;gap:10px}.partner-links a{padding:9px 13px;border:1px solid var(--line);border-radius:7px;color:var(--green);text-decoration:none;overflow-wrap:anywhere}.partner-links a:hover{background:var(--soft)}
+</style>
+<script>
+const byId=id=>document.getElementById(id);
+const lang=document.documentElement.lang;
+const languageMenu=byId('language');
+languageMenu.value=lang;
+languageMenu.onchange=()=>{const url=new URL(location.href);url.searchParams.set('lang',languageMenu.value);location.assign(url)};
+async function showPartners(){
+ try{
+  const reply=await fetch('/api/partners',{cache:'no-store'});
+  if(!reply.ok)throw Error();
+  const {partners}=await reply.json(),track=byId('partner-track');
+  const items=partners.map((partner,index)=>{
+   const item=document.createElement('div');item.className='partner-card';
+   const name=document.createElement('strong');name.textContent=partner.name;
+   const city=document.createElement('small');city.textContent=partner.city;
+   item.append(name,city);
+   if(partner.contacts.phones?.length||partner.contacts.email||partner.contacts.telegram){
+    const button=document.createElement('button');button.type='button';button.textContent='Узнать цену';
+    button.dataset.partner=String(index);item.append(button);
+   }
+   return item;
+  });
+  const batch=document.createElement('div');batch.style.cssText='display:flex;gap:18px';batch.append(...items);
+  const duplicate=batch.cloneNode(true);duplicate.setAttribute('aria-hidden','true');
+  duplicate.querySelectorAll('button').forEach(button=>button.tabIndex=-1);
+  track.append(batch,duplicate);
+  track.onclick=event=>{
+   const button=event.target.closest('button[data-partner]');if(!button)return;
+   const partner=partners[Number(button.dataset.partner)],box=byId('partner-detail');
+   const title=document.createElement('h3');title.textContent=partner.name;
+   const city=document.createElement('p');city.textContent=partner.city;
+   const services=document.createElement('p');services.textContent=partner.services;
+   const links=document.createElement('div');links.className='partner-links';
+   const link=(label,href)=>{const a=document.createElement('a');a.textContent=label;a.href=href;links.append(a)};
+   for(const phone of partner.contacts.phones||[])link(phone,'tel:'+phone.replace(/[^+0-9]/g,''));
+   if(partner.contacts.telegram)link('Telegram','https://t.me/'+partner.contacts.telegram);
+   if(partner.contacts.email)link(partner.contacts.email,'mailto:'+partner.contacts.email);
+   box.replaceChildren(title,city,services,links);box.hidden=false;
+   box.scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+  };
+ }catch{byId('partners-status').textContent='';}
+}
+showPartners();
+const cityLabel=name=>({Самарканд:'Самарканд',Бухара:'Бухара',Ташкент:'Ташкент',Хива:'Хива'})[name]||name;
+const make=(tag,text='',className='')=>{const item=document.createElement(tag);item.textContent=text;if(className)item.className=className;return item};
+const types={
+ hotel:{label:'Отель',match:/отел|гостиниц|ночлег|(?:\d\s*)номер(?:а|ов)?\b/iu,unit:'ночь за номер',capacity:'Человек на номер'},
+ transport:{label:'Транспорт',match:/транспорт|автобус|трансфер|минив[эе]н|микроавтобус|машин[ауые]|перевоз/iu,unit:'поездку',capacity:'Пассажиров'},
+ restaurant:{label:'Ресторан',match:/ресторан|обед|ужин|питан|кафе|банкет/iu,unit:'человека за приём пищи',capacity:'Гостей'},
+ guide:{label:'Гид',match:/гид|экскурсовод/iu,unit:'день',capacity:'Человек в группе'}
+};
+const cities={Самарканд:'самарканд',Бухара:'бухар',Ташкент:'ташкент',Хива:'хив'};
+function categoryIcon(category){
+ const paths={
+  hotel:'M3 18V6m0 9h18v4m0-4v-4a2 2 0 0 0-2-2h-7v6M5 12V9h4v3z',
+  transport:'M5 16V6q0-2 2-2h10q2 0 2 2v10q0 1-1 1H6q-1 0-1-1Zm0-5h14M8 17v2m8-2v2M8 14h1m6 0h1',
+  restaurant:'M5 3v5q0 3 3 3t3-3V3M8 3v18m10 0v-8h-3V9q0-5 3-6z',
+  guide:'M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-6-4-2 6-5 2 2-6z'
+ };
+ const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg'),path=document.createElementNS(ns,'path');
+ svg.setAttribute('viewBox','0 0 24 24');svg.setAttribute('aria-hidden','true');svg.setAttribute('fill','none');
+ path.setAttribute('d',paths[category]);path.setAttribute('stroke','currentColor');path.setAttribute('stroke-width','1.6');path.setAttribute('stroke-linecap','round');path.setAttribute('stroke-linejoin','round');svg.append(path);return svg;
+}
+const demo=[
+ {id:'hotel-demo',name:'Отель у Регистана',category:'hotel',cityKey:"Самарканд",price:540000,capacity:2,rooms:16,demo:true},
+ {id:'bus-demo',name:'Перевозчик Шёлкового пути',category:'transport',cityKey:"Самарканд",destinationKey:"Бухара",price:1850000,capacity:25,demo:true},
+ {id:'small-demo',name:'Микроавтобус',category:'transport',cityKey:"Самарканд",destinationKey:"Бухара",price:1150000,capacity:16,demo:true},
+ {id:'restaurant-demo',name:'Ресторан в Бухаре',category:'restaurant',cityKey:"Бухара",price:110000,capacity:45,demo:true},
+ {id:'guide-demo',name:'Гид по Старой Бухаре',category:'guide',cityKey:"Бухара",price:750000,capacity:25,demo:true}
+].map(({cityKey,destinationKey,...offer})=>({...offer,city:cityKey,destination:destinationKey}));
+let profile=null;
+async function api(path,data){
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),25000);
+ let reply,value;
+ try{
+  const init=data===undefined?{}:{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(data)};
+  reply=await fetch('/api/'+path,{...init,signal:controller.signal});value=await reply.json();
+ }catch{throw Error('Не удалось получить ответ. Проверьте соединение и попробуйте ещё раз.')}
+ finally{clearTimeout(timer)}
+ if(!reply.ok){const failure=Error(value.error||'Не удалось выполнить действие.');failure.status=reply.status;throw failure}
+ return value;
+}
+const demoText='Нужен отель в Самарканде на 2 ночи и автобус из Самарканда в Бухару для 20 человек. Бюджет 15 млн сум.';
+const money=amount=>new Intl.NumberFormat(({ru:'ru-RU',en:'en-US',uz:'uz-UZ'})[lang]).format(amount)+' сум';
+const brief=byId('brief');
+let exampleActive=false,briefBeforeExample='';
+function briefEdited(){
+ exampleActive=false;briefBeforeExample='';activeSearch++;cancelAnalysis?.();resultsObserver?.disconnect();
+ byId('results').hidden=true;byId('skip-ai').hidden=true;byId('message').textContent='';
+ byId('search').querySelector('button[type=submit]').removeAttribute('aria-busy');
+}
+brief.addEventListener('input',briefEdited);
+byId('example').onclick=()=>{
+ if(!exampleActive)briefBeforeExample=brief.value;
+ brief.value=demoText;exampleActive=true;runSearch();
+};
+byId('edit-brief').onclick=()=>{
+ if(exampleActive&&briefBeforeExample)brief.value=briefBeforeExample;
+ briefEdited();brief.focus({preventScroll:true});
+ brief.scrollIntoView({block:'center',behavior:reducedMotion.matches?'instant':'smooth'});
+};
+byId('search').onsubmit=event=>{event.preventDefault();const value=brief.value.trim();if(!value){byId('message').textContent='Опишите, какие услуги нужны.';brief.focus();return}runSearch()};
+function normalizeTravel(input){
+ const aliases=[
+  [/samarkand|samarqand/giu,'самарканд'],[/bukhara|buxoro/giu,'бухар'],[/tashkent|toshkent|taşkent/giu,'ташкент'],[/khiva|xiva/giu,'хив'],
+  [/hotels?|mehmonxona/giu,'отель'],[/buses|bus\b|coaches|coach|avtobus|transfer|transport|avtomobil/giu,'автобус'],
+  [/restaurants?|restoran|lunch|dinner|ovqat/giu,'ресторан'],[/guides?|gid|ekskursovod/giu,'гид'],
+  [/people|persons?|guests?|tourists?|passengers?|kishi|kişi|odam|mehmon|sayyoh/giu,'человек'],[/nights?|kecha|keça|tun/giu,'ночи'],
+  [/rooms?|xona/giu,'номер'],[/days?|kun/giu,'дней'],[/budget|byudjet|budjet/giu,'бюджет'],[/millions?|million/giu,'млн'],
+  [/thousand|ming/giu,'тыс'],[/so[‘’ʻʼ']m|söm/giu,'сум'],[/\s+(?:and|va)\s+/giu,'; ']
+ ];
+ return aliases.reduce((text,[pattern,replacement])=>text.replace(pattern,replacement),input);
+}
+function cityMentions(text){
+ return Object.entries(cities).flatMap(([name,stem])=>[...text.matchAll(new RegExp(stem+'[а-яё]*','giu'))].map(match=>({name,index:match.index,word:match[0]}))).sort((first,second)=>first.index-second.index);
+}
+function splitBrief(text){
+ return text.split(/[;!\n]+|[,.?](?!\d)|\s+и\s+(?=(?:ещё\s+|также\s+)?(?:нуж|отел|гостиниц|автобус|транспорт|трансфер|ресторан|кафе|обед|ужин|гид|довезти|накормить|поселить|показать))/iu).map(segment=>segment.trim()).filter(Boolean);
+}
+function parseBrief(text,semantic=new Map()){
+ const people=Number(text.match(/(\d{1,3})\s*(?:человек|чел\.|турист[а-яё]*|пассажир[а-яё]*|участник[а-яё]*|гост[а-яё]*)/iu)?.[1])||null;
+ const budgetMatch=text.match(/(?:бюджет(?:ом)?\s*(?:до)?|не более|в пределах|до)\s*[:—–-]?\s*(\d(?:[\d \u00a0\u202f]*\d)?(?:[.,]\d+)?)\s*(млн|миллион[а-яё]*|тыс\.?|тысяч[а-яё]*)?\s*(?:сум[а-яё]*|uzs)/iu);
+ const budget=budgetMatch?Math.round(Number(budgetMatch[1].replace(/\s/g,'').replace(',','.'))*(/^м/iu.test(budgetMatch[2]||'')?1000000:/^т/iu.test(budgetMatch[2]||'')?1000:1)):null;
+ const allCities=cityMentions(text);
+ const uniqueCities=[...new Set(allCities.map(item=>item.name))];
+ const segments=splitBrief(text);
+ const needs=[];
+ for(const segment of segments){
+  for(const [category,type] of Object.entries(types)){
+   if(!type.match.test(segment)&&semantic.get(segment)!==category)continue;
+   const mentions=cityMentions(segment);
+   const city=mentions[0]?.name||(uniqueCities.length===1?uniqueCities[0]:null);
+   const destination=category==='transport'?mentions.find((item,index)=>index>0&&item.name!==city)?.name||null:null;
+   const nights=Number(segment.match(/(\d{1,2})\s*ноч/iu)?.[1])||null;
+   const rooms=Number(segment.match(/(\d{1,3})\s*номер/iu)?.[1])||null;
+   const days=Number(segment.match(/(\d{1,2})\s*(?:дня|дней|день)/iu)?.[1])||null;
+   if(!needs.some(item=>item.category===category&&item.city===city&&item.destination===destination))needs.push({category,city,destination,nights,rooms,days});
+  }
+ }
+ return {needs,people,budget,foreignBudget:!budget&&/\$|доллар|\busd\b|€|евро/iu.test(text)};
+}
+function estimate(offer,need,people){
+ if(need.category==='hotel'){
+  const rooms=need.rooms||(people?Math.ceil(people/offer.capacity):null);
+  if(!rooms||!need.nights)return {total:null,detail:'Уточните количество гостей или номеров и ночей.'};
+  return {total:offer.price*rooms*need.nights,detail:rooms+' ном. × '+need.nights+' ноч.'};
+ }
+ if(need.category==='restaurant')return people?{total:offer.price*people,detail:people+' гостей × один приём пищи'}:{total:null,detail:'Уточните число гостей.'};
+ if(need.category==='guide')return need.days?{total:offer.price*need.days,detail:need.days+' дн.'}:{total:null,detail:'Уточните число дней работы гида.'};
+ return {total:offer.price,detail:'Одна поездка'};
+}
+function fits(offer,need,people){
+ if(need.category!==offer.category||(need.city&&need.city!==offer.city)||(need.destination&&need.destination!==offer.destination))return false;
+ if(need.category==='hotel'){
+  if(need.rooms&&people&&need.rooms*offer.capacity<people)return false;
+  const rooms=need.rooms||(people?Math.ceil(people/offer.capacity):null);
+  return !rooms||!offer.rooms||rooms<=offer.rooms;
+ }
+ return !people||offer.capacity>=people;
+}
+let aiWorker,activeSearch=0,cancelAnalysis;
+const skip=byId('skip-ai');
+function getSemanticCategories(segments,id){
+ cancelAnalysis?.();
+ return new Promise((resolve,reject)=>{
+  try{
+   aiWorker??=new Worker('tourmesh-ai.mjs',{type:'module'});
+  }catch(error){reject(error);return}
+  const worker=aiWorker;
+  const stop=()=>{
+   clearTimeout(timer);skip.removeEventListener('click',cancel);
+   worker.removeEventListener('message',message);worker.removeEventListener('error',fail);
+   if(cancelAnalysis===cancel)cancelAnalysis=null;
+  };
+  function fail(){stop();worker.terminate();if(aiWorker===worker)aiWorker=null;reject(Error('Model unavailable'))}
+  function cancel(){fail()}
+  function message(event){
+   if(event.data.id!==id)return;
+   if(event.data.state==='ready'){if(id===activeSearch)byId('message').textContent='ИИ анализирует запрос…';return}
+   if(event.data.error){fail();return}
+   stop();resolve(event.data.categories);
+  }
+  const timer=setTimeout(fail,120000);
+  cancelAnalysis=cancel;
+  skip.addEventListener('click',cancel);
+  worker.addEventListener('message',message);
+  worker.addEventListener('error',fail);
+  worker.postMessage({id,segments});
+ });
+}
+const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
+let resultsObserver;
+const activeMotions=new Set();
+function playMotion(element,frames,options){
+ if(!element?.animate||reducedMotion.matches)return;
+ for(const previous of element.getAnimations())if(previous.id===options.id)previous.cancel();
+ const animation=element.animate(frames,{easing:'cubic-bezier(.18,.8,.24,1)',fill:'backwards',...options});
+ activeMotions.add(animation);
+ const release=()=>activeMotions.delete(animation);
+ animation.finished.then(release,release);
+}
+function stopMotion(){
+ resultsObserver?.disconnect();
+ for(const animation of activeMotions)animation.cancel();
+}
+reducedMotion.addEventListener('change',()=>{if(reducedMotion.matches)stopMotion()});
+function revealResults(section){
+ const title=byId('result-title');
+ resultsObserver?.disconnect();
+ title.focus({preventScroll:true});
+ const bounds=title.getBoundingClientRect();
+ if(bounds.top<0||bounds.bottom>innerHeight)title.scrollIntoView({block:'start',behavior:reducedMotion.matches?'instant':'smooth'});
+ if(reducedMotion.matches){stopMotion();return}
+ function enter(element,delay){
+  const row=element.classList.contains('offer');
+  const frames=row?[{opacity:0,transform:'translateY(14px) scale(.989)'},{opacity:1,offset:.72,transform:'translateY(-1px) scale(1)'},{opacity:1,transform:'none'}]
+   :[{opacity:.1,transform:'translateY(6px)'},{opacity:1,transform:'none'}];
+  playMotion(element,frames,{id:'result-arrival',duration:row?360:270,delay});
+  const meter=element.querySelector('.budget-track i');
+  if(meter)playMotion(meter,[{transform:'scaleX(0)'},{transform:'scaleX(1)'}],{id:'budget-fill',duration:470,delay:delay+60});
+ }
+ const observer='IntersectionObserver' in window?new IntersectionObserver(entries=>{
+  if(resultsObserver!==observer)return;
+  entries.filter(entry=>entry.isIntersecting).forEach((entry,index)=>{
+   observer.unobserve(entry.target);enter(entry.target,Math.min(index*55,210));
+  });
+ }):null;
+ resultsObserver=observer;
+ let visible=0;
+ for(const element of section.querySelectorAll('#result-title,#meta,#summary:not([hidden]),.group h3,.offer,.group > .message')){
+  const rect=element.getBoundingClientRect();
+  if(!observer||(rect.top<innerHeight&&rect.bottom>0))enter(element,Math.min(visible++*52,245));
+  else observer.observe(element);
+ }
+}
+async function runSearch(){
+ const id=++activeSearch;
+ const submit=byId('search').querySelector('button[type=submit]');
+ submit.setAttribute('aria-busy','true');
+ try{await renderSearch(brief.value.trim(),id,exampleActive)}
+ finally{if(id===activeSearch)submit.removeAttribute('aria-busy')}
+}
+async function renderSearch(input,id,example){
+ cancelAnalysis?.();
+ const normalized=normalizeTravel(input);
+ const candidates=[...new Set(splitBrief(normalized).filter(segment=>
+  !Object.values(types).some(type=>type.match.test(segment))&&
+  !/^(?:бюджет|до\s*\d|не более|\d+\s*(?:чел|турист|ноч|дн|сум)|даты)/iu.test(segment)&&
+  segment.split(/\s+/).length>=2
+ ))].slice(0,8);
+ let semantic=new Map(),note='';
+ if(candidates.length){
+  skip.hidden=false;byId('message').textContent='Загружаю локальную модель…';
+  try{
+   const categories=await getSemanticCategories(candidates,id);
+   semantic=new Map(candidates.map((segment,index)=>[segment,categories[index]]).filter(([,category])=>category));
+   note=semantic.size?'Тип услуг уточнён локальной моделью. Проверьте подбор.':'ИИ не смог уверенно определить дополнительные услуги.';
+  }catch{note='Локальный ИИ не использован. Показан обычный поиск.'}
+ }
+ if(id!==activeSearch||input!==brief.value.trim()){
+  if(id===activeSearch)skip.hidden=true;
+  return;
+ }
+ skip.hidden=true;byId('message').textContent=note;
+ const query=parseBrief(normalized,semantic);
+ const section=byId('results'), groups=byId('groups'), totals=byId('summary');
+ byId('result-title').textContent=example?'Пример подбора':'Подбор поставщиков';
+ byId('edit-brief').textContent=example&&briefBeforeExample?'Вернуться к моему запросу':'Изменить запрос';
+ if(!query.needs.length){
+  groups.replaceChildren();totals.replaceChildren();totals.hidden=true;section.hidden=false;
+  byId('meta').textContent='Укажите хотя бы одну услугу: отель, транспорт, ресторан или гид.';revealResults(section);return;
+ }
+ const details=[query.people?query.people+' чел.':'Количество гостей не указано',query.budget?'Бюджет '+money(query.budget):query.foreignBudget?'Сравнение бюджета доступно только в сумах':null,'Доступность уточняет поставщик'];
+ let pool=demo;
+ if(!example){
+  try{pool=(await api('offers')).offers}catch(error){
+   if(id!==activeSearch||input!==brief.value.trim())return;
+   section.hidden=true;const message=byId('message');message.textContent=error.status===401?'Для поиска по предложениям поставщиков войдите в кабинет. ':error.message;
+   if(error.status===401){const entry=make('button','Открыть кабинет','text-btn');entry.type='button';entry.onclick=enterWithDraft;message.append(entry)}
+   return;
+  }
+  if(id!==activeSearch||input!==brief.value.trim())return;
+ }
+ groups.replaceChildren();totals.replaceChildren();totals.hidden=false;
+ byId('meta').textContent=details.filter(Boolean).join(' · ');
+ let subtotal=0,covered=0,exampleIncluded=false;
+ for(const need of query.needs){
+  const group=make('section','','group');
+  const route=[need.city,need.destination].filter(Boolean).map(cityLabel).join(' — ');
+  const heading=make('h3',types[need.category].label+(route?' · '+route:''),'result-category');
+  heading.prepend(categoryIcon(need.category));group.append(heading);
+  const matches=pool.filter(offer=>fits(offer,need,query.people)).map(offer=>({offer,...estimate(offer,need,query.people)})).sort((first,second)=>(first.total??Infinity)-(second.total??Infinity)||first.offer.price-second.offer.price);
+  if(!matches.length){group.append(make('p','Подходящих предложений пока нет. Проверьте город, маршрут или размер группы.','message'));groups.append(group);continue}
+  const list=make('div','','offer-wrap');
+  for(const match of matches.slice(0,5)){
+   const {offer,total,detail}=match;
+   const row=make('article','','offer'), identity=make('div','','offer-info'), description=make('div');
+   if(offer.photo){const photo=document.createElement('img');photo.src=offer.photo;photo.alt='';photo.loading='lazy';identity.append(photo)}
+   description.append(make('strong',offer.name),make('p',cityLabel(offer.city)+(offer.destination?' — '+cityLabel(offer.destination):'')+' · '+money(offer.price)+' за '+types[offer.category].unit));
+   identity.append(description);
+   const actions=make('div','','offer-actions');
+   const cost=make('div','','offer-cost');
+   if(total!==null)cost.append(make('b',money(total)));
+   cost.append(make('small',detail));actions.append(cost);
+   if(!offer.demo){const action=make('button','Оставить заявку','btn quiet');action.type='button';action.onclick=()=>openRequest(offer,input);actions.append(action)}
+   row.append(identity,actions);list.append(row);
+  }
+  if(matches[0].total!==null){subtotal+=matches[0].total;covered++;exampleIncluded ||= Boolean(matches[0].offer.demo)}
+  group.append(list);groups.append(group);
+ }
+ const complete=covered===query.needs.length;
+ totals.append(make('strong',covered?(complete?'Смета от ':'Известная часть сметы: ')+money(subtotal):'Смета пока недоступна'),make('span',!complete?'Рассчитано '+covered+' из '+query.needs.length:query.budget?(subtotal<=query.budget?'Запас '+money(query.budget-subtotal):'Выше бюджета на '+money(subtotal-query.budget)):'По минимальным ценам'));
+ if(exampleIncluded)totals.append(make('span','В смете тестовые цены'));
+ if(complete&&query.budget>0){
+  const track=make('div','','budget-track'),fill=make('i');
+  track.setAttribute('aria-hidden','true');track.toggleAttribute('data-over',subtotal>query.budget);
+  fill.style.width=Math.min(100,subtotal/query.budget*100)+'%';track.append(fill);totals.append(track);
+ }
+ section.hidden=false;revealResults(section);
+}
+const supplierForm=byId('supplier-form'), fields=supplierForm.elements;
+const publishMessage=byId('publish-message'), preview=byId('photo-preview');
+let pendingPhoto=Promise.resolve('');
+function updateCategory(transition=false){
+ const items=transition&&!reducedMotion.matches?[...supplierForm.querySelectorAll('.form-grid .field')]:[];
+ const before=new Map(items.filter(item=>!item.hidden).map(item=>[item,item.getBoundingClientRect()]));
+ const type=types[fields.category.value];
+ fields.unit.replaceChildren(new Option(type.unit));
+ byId('capacity-label').textContent=type.capacity;
+ const hotel=fields.category.value==='hotel';
+ byId('rooms-field').hidden=!hotel;fields.rooms.required=hotel;
+ byId('destination').hidden=fields.category.value!=='transport';
+ const layout=items.filter(item=>!item.hidden).map(item=>({item,rect:item.getBoundingClientRect()}));
+ for(const {item,rect} of layout){
+  const prior=before.get(item);
+  if(!prior){playMotion(item,[{opacity:0,transform:'translateY(-6px)'},{opacity:1,transform:'none'}],{id:'field-shift',duration:200});continue}
+  const x=prior.left-rect.left,y=prior.top-rect.top;
+  if(x||y)playMotion(item,[{transform:'translate('+x+'px,'+y+'px)'},{transform:'none'}],{id:'field-shift',duration:235});
+ }
+}
+updateCategory();
+fields.category.onchange=()=>updateCategory(true);
+async function photoData(file){
+ if(!file)return '';
+ if(file.size>5*1024*1024||!['image/jpeg','image/png','image/webp'].includes(file.type))throw Error('Выберите JPG, PNG или WebP до 5 МБ.');
+ const bitmap=await createImageBitmap(file);
+ try{
+  const canvas=document.createElement('canvas'), ratio=Math.min(1,800/Math.max(bitmap.width,bitmap.height));
+  canvas.width=Math.max(1,Math.round(bitmap.width*ratio));canvas.height=Math.max(1,Math.round(bitmap.height*ratio));
+  canvas.getContext('2d').drawImage(bitmap,0,0,canvas.width,canvas.height);
+  return canvas.toDataURL('image/webp',.82);
+ }finally{bitmap.close()}
+}
+fields.photo.onchange=()=>{
+ preview.hidden=true;preview.removeAttribute('src');publishMessage.textContent='';
+ const task=photoData(fields.photo.files[0]).then(data=>({data}),error=>({error:error.message}));
+ pendingPhoto=task;
+ task.then(result=>{if(pendingPhoto!==task)return;if(result.error)publishMessage.textContent=result.error;else if(result.data){preview.src=result.data;preview.hidden=false}});
+};
+supplierForm.onsubmit=async event=>{
+ event.preventDefault();
+ const name=fields.name.value.trim();
+ if(name.length<2){publishMessage.textContent='Укажите название услуги.';return}
+ const category=fields.category.value;
+ const button=byId('publish');if(button.disabled)return;
+ button.disabled=true;button.setAttribute('aria-busy','true');publishMessage.textContent='Публикуем услугу…';
+ try{
+  const photo=await pendingPhoto;
+  if(photo.error){publishMessage.textContent=photo.error;return}
+  const offer={name,category,city:fields.city.value,destination:category==='transport'?fields.destination.value:'',price:Number(fields.price.value),capacity:Number(fields.capacity.value),rooms:category==='hotel'?Number(fields.rooms.value):null,photo:photo.data||''};
+  const saved=await api('offers',offer);
+  supplierForm.reset();updateCategory();preview.hidden=true;preview.removeAttribute('src');pendingPhoto=Promise.resolve('');publishMessage.textContent='Услуга опубликована.';
+  try{await refreshOffice(saved.id)}catch{publishMessage.textContent='Услуга опубликована. Обновите список услуг, чтобы её увидеть.'}
+ }catch(error){publishMessage.textContent=error.message}finally{button.disabled=false;button.removeAttribute('aria-busy')}
+};
+const officeForm=byId('office-form'),officeMessage=byId('entry-message');
+let route=location.pathname, resumeSearch=false;
+const rolePath=role=>role==='supplier'?'/supplier':'/operator';
+const permits=(current,role)=>current?.role===role||current?.role==='both';
+let workspaceRole=route==='/supplier'?'supplier':'operator';
+function enterWithDraft(){
+ resumeSearch=true;history.pushState(null,'','/start');route='/start';
+ byId('operator-view').hidden=true;showAccess();byId('register-mode').focus();
+}
+byId('entry').addEventListener('click',event=>{
+ if(route==='/'&&!profile&&brief.value.trim()){event.preventDefault();enterWithDraft()}
+});
+window.addEventListener('popstate',()=>location.reload());
+window.addEventListener('pageshow',event=>{if(event.persisted)location.reload()});
+const requestDialog=byId('request-dialog'),requestForm=byId('request-form');
+const requestDrafts=new Map();
+let activeDraft,openIntent=0;
+byId('request-close').onclick=()=>requestDialog.close();
+requestForm.elements.note.oninput=()=>{if(activeDraft)activeDraft.note=requestForm.elements.note.value};
+function showRequestState(draft){
+ requestForm.hidden=draft.sent;byId('request-receipt').hidden=!draft.sent;
+ byId('request-title').textContent=draft.sent?'Заявка отправлена':'Отправить заявку';
+ requestForm.elements.note.readOnly=draft.pending;
+ const submit=requestForm.querySelector('button');submit.disabled=draft.pending;
+ if(draft.pending)submit.setAttribute('aria-busy','true');else submit.removeAttribute('aria-busy');
+ byId('request-message').textContent=draft.pending?'Отправляем заявку…':draft.error;
+}
+async function openRequest(offer,text){
+ const intent=++openIntent;
+ if(!await requireRole('operator')||intent!==openIntent)return;
+ let draft=requestDrafts.get(offer.id);
+ if(!draft||(!draft.pending&&draft.original!==text)){
+  draft={id:crypto.randomUUID(),offer:offer.id,original:text,note:text,error:'',pending:false,sent:false};
+  requestDrafts.set(offer.id,draft);
+ }
+ activeDraft=draft;requestForm.elements.note.value=draft.note;
+ byId('request-service').textContent=offer.name;
+ byId('request-supplier').textContent=[offer.supplier,cityLabel(offer.city),money(offer.price)+' за '+types[offer.category].unit].filter(Boolean).join(' · ');
+ showRequestState(draft);if(!requestDialog.open)requestDialog.showModal();
+}
+requestForm.onsubmit=async event=>{
+ event.preventDefault();const draft=activeDraft;
+ if(!draft||draft.pending||draft.sent)return;
+ draft.note=requestForm.elements.note.value;draft.pending=true;draft.error='';showRequestState(draft);
+ try{
+  await api('requests',{offer:draft.offer,brief:draft.note,requestId:draft.id});draft.sent=true;
+  requestDrafts.delete(draft.offer);
+  if(route==='/operator')refreshOffice().catch(error=>{officeMessage.textContent=error.message});
+ }catch(error){draft.error=error.message}
+ finally{
+  draft.pending=false;
+  if(activeDraft===draft){
+   showRequestState(draft);
+   if(draft.sent&&requestDialog.open)byId('request-receipt').querySelector('a').focus();
+   else if(draft.sent)officeMessage.textContent='Заявка отправлена.';
+  }
+ }
+};
+async function requireRole(role){
+ try{profile=(await api('me')).profile;if(permits(profile,role))return true;
+  if(!profile){location.assign('/start');return false}
+  byId('message').textContent='Отправлять заявки можно только со страницы оператора.';
+ }catch(error){byId('message').textContent=error.message;if(error.status===401)enterWithDraft()}
+ return false;
+}
+async function initializeRoute(){
+ const landing=route==='/';
+ byId('operator-view').hidden=!landing;
+ if(route==='/start')showAccess();
+ try{
+  const identity=await api('me');profile=identity.profile;previous=identity.previous;
+  const entry=byId('entry');
+  if(profile){entry.textContent='Мой кабинет';entry.href='/account'}
+  if(landing)return;
+  if(route==='/start'){
+   if(profile)location.replace(rolePath(profile.role));
+   else renderMode();
+   return;
+  }
+  if(!profile){location.replace('/start');return}
+  entry.hidden=false;
+  if(route==='/account'){
+   entry.setAttribute('aria-current','page');
+   document.title='Мой кабинет — TOURMESH';
+   const roleNames={supplier:'Поставщик',operator:'Туроператор',both:'Туроператор и поставщик'};
+   byId('account-identity').textContent=profile.name+' · '+roleNames[profile.role];
+   byId('account-search').hidden=!permits(profile,'operator');
+   byId('account-publish').hidden=!permits(profile,'supplier');
+   byId('account-view').hidden=false;
+   await refreshOffice();
+   return;
+  }
+  if(!permits(profile,workspaceRole)){location.replace(rolePath(profile.role));return}
+  if(profile.role==='both'){
+   const other=make('a',workspaceRole==='supplier'?'Страница оператора':'Кабинет поставщика','text-btn');
+   other.href=workspaceRole==='supplier'?'/operator':'/supplier';entry.before(other);
+  }
+  if(workspaceRole==='supplier'){
+   byId('supplier-view').hidden=false;
+   byId('supplier-company').textContent=profile.name;
+   const editor=byId('supplier-fields');byId('supplier-editor').append(editor);editor.hidden=false;
+  }else{byId('operator-view').hidden=false;byId('operator-office').hidden=false}
+  await refreshOffice();
+ }catch(error){
+  if(error.status===401&&route!=='/start'){location.replace('/start');return}
+  officeMessage.textContent=error.message;
+ }
+}
+let authMode='register',previous=null;
+const authFields=officeForm.elements, authMessage=byId('auth-message'), authSubmit=byId('auth-submit');
+function renderMode(){
+ const register=authMode==='register',recovery=authMode==='recover',link=register&&previous&&authFields.legacy.checked;
+ byId('mode-switch').dataset.mode=authMode;
+ byId('register-mode').setAttribute('aria-pressed',String(register));
+ byId('login-mode').setAttribute('aria-pressed',String(!register));
+ byId('access-title').textContent=register?'Ваш кабинет':recovery?'Новый пароль':'С возвращением';
+ const role=register?(link?previous.role:authFields.role.value):'';
+ byId('access-title').parentElement.dataset.role=role;
+ byId('access-lead').textContent=register?(role==='supplier'?'В вашем кабинете можно опубликовать услугу и ответить оператору.':role==='operator'?'В вашем кабинете можно подобрать услуги для тура и отправить заявку.':'Выберите, как вы работаете с турами.'):recovery?'Введите код, который вы сохранили в кабинете.':'Войдите, чтобы продолжить работу с партнёрами.';
+ byId('legacy-option').hidden=!register||!previous;byId('legacy-name').textContent=previous?.name||'';
+ byId('register-role').hidden=byId('register-role').disabled=!register||!!link;
+ byId('company-field').hidden=authFields.company.disabled=!register||!!link;
+ byId('code-field').hidden=authFields.code.disabled=!recovery;authFields.code.required=recovery;
+ byId('recover-mode').hidden=authMode!=='login';
+ byId('password-label').textContent=recovery?'Новый пароль':'Пароль';
+ byId('password-hint').hidden=authMode==='login';byId('login-hint').hidden=!register;
+ authFields.password.minLength=authMode==='login'?1:15;authFields.password.autocomplete=authMode==='login'?'current-password':'new-password';
+ authSubmit.textContent=register?'Создать кабинет':recovery?'Сохранить новый пароль':'Войти';
+}
+function showAccess(){byId('start-view').hidden=false;byId('entry').hidden=true;renderMode()}
+function setMode(mode){
+ if(authSubmit.disabled)return;
+ authMode=mode;authMessage.textContent='';authFields.password.value='';authFields.code.value='';
+ renderMode();officeForm.classList.remove('reveal');void officeForm.offsetWidth;officeForm.classList.add('reveal');
+}
+byId('register-mode').onclick=()=>setMode('register');
+byId('login-mode').onclick=()=>setMode('login');
+byId('recover-mode').onclick=()=>{setMode('recover');authFields.login.focus()};
+authFields.legacy.onchange=renderMode;
+byId('register-role').onchange=()=>{
+ renderMode();const lead=byId('access-lead');lead.classList.remove('reveal');void lead.offsetWidth;lead.classList.add('reveal');
+};
+officeForm.onsubmit=async event=>{
+ event.preventDefault();if(authSubmit.disabled)return;
+ authSubmit.disabled=true;authSubmit.setAttribute('aria-busy','true');authMessage.textContent='';
+ const payload={login:authFields.login.value,password:authFields.password.value};
+ if(authMode==='register')Object.assign(payload,{name:authFields.company.value,role:authFields.role.value,linkPrevious:authFields.legacy.checked});
+ if(authMode==='recover')payload.code=authFields.code.value;
+ try{
+  const result=await api('auth/'+authMode,payload);
+  if(authMode==='recover'){
+   authSubmit.disabled=false;setMode('login');authMessage.textContent='Пароль изменён. Войдите с новым паролем.';authFields.password.focus();return;
+  }
+  profile=result.profile;authFields.password.value='';
+  if(resumeSearch&&permits(profile,'operator')){
+   resumeSearch=false;route='/operator';workspaceRole='operator';history.replaceState(null,'',route);
+   byId('start-view').hidden=true;await initializeRoute();await runSearch();
+  }else location.replace(rolePath(profile.role));
+ }catch(error){authMessage.textContent=error.message}finally{authSubmit.disabled=false;authSubmit.removeAttribute('aria-busy')}
+};
+const backup=byId('backup-form');
+byId('account-logout').onclick=async event=>{
+ const button=event.currentTarget;button.disabled=true;
+ try{await api('auth/logout',{});location.replace('/')}
+ catch(error){byId('logout-message').textContent=error.message;button.disabled=false}
+};
+backup.onsubmit=async event=>{
+ event.preventDefault();const button=backup.querySelector('button');button.disabled=true;byId('backup-code').textContent='';
+ try{
+  const result=await api('auth/recovery-code',{password:backup.elements.password.value});
+  backup.reset();byId('backup-code').textContent=result.code;byId('backup-status').textContent='Сохраните код в менеджере паролей. Он показывается один раз.';
+ }catch(error){byId('backup-status').textContent=error.message}finally{button.disabled=false}
+};
+byId('account-security').ontoggle=event=>{
+ if(!event.currentTarget.open){backup.reset();byId('backup-code').textContent='';byId('backup-status').textContent=''}
+};
+function markOfficeChange(row){
+ row.classList.add('changed-row');
+ playMotion(row,[{opacity:.55,transform:'translateY(6px)'},{opacity:1,transform:'none'}],{id:'office-change',duration:270});
+ if(document.activeElement!==document.body&&document.activeElement!==byId('publish'))return;
+ row.tabIndex=-1;row.focus({preventScroll:true});
+ const box=row.getBoundingClientRect();
+ if(box.top<0||box.bottom>innerHeight)row.scrollIntoView({block:'nearest',behavior:reducedMotion.matches?'instant':'smooth'});
+}
+let officeRevision=0;
+async function refreshOffice(changedId){
+ const inAccount=route==='/account';
+ const showSupplier=inAccount?permits(profile,'supplier'):workspaceRole==='supplier';
+ const showOperator=inAccount?permits(profile,'operator'):workspaceRole==='operator';
+ const contents=byId(inAccount?'account-office':workspaceRole+'-office');
+ const revision=++officeRevision;
+ let refresh=contents.querySelector('[data-refresh]');
+ if(!refresh){
+  refresh=make('button','Обновить заявки','text-btn');refresh.type='button';refresh.dataset.refresh='';
+  refresh.onclick=()=>refreshOffice().catch(error=>{officeMessage.textContent=error.message});contents.prepend(refresh);
+ }
+ refresh.disabled=true;refresh.textContent='Обновляем заявки…';
+ let office;
+ try{office=await api('office')}
+ finally{if(revision===officeRevision){refresh.disabled=false;refresh.textContent='Обновить заявки'}}
+ if(revision!==officeRevision)return;
+ const {offers,requests}=office;
+ const focused=document.activeElement;
+ const existingReplies=new Map([...contents.querySelectorAll('article[data-status="sent"]')].map(row=>[row.dataset.requestId,row]));
+ const fragment=document.createDocumentFragment();
+ let changedRow;
+ const block=(title,items,render,empty)=>{
+  const section=make('section','','group');section.append(make(inAccount?'h2':'h3',title));
+  if(!items.length)section.append(make('p',empty,'message'));
+  items.forEach(item=>{
+   const previous=item.status==='sent'&&existingReplies.get(item.id);
+   const row=previous||render(item);section.append(row);if(item.id===changedId)changedRow=row;
+  });
+  fragment.append(section);
+ };
+ if(showSupplier)block('Мои услуги',offers,offer=>{
+  const row=make('div','','group');row.append(make('strong',offer.name),make('p',cityLabel(offer.city)+' · '+money(offer.price),'message'));
+  if(profile?.role==='supplier'||profile?.role==='both'){
+   const action=make('button',offer.visible?'Скрыть':'Показать','text-btn');action.type='button';
+   action.onclick=async()=>{action.disabled=true;try{await api('visibility',{id:offer.id,visible:!offer.visible});await refreshOffice()}catch(error){officeMessage.textContent=error.message;action.disabled=false}};
+   row.append(action);
+  }
+  return row;
+ },'Пока нет опубликованных услуг.');
+ const states={sent:'Отправлена',accepted:'Условия подтверждены',declined:'Отказ'};
+ const requestCard=item=>{
+  const row=make('article','','group');const state=make('span',states[item.status],'request-state');state.dataset.status=item.status;
+  row.dataset.requestId=item.id;row.dataset.status=item.status;
+  row.append(make('strong',item.snapshot.name),document.createTextNode(' · '),state,make('p',item.incoming?'От '+item.buyerName:'Коммерческая заявка, не бронь','message'),make('p',item.brief));
+  if(item.response)row.append(make('p','Ответ: '+item.response,'message'));
+  if(item.incoming&&item.status==='sent'&&(profile?.role==='supplier'||profile?.role==='both')){
+   const note=make('textarea');note.maxLength=500;note.placeholder='Ответ поставщика';note.setAttribute('aria-label','Ответ поставщика');
+   const bar=make('div','','assist');
+   for(const [status,label] of [['accepted','Подтвердить условия'],['declined','Отказать']]){
+    const button=make('button',label,'btn quiet');button.type='button';button.onclick=async()=>{
+     for(const action of bar.children)action.disabled=true;
+     button.setAttribute('aria-busy','true');note.disabled=true;const response=note.value.trim();
+     try{
+      await api('respond',{id:item.id,status,response});
+      const updated=requestCard({...item,status,response});
+      if(row.isConnected){row.replaceWith(updated);markOfficeChange(updated)}
+      else await refreshOffice(item.id);
+      officeMessage.textContent=states[status];
+     }catch(error){officeMessage.textContent=error.message;note.disabled=false;for(const action of bar.children)action.disabled=false}
+     finally{button.removeAttribute('aria-busy')}
+    };
+    bar.append(button);
+   }
+   row.append(note,bar);
+  }
+  return row;
+ };
+ if(showSupplier)block('Входящие заявки',requests.filter(item=>item.incoming),requestCard,'Пока нет входящих заявок.');
+ if(showOperator)block('Мои заявки',requests.filter(item=>!item.incoming),requestCard,'Пока нет отправленных заявок.');
+ contents.replaceChildren(refresh,fragment);existingReplies.clear();
+ if(contents.contains(focused)&&document.activeElement!==focused)focused.focus({preventScroll:true});
+ if(changedRow)markOfficeChange(changedRow);
+}
+initializeRoute();
+const voice=byId('voice');
+const Speech=window.SpeechRecognition||window.webkitSpeechRecognition;
+let listening=false,recognition;
+function setListening(value){listening=value;voice.setAttribute('aria-pressed',String(value));voice.querySelector('span').textContent=value?'Остановить':'Голосом'}
+voice.onclick=()=>{
+ if(!Speech){byId('message').textContent='Голосовой ввод недоступен в этом браузере. Введите текст вручную.';brief.focus();return}
+ if(listening){recognition.stop();return}
+ recognition=new Speech();recognition.lang=({ru:'ru-RU',en:'en-US',uz:'uz-UZ'})[lang];recognition.interimResults=true;
+ const base=brief.value.trim();
+ let spoken='';
+ recognition.onstart=()=>{setListening(true);byId('message').textContent='Слушаю…'};
+ recognition.onresult=event=>{spoken=Array.from(event.results,result=>result[0].transcript).join(' ');brief.value=[base,spoken].filter(Boolean).join(' ').slice(0,1800);exampleActive=false};
+ let failed=false;
+ recognition.onerror=event=>{failed=true;setListening(false);byId('message').textContent=event.error==='not-allowed'?'Разрешите доступ к микрофону или введите текст.':'Не удалось распознать речь. Попробуйте ещё раз или введите текст.'};
+ recognition.onend=()=>{setListening(false);if(!failed)byId('message').textContent=spoken?'Проверьте текст перед поиском.':'Речь не распознана.'};
+ try{recognition.start()}catch{setListening(false);byId('message').textContent='Не удалось включить микрофон.'}
+};
+</script>
+<script type="module" src="/demo-calendar.mjs"></script>
+</body>
+</html>
