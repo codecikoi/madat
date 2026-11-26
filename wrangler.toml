@@ -7,10 +7,12 @@ no_bundle = true
 [[d1_databases]]
 binding = "DB"
 database_name = "tourmesh"
-# Local dev works with any id. For deploy: `npx wrangler d1 create tourmesh` and paste the real id.
-database_id = "00000000-0000-0000-0000-000000000000"
+database_id = "9c4f04ac-2f21-40bb-9223-fd9a0bd8fae9"
 migrations_dir = "drizzle"
 
-[[r2_buckets]]
-binding = "BUCKET"
-bucket_name = "tourmesh-photos"
+# Photo storage. Disabled until R2 is enabled in the Cloudflare dashboard;
+# without it offers work, only photo upload answers 503.
+# Then: `npx wrangler r2 bucket create tourmesh-photos` and uncomment.
+# [[r2_buckets]]
+# binding = "BUCKET"
+# bucket_name = "tourmesh-photos"
