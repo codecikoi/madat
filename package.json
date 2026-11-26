@@ -1,6 +1,17 @@
 {
   "private": true,
   "type": "module",
-  "dependencies": { "bcryptjs": "3.0.3" },
-  "devDependencies": { "esbuild": "0.25.12" }
+  "dependencies": {
+    "bcryptjs": "3.0.3"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12",
+    "wrangler": "^4.168.0"
+  },
+  "scripts": {
+    "build": "node build-market.mjs",
+    "migrate:local": "wrangler d1 migrations apply DB --local",
+    "dev": "npm run build && wrangler dev",
+    "deploy": "npm run build && wrangler deploy"
+  }
 }
