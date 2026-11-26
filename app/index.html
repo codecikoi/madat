@@ -302,6 +302,12 @@ dialog::backdrop{background:rgba(14,23,38,.36);backdrop-filter:blur(2px)}
 .error{color:var(--bad);background:var(--bad-bg);border-radius:var(--r-field);padding:10px 12px;font-size:14px}
 /* book a demo (calendar logic lives in the demo-calendar module) */
 #demo-dialog{width:min(760px,calc(100vw - 32px))}
+@media (prefers-reduced-motion:no-preference){
+ #demo-dialog[open]{animation:dialogIn .26s cubic-bezier(.2,.8,.2,1)}
+ #demo-dialog[open]::backdrop{animation:backdropIn .26s ease-out}
+}
+@keyframes dialogIn{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes backdropIn{from{opacity:0}to{opacity:1}}
 .demo-status{margin:0;color:var(--muted);font-size:14px}
 .demo-status:empty{display:none}
 .demo-receipt{background:var(--ok-bg);color:var(--ok);border-radius:var(--r-card);padding:16px 18px;font-weight:600}

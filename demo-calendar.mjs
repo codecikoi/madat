@@ -132,14 +132,19 @@ id('times').onclick=event=>{
  id('status').textContent='';renderHours();
  id('times').querySelector('[aria-pressed=true]')?.focus();
 };
-async function loadCalendar(message=''){
+const fetchCalendar=()=>fetch('/api/demo-calendar',{cache:'no-store',signal:AbortSignal.timeout(8000)}).then(res=>{if(!res.ok)throw Error();return res.json()});
+// The schedule starts loading when the pointer reaches the button, so the dialog can open already filled in.
+let warm=null;
+function warmUp(){
+ if(!warm||Date.now()-warm.at>20000){warm={at:Date.now(),data:fetchCalendar()};warm.data.catch(()=>{})}
+ return warm.data;
+}
+async function loadCalendar(message='',source=null){
  const current=++revision;
  ready=false;chosen=null;id('hours').hidden=true;id('retry').hidden=true;
  id('status').textContent='Загружаем расписание…';
  try{
-  const res=await fetch('/api/demo-calendar',{cache:'no-store',signal:AbortSignal.timeout(8000)});
-  if(!res.ok)throw Error();
-  const data=await res.json();
+  const data=await (source||fetchCalendar());
   if(current!==revision)return;
   if(data.mine){
    id('hours').hidden=true;id('receipt').hidden=false;
@@ -177,6 +182,19 @@ id('confirm').onclick=async()=>{
  }catch{id('status').textContent='Не удалось подтвердить запись. Попробуйте снова.'}
  finally{sending=false;if(ready)renderHours()}
 };
-function openDemo(){if(!id('dialog').open)id('dialog').showModal();if(!sending)loadCalendar()}
+let opening=false;
+async function openDemo(){
+ if(id('dialog').open||opening)return;
+ if(sending){id('dialog').showModal();return}
+ opening=true;
+ const source=warmUp();warm=null;
+ let arrived=false;source.then(()=>arrived=true,()=>arrived=true);
+ // Wait briefly for the schedule so the dialog does not jump from a loading line to the full calendar.
+ await Promise.race([source.then(()=>{},()=>{}),new Promise(resolve=>setTimeout(resolve,450))]);
+ const loading=loadCalendar('',source);
+ if(arrived)await loading;
+ opening=false;id('dialog').showModal();
+}
+for(const type of ['pointerenter','focus','touchstart'])id('open').addEventListener(type,warmUp,{passive:true});
 id('open').onclick=openDemo;id('close').onclick=()=>id('dialog').close();id('retry').onclick=()=>loadCalendar();
 if(new URLSearchParams(location.search).has('demo'))openDemo();
