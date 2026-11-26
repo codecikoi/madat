@@ -1,5 +1,6 @@
 // Request exchange between travel agencies: post a request, collect bids, choose one, chat.
 import {limited} from './accounts.mjs';
+import {tg,botUsername,hookSecret,hookUpdates,loginUpdate} from './telegram.mjs';
 import catalog from './languages.json';
 // Sample content (demo agencies, reviews, canned notes) is stored in Russian and shown in the viewer's language.
 const tr=(value,lang)=>lang&&lang!=='ru'&&typeof value==='string'&&catalog[value]?catalog[value][lang==='en'?0:1]:value;
@@ -71,23 +72,6 @@ export async function parseRequest(env,text,lang){
 }
 
 // ---------- telegram ----------
-let botName;
-async function tg(env,method,payload){
- if(!env.TELEGRAM_BOT_TOKEN)return null;
- try{
-  const response=await fetch('https://api.telegram.org/bot'+env.TELEGRAM_BOT_TOKEN+'/'+method,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});
-  return await response.json();
- }catch{return null}
-}
-async function botUsername(env){
- if(env.TELEGRAM_BOT_USERNAME)return env.TELEGRAM_BOT_USERNAME;
- if(!botName){const me=await tg(env,'getMe',{});botName=me?.result?.username||''}
- return botName;
-}
-async function hookSecret(env){
- const bytes=new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('tourmesh-hook:'+env.TELEGRAM_BOT_TOKEN)));
- return Array.from(bytes.slice(0,24),b=>b.toString(16).padStart(2,'0')).join('');
-}
 function notify(env,chat,text,link,button){
  if(!chat)return Promise.resolve();
  const https=/^https:\/\//.test(link)&&!/localhost|127\.0\.0\.1/.test(link);
@@ -214,8 +198,8 @@ export async function exchange({request,env,ctx,url,path,method,db,profile,body,
 
  if(method==='GET'){
   if(path==='/api/profile'){
-   const row=await db.prepare('SELECT id,name,city,about,phone,telegram,logo,tg_chat,demo FROM profiles WHERE id=?').bind(me).first();
-   return json({profile:{name:row.name,city:row.city,about:row.about,phone:row.phone,telegram:row.telegram,telegramConnected:!!row.tg_chat,demo:row.demo===2},bot:env.TELEGRAM_BOT_TOKEN?await botUsername(env):''});
+   const row=await db.prepare("SELECT p.id,p.name,p.city,p.about,p.phone,p.telegram,p.logo,p.tg_chat,p.demo,a.password_hash<>'' AS password FROM profiles p LEFT JOIN accounts a ON a.user_id=p.id WHERE p.id=?").bind(me).first();
+   return json({profile:{name:row.name,city:row.city,about:row.about,phone:row.phone,telegram:row.telegram,telegramConnected:!!row.tg_chat,demo:row.demo===2,password:!!row.password},bot:env.TELEGRAM_BOT_TOKEN?await botUsername(env):''});
   }
   if(path==='/api/jobs'){
    const {results}=await db.prepare(`SELECT j.*,p.name AS ownerName,p.city AS ownerCity,(SELECT COUNT(*) FROM bids b WHERE b.job=j.id AND b.created<=?) AS bids,EXISTS(SELECT 1 FROM bids b WHERE b.job=j.id AND b.owner=?) AS mine FROM jobs j JOIN profiles p ON p.id=j.owner WHERE j.status='open' AND j.owner<>? ORDER BY j.created DESC LIMIT 100`).bind(now,me,me).all();
@@ -331,7 +315,7 @@ export async function exchange({request,env,ctx,url,path,method,db,profile,body,
  }
  if(path==='/api/telegram/setup'){
   if(!env.TELEGRAM_BOT_TOKEN)return error('Telegram-бот ещё не подключён.',503);
-  const result=await tg(env,'setWebhook',{url:origin+'/api/telegram/hook',secret_token:await hookSecret(env),allowed_updates:['message']});
+  const result=await tg(env,'setWebhook',{url:origin+'/api/telegram/hook',secret_token:await hookSecret(env),allowed_updates:hookUpdates});
   return json({ok:!!result?.ok,description:result?.description||''});
  }
  return undefined;
@@ -345,6 +329,7 @@ async function chatAccess(db,bid,me){
 export async function telegramHook(request,env,db){
  if(!env.TELEGRAM_BOT_TOKEN||request.headers.get('x-telegram-bot-api-secret-token')!==await hookSecret(env))return new Response('forbidden',{status:403});
  let update;try{update=await request.json()}catch{return new Response('ok')}
+ if(await loginUpdate(update,env,db))return new Response('ok');
  const message=update?.message,chat=message?.chat?.id,text=typeof message?.text==='string'?message.text:'';
  if(!chat||message.chat.type!=='private')return new Response('ok');
  const code=text.match(/^\/start\s+([a-f0-9]{24})$/)?.[1];

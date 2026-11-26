@@ -527,5 +527,17 @@
   "© 2026 TOURMESH. Все права защищены.": ["© 2026 TOURMESH. All rights reserved.", "© 2026 TOURMESH. Barça huquqlar himoyalangan."],
   "Условия использования": ["Terms of use", "Foydalaniş şartlari"],
   "Политика конфиденциальности": ["Privacy policy", "Maxfiylik siyosati"],
-  "Публичная оферта": ["Public offer", "Ommaviy oferta"]
+  "Публичная оферта": ["Public offer", "Ommaviy oferta"],
+  "Войти через Telegram": ["Sign in with Telegram", "Telegram orqali kiriş"],
+  "Без пароля — подтвердите вход в нашем боте. Если вы у нас впервые, аккаунт создастся сам.": ["No password: confirm in our Telegram bot. New here? Your account is created automatically.", "Parolsiz — botimizda kirişni tasdiqlang. Birinçi marta bölsangiz, akkaunt özi yaratiladi."],
+  "Ждём подтверждения в Telegram": ["Waiting for confirmation in Telegram", "Telegramda tasdiqlaşni kutyapmiz"],
+  "Нажмите «Войти на сайт» в сообщении от бота.": ["Tap “Sign in on the website” in the bot's message.", "Bot xabaridagi «Saytga kiriş» tugmasini bosing."],
+  "Открыть Telegram ещё раз": ["Open Telegram again", "Telegramni yana oçiş"],
+  "Другой способ": ["Other options", "Boşqa usul"],
+  "Последний шаг": ["One last step", "Oxirgi qadam"],
+  "Как называется ваше агентство? Его увидят партнёры в заявках и откликах.": ["What is your agency called? Partners will see it on requests and offers.", "Agentligingiz qanday nomlanadi? Uni hamkorlar sörov va takliflarda köradi."],
+  "Продолжить": ["Continue", "Davom etiş"],
+  "Ссылка для входа устарела. Нажмите «Войти через Telegram» ещё раз.": ["This sign-in link has expired. Press “Sign in with Telegram” again.", "Kiriş havolasi eskirgan. «Telegram orqali kiriş» tugmasini yana bosing."],
+  "Вход через Telegram пока недоступен.": ["Signing in with Telegram isn't available yet.", "Telegram orqali kiriş hozirça mavjud emas."],
+  "Укажите название агентства.": ["Enter your agency name.", "Agentlik nomini kiriting."]
 }

@@ -295,6 +295,17 @@ dialog::backdrop{background:rgba(14,23,38,.36);backdrop-filter:blur(2px)}
 .modal .tabs{align-self:flex-start}
 .text-link{align-self:center;border:0;background:none;padding:4px 8px;color:var(--blue);font-weight:600;font-size:14px;cursor:pointer}
 .text-link:hover{text-decoration:underline}
+.way{display:flex;flex-direction:column;gap:16px}
+#tgWay{gap:12px}
+.tg-go{width:100%}
+.tg-go.again{background:#fff;border-color:var(--line);color:var(--ink)}
+.tg-go.again:hover{border-color:#cfd3da}
+.tg-go:not([href]){opacity:.6;cursor:progress}
+.tg-hint{margin:0;font-size:13px;text-align:center}
+.tg-wait{display:flex;gap:12px;align-items:flex-start;background:var(--blue-soft);border-radius:var(--r-field);padding:12px 14px;font-size:14px;line-height:1.45}
+.tg-wait b{display:block;color:var(--ink)}
+.tg-wait span{color:var(--muted)}
+.tg-wait .spin{flex:none;margin-top:1px;color:var(--blue);animation:spin .9s linear infinite}
 .notice{color:var(--ok);background:var(--ok-bg);border-radius:var(--r-field);padding:10px 12px;font-size:14px;font-weight:600}
 .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
 .input.mono{font-size:14px}
@@ -436,15 +447,25 @@ dialog::backdrop{background:rgba(14,23,38,.36);backdrop-filter:blur(2px)}
   <button class="close" type="button" id="authClose" aria-label="Закрыть"><svg width="16" height="16"><use href="#i-x"/></svg></button>
   <h2 id="authTitle">Вход в TOURMESH</h2>
   <p class="muted" id="authLead" style="margin:-8px 0 0">Один аккаунт — чтобы и размещать заявки, и откликаться на чужие.</p>
-  <div class="tabs" role="tablist"><button type="button" data-auth="login" class="on">Вход</button><button type="button" data-auth="register">Регистрация</button></div>
-  <div class="field hidden" id="nameField"><label for="aName">Название агентства</label><input class="input" id="aName" autocomplete="organization" maxlength="90"></div>
-  <div class="field"><label for="aLogin">Логин</label><input class="input" id="aLogin" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="40"></div>
-  <div class="field hidden" id="codeField"><label for="aCode">Резервный код</label><input class="input mono" id="aCode" autocomplete="one-time-code" autocapitalize="none" spellcheck="false" maxlength="48" placeholder="xxxx-xxxx-xxxx-xxxx-xxxx-xxxx-xxxx-xxxx"></div>
-  <div class="field"><label for="aPass" id="aPassLabel">Пароль</label><input class="input" id="aPass" type="password" autocomplete="current-password"><small class="muted hidden" id="passHint">Фраза от 15 символов, можно с пробелами.</small></div>
   <div class="error hidden" id="authError"></div>
   <div class="notice hidden" id="authOk" role="status"></div>
-  <button class="btn primary lg" id="authSubmit" type="submit">Войти</button>
-  <button class="text-link" id="forgot" type="button">Забыли пароль?</button>
+  <div class="way" id="tgWay">
+   <a class="btn primary lg tg-go" id="tgGo" target="_blank" rel="noopener"><svg width="22" height="22" aria-hidden="true"><use href="#i-tg"/></svg><span id="tgGoText">Войти через Telegram</span></a>
+   <p class="tg-hint muted" id="tgHint">Без пароля — подтвердите вход в нашем боте. Если вы у нас впервые, аккаунт создастся сам.</p>
+   <div class="tg-wait hidden" id="tgWait" role="status"><svg class="spin" width="20" height="20" aria-hidden="true"><use href="#i-spin"/></svg><div><b>Ждём подтверждения в Telegram</b><span>Нажмите «Войти на сайт» в сообщении от бота.</span></div></div>
+   <div class="field hidden" id="tgNameField"><label for="tgName">Название агентства</label><input class="input" id="tgName" autocomplete="organization" maxlength="90"></div>
+   <button class="btn primary lg hidden" id="tgFinish" type="submit">Продолжить</button>
+  </div>
+  <div class="way hidden" id="passWay">
+   <div class="tabs" role="tablist"><button type="button" data-auth="login" class="on">Вход</button><button type="button" data-auth="register">Регистрация</button></div>
+   <div class="field hidden" id="nameField"><label for="aName">Название агентства</label><input class="input" id="aName" autocomplete="organization" maxlength="90"></div>
+   <div class="field"><label for="aLogin">Логин</label><input class="input" id="aLogin" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="40"></div>
+   <div class="field hidden" id="codeField"><label for="aCode">Резервный код</label><input class="input mono" id="aCode" autocomplete="one-time-code" autocapitalize="none" spellcheck="false" maxlength="48" placeholder="xxxx-xxxx-xxxx-xxxx-xxxx-xxxx-xxxx-xxxx"></div>
+   <div class="field"><label for="aPass" id="aPassLabel">Пароль</label><input class="input" id="aPass" type="password" autocomplete="current-password"><small class="muted hidden" id="passHint">Фраза от 15 символов, можно с пробелами.</small></div>
+   <button class="btn primary lg" id="authSubmit" type="submit">Войти</button>
+   <button class="text-link" id="forgot" type="button">Забыли пароль?</button>
+  </div>
+  <button class="text-link" id="authSwitch" type="button">Другой способ</button>
  </form>
 </dialog>
 <dialog id="demo-dialog" aria-labelledby="demo-title">
@@ -558,30 +579,92 @@ function every(fn,ms){timers.push(setInterval(()=>{if(!document.hidden)fn()},ms)
 function needAuth(then,mode='register'){if(me)return then();pendingAuth=then;openAuth(mode)}
 
 /* ---------- auth ---------- */
-let authMode='login';
+// Telegram is the main way in; login and password stay behind "Другой способ".
+let authMode='login',authWay='tg',tgOff=false,tgLogin=null,tgPoll=0,tgPreparing=null;
 const authLead=$('#authLead').textContent;
+function authError(text){$('#authError').textContent=text;$('#authError').classList.toggle('hidden',!text)}
 function openAuth(mode){
+ if(!$('#auth').open){authWay=tgOff?'password':'tg';tgStep('link')}
  authMode=mode;
+ if(mode==='recover')authWay='password';
  const recover=mode==='recover';
  $$('[data-auth]').forEach(b=>b.classList.toggle('on',b.dataset.auth===(recover?'login':mode)));
  $('#nameField').classList.toggle('hidden',mode!=='register');
  $('#codeField').classList.toggle('hidden',!recover);
  $('#passHint').classList.toggle('hidden',mode==='login');
  $('#forgot').classList.toggle('hidden',mode!=='login');
- $('#authTitle').textContent=mode==='register'?'Регистрация агентства':recover?'Новый пароль':'Вход в TOURMESH';
- $('#authLead').textContent=recover?'Введите код, который вы сохранили в кабинете.':authLead;
  $('#aPassLabel').textContent=recover?'Новый пароль':'Пароль';
  $('#authSubmit').textContent=mode==='register'?'Создать аккаунт':recover?'Сохранить новый пароль':'Войти';
  $('#aPass').autocomplete=mode==='login'?'current-password':'new-password';
- $('#authError').classList.add('hidden');$('#authOk').classList.add('hidden');
+ authError('');$('#authOk').classList.add('hidden');
+ showWay();
  if(!$('#auth').open)$('#auth').showModal();
- setTimeout(()=>(mode==='register'?$('#aName'):$('#aLogin')).focus(),30);
+ setTimeout(()=>(authWay==='tg'?$('#tgGo'):mode==='register'?$('#aName'):$('#aLogin')).focus(),30);
 }
+function showWay(){
+ const tg=authWay==='tg',naming=tg&&!$('#tgNameField').classList.contains('hidden');
+ $('#tgWay').classList.toggle('hidden',!tg);$('#passWay').classList.toggle('hidden',tg);
+ $('#authTitle').textContent=naming?'Последний шаг':tg?'Вход в TOURMESH':authMode==='register'?'Регистрация агентства':authMode==='recover'?'Новый пароль':'Вход в TOURMESH';
+ $('#authLead').textContent=naming?'Как называется ваше агентство? Его увидят партнёры в заявках и откликах.':authMode==='recover'&&!tg?'Введите код, который вы сохранили в кабинете.':authLead;
+ $('#authSwitch').textContent=tg?'Другой способ':'Войти через Telegram';
+ $('#authSwitch').classList.toggle('hidden',tgOff||naming);
+ if(tg)prepareTelegram();
+}
+// link: the button to open the bot; wait: the bot was opened, polling for the confirmation; name: new account needs an agency name.
+function tgStep(step){
+ clearInterval(tgPoll);tgPoll=0;
+ $('#tgGo').classList.toggle('hidden',step==='name');
+ $('#tgGo').classList.toggle('again',step==='wait');$('#tgGo').classList.toggle('primary',step!=='wait');
+ $('#tgGoText').textContent=step==='wait'?'Открыть Telegram ещё раз':'Войти через Telegram';
+ $('#tgHint').classList.toggle('hidden',step!=='link');
+ $('#tgWait').classList.toggle('hidden',step!=='wait');
+ $('#tgNameField').classList.toggle('hidden',step!=='name');$('#tgFinish').classList.toggle('hidden',step!=='name');
+ if(step==='wait')tgPoll=setInterval(pollTelegram,2000);
+}
+// The link is made when the dialog opens, so tapping it is a real link tap and phones hand it straight to the Telegram app.
+function prepareTelegram(){
+ if(tgLogin&&Date.now()<tgLogin.until)return;
+ $('#tgGo').removeAttribute('href');
+ tgPreparing=tgPreparing||api('/api/auth/telegram/start',{lang}).then(r=>{
+  tgLogin={secret:r.secret,until:Date.now()+r.ttl-60000};$('#tgGo').href=r.url;
+ }).catch(err=>{
+  if(err.status===503){tgOff=true;authWay='password';showWay()}else authError(err.message);
+ }).finally(()=>{tgPreparing=null});
+}
+async function pollTelegram(){
+ if(!tgLogin||pollTelegram.busy)return;
+ pollTelegram.busy=true;
+ try{
+  const r=await api('/api/auth/telegram/poll',{secret:tgLogin.secret});
+  if(r.profile)await signedIn(r.profile);
+  else if(r.status==='name'){tgStep('name');showWay();setTimeout(()=>$('#tgName').focus(),30)}
+ }catch(err){
+  // Without a status the network blinked; keep waiting.
+  if(err.status){tgLogin=null;tgStep('link');authError(err.message);prepareTelegram()}
+ }finally{pollTelegram.busy=false}
+}
+async function signedIn(profile){
+ tgStep('link');tgLogin=null;
+ me=profile;$('#auth').close();$('#aPass').value='';
+ const next=pendingAuth;pendingAuth=null;
+ if(next)await next();else if(location.pathname==='/'||location.pathname==='/start')go('/jobs');else render();
+}
+$('#tgGo').addEventListener('click',e=>{
+ if(!$('#tgGo').href){e.preventDefault();return}
+ authError('');tgStep('wait');
+});
+// Coming back from the Telegram app: check at once instead of waiting for the next tick.
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&tgPoll)pollTelegram()});
+$('#authSwitch').addEventListener('click',()=>{
+ authWay=authWay==='tg'?'password':'tg';
+ openAuth(authMode==='recover'?'login':authMode);
+});
 $$('[data-auth]').forEach(b=>b.addEventListener('click',()=>openAuth(b.dataset.auth)));
 $('#forgot').addEventListener('click',()=>{$('#aPass').value='';openAuth('recover')});
 $('#authClose').addEventListener('click',()=>$('#auth').close());
 // Closing sign-in over a page that needs it leads back to where the visitor came from, or to the request feed.
 $('#auth').addEventListener('close',()=>{
+ clearInterval(tgPoll);tgPoll=0;
  if(me)return;
  pendingAuth=null;
  if(!$('#loginHere'))return;
@@ -589,8 +672,13 @@ $('#auth').addEventListener('close',()=>{
 });
 $('#authForm').addEventListener('submit',async e=>{
  e.preventDefault();
- const btn=$('#authSubmit');btn.disabled=true;
+ const tg=authWay==='tg',btn=tg?$('#tgFinish'):$('#authSubmit');btn.disabled=true;
  try{
+  if(tg){
+   if(!tgLogin)throw new Error('Ссылка для входа устарела. Нажмите «Войти через Telegram» ещё раз.');
+   const data=await api('/api/auth/telegram/finish',{secret:tgLogin.secret,name:$('#tgName').value});
+   $('#tgName').value='';return await signedIn(data.profile);
+  }
   const body={login:$('#aLogin').value,password:$('#aPass').value};
   if(authMode==='register')body.name=$('#aName').value;
   if(authMode==='recover')body.code=$('#aCode').value;
@@ -600,10 +688,11 @@ $('#authForm').addEventListener('submit',async e=>{
    $('#authOk').textContent='Пароль изменён. Войдите с новым паролем.';$('#authOk').classList.remove('hidden');
    setTimeout(()=>$('#aPass').focus(),40);return;
   }
-  me=data.profile;$('#auth').close();$('#aPass').value='';
-  const next=pendingAuth;pendingAuth=null;
-  if(next)await next();else if(location.pathname==='/'||location.pathname==='/start')go('/jobs');else render();
- }catch(err){$('#authError').textContent=err.message;$('#authError').classList.remove('hidden')}
+  await signedIn(data.profile);
+ }catch(err){
+  authError(err.message);
+  if(tg&&err.status===410){tgLogin=null;tgStep('link');showWay()}
+ }
  finally{btn.disabled=false}
 });
 
@@ -1018,15 +1107,15 @@ async function account(){
    <div class="row c2"><div class="field"><label for="pPhone">${'Телефон'}</label><input class="input" id="pPhone" value="${h(p.phone)}" maxlength="40" inputmode="tel" placeholder="+998 90 123 45 67"></div><div class="field"><label for="pTg">${'Telegram для связи'}</label><input class="input" id="pTg" value="${h(p.telegram?'@'+p.telegram:'')}" maxlength="40" placeholder="@username"></div></div>
    <div class="actions"><button class="btn primary" type="submit">${'Сохранить'}</button></div>
   </form>
-  <form class="card" id="backupForm">
+  ${p.password?`<form class="card" id="backupForm">
    <h2>${'Вход и восстановление'}</h2>
    <p class="muted" style="margin:-8px 0 0;font-size:14px">${'Сохраните резервный код отдельно. С ним можно выбрать новый пароль. При выпуске нового кода прежний перестаёт действовать.'}</p>
    <div class="field"><label for="bPass">${'Текущий пароль'}</label><input class="input" id="bPass" type="password" autocomplete="current-password" required></div>
    <div class="actions"><button class="btn line" type="submit">${'Получить резервный код'}</button></div>
    <div class="hidden" id="backupOut"><output class="backup-code mono" id="backupCode"></output><p class="muted" style="margin:8px 0 0;font-size:14px">${'Сохраните код в менеджере паролей. Он показывается один раз.'}</p></div>
-  </form>
+  </form>`:''}
  </div></div>`;
- $('#backupForm').addEventListener('submit',async e=>{
+ $('#backupForm')?.addEventListener('submit',async e=>{
   e.preventDefault();const btn=$('#backupForm [type=submit]');btn.disabled=true;$('#backupOut').classList.add('hidden');
   try{const r=await api('/api/auth/recovery-code',{password:$('#bPass').value});$('#bPass').value='';$('#backupCode').textContent=r.code;$('#backupOut').classList.remove('hidden')}
   catch(err){toast(err.message)}

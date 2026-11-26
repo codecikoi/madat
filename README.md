@@ -46,6 +46,16 @@ npm run deploy
 Offer photos are stored in the R2 bucket `tourmesh-photos`; both `wrangler.toml`
 files bind it as `BUCKET`.
 
+## Sign in with Telegram
+
+Telegram is the main way in; login and password sit behind "Другой способ".
+It uses the notification bot (`TELEGRAM_BOT_TOKEN`, optional `TELEGRAM_BOT_USERNAME`)
+and needs no BotFather setup: the site opens `t.me/<bot>?start=login_<code>`, the bot
+asks to confirm, and the page polls until the press arrives (`telegram.mjs`).
+The bot's webhook must also receive `callback_query` updates. The first sign-in on the
+live site switches that on by itself; `/api/telegram/setup` sets it explicitly.
+Telegram cannot reach localhost, so locally the flow stops at "Ждём подтверждения".
+
 Deploy using your own Cloudflare project with D1 and R2 bindings. Project identity,
 credentials, live database records, and account sessions are not included here.
 The existing public website is https://tourmesh-uz-market.violetflea13.chatgpt.site/

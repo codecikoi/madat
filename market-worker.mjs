@@ -1,6 +1,7 @@
 import {demoBooking} from './demo-booking.mjs';
 import {auth, me, session} from './accounts.mjs';
 import {exchange, telegramHook} from './exchange.mjs';
+import {telegramLogin} from './telegram.mjs';
 import translations from './languages.json';
 import assets from 'tourmesh:assets';
 const categories=['hotel','transport','restaurant','guide'];
@@ -39,6 +40,11 @@ async function api(request,env,url,ctx,lang){
  }
  const profile=await session(request,db);
  if(path==='/api/me'&&method==='GET')return me(request,db,profile);
+ if(path.startsWith('/api/auth/telegram/')&&method==='POST'){
+  let data;
+  try{data=await body(request,1024);if(!data||typeof data!=='object'||Array.isArray(data))throw Error()}catch{return error('Проверьте поля формы.',400)}
+  return telegramLogin(path.slice('/api/auth/telegram/'.length),{request,env,db,data,lang,origin:url.origin,later:promise=>ctx?.waitUntil?ctx.waitUntil(promise):promise});
+ }
  if(path.startsWith('/api/auth/')&&method==='POST'){
   let data;
   try{data=await body(request,4096);if(!data||typeof data!=='object'||Array.isArray(data))throw Error()}catch{return error('Проверьте поля формы.',400)}

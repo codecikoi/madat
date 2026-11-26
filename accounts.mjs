@@ -35,7 +35,7 @@ export async function me(request, db, current) {
   const previous = await previousProfile(request, db);
   return reply({profile:null,previous:previous ? profileView(previous) : null});
 }
-async function newSession(db, id, version) {
+export async function newSession(db, id, version) {
   const token = randomSecret(32);
   const insert = db.prepare('INSERT INTO sessions(token_hash,user_id,version,expires) VALUES(?,?,?,?)')
     .bind(await digest(token), id, version, Date.now() + lifetime * 1000);
