@@ -346,16 +346,16 @@ dialog::backdrop{background:rgba(14,23,38,.36);backdrop-filter:blur(2px)}
 .toast.show{opacity:1;transform:translateX(-50%)}
 /* footer: plain text on purpose, nothing here navigates */
 .foot{background:var(--panel);color:var(--muted);font-size:14px}
-/* one blue line: the footer's top edge, rising into old Bukhara, Samarkand and Khiva */
-.foot-sky{background:var(--bg);border-bottom:2px solid var(--blue);pointer-events:none}
-.foot-sky .wrap{display:flex;justify-content:flex-end}
-.foot-sky svg{display:block;width:100%;max-width:720px;height:auto;overflow:visible;color:var(--blue);clip-path:inset(0 0 0 0);transition:clip-path 2.6s cubic-bezier(.5,.1,.25,1)}
-.foot-sky.wait svg{clip-path:inset(0 100% 0 0);transition:none}
-.foot-sky path{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
-.foot-top{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(3,minmax(0,1fr));gap:32px;padding:48px 0 40px}
-.foot .brand{color:var(--ink);margin-bottom:14px}
-.foot-about p{margin:0;max-width:340px;line-height:1.55}
-.foot-about .foot-note{margin-top:16px;font-size:13px}
+/* one blue stroke on the footer's top edge: in along the ground, over old Bukhara, Samarkand and Khiva, and out */
+.foot-sky{background:var(--bg);pointer-events:none}
+.foot-sky svg{display:block;width:100%;height:96px;overflow:visible;color:var(--blue);
+ -webkit-mask-image:linear-gradient(90deg,transparent,#000 var(--fade,48px),#000 calc(100% - var(--fade,48px)),transparent);
+ mask-image:linear-gradient(90deg,transparent,#000 var(--fade,48px),#000 calc(100% - var(--fade,48px)),transparent)}
+.foot-sky path{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:var(--len) var(--len);transition:stroke-dashoffset 3.4s cubic-bezier(.45,.05,.3,1)}
+.foot-sky.wait path{stroke-dashoffset:var(--len);transition:none}
+.foot-top{display:grid;grid-template-columns:minmax(0,2fr) repeat(2,minmax(0,1fr));gap:32px;padding:48px 0 40px}
+.foot .brand{color:var(--ink);margin-bottom:12px}
+.foot-about p{margin:0;font-size:13px}
 .foot-h{font-size:13px;font-weight:600;letter-spacing:0;color:var(--ink);margin:0 0 14px}
 .foot ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
 .foot-bottom{display:flex;justify-content:space-between;align-items:center;gap:10px 24px;flex-wrap:wrap;border-top:1px solid var(--line);padding:20px 0 24px;font-size:13px}
@@ -366,7 +366,7 @@ dialog::backdrop{background:rgba(14,23,38,.36);backdrop-filter:blur(2px)}
  .summary{position:static}
  .steps{grid-template-columns:1fr;max-width:520px}
  .step:not(:last-child)::after{right:auto;left:50%;top:auto;bottom:-24px;margin:0 0 0 -16px;transform:rotate(90deg)}
- .foot-top{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .foot-top{grid-template-columns:repeat(2,minmax(0,1fr))}
  .foot-about{grid-column:1/-1}
 }
 @media (max-width:720px){
@@ -419,19 +419,13 @@ dialog::backdrop{background:rgba(14,23,38,.36);backdrop-filter:blur(2px)}
 <nav class="tabbar" id="tabbar"></nav>
 <main id="app"></main>
 <footer class="foot">
- <div class="foot-sky" id="sky" aria-hidden="true"><div class="wrap"><svg viewBox="0 0 720 92" width="720" height="92">
-  <path d="M0 96H40V79H56A16 16 0 0 1 88 79H100A20 20 0 0 1 140 79H150V96H198L202 28H199V14H203A7 7 0 0 1 217 14H221V28H218L222 96H250V36A6 6 0 0 1 262 36V60H280V50C276 42 280 30 292 28L292 22L292 28C304 30 308 42 304 50V60H312V18H388V60H396V50C392 42 396 30 408 28L408 22L408 28C420 30 424 42 420 50V60H438V36A6 6 0 0 1 450 36V96H492V70H516V46C504 40 506 12 540 10L540 3L540 10C574 12 576 40 564 46V70H588V96H620L623 52H621V47H661V52H659L662 96H720"/>
-  <path d="M330 96V58A24 24 0 0 1 350 34.3A24 24 0 0 1 370 58V96M280 50H304M396 50H420M516 46H564M528 46C521 32 527 16 540 10C553 16 559 32 552 46M622.1 64H659.9M621.1 78H660.9"/>
- </svg></div></div>
+ <div class="foot-sky" id="sky" aria-hidden="true"><div class="wrap"><svg><path/></svg></div></div>
  <div class="wrap">
   <div class="foot-top">
    <div class="foot-about">
     <div class="brand"><svg aria-hidden="true"><use href="#logo"/></svg>TOURMESH</div>
-    <p>Биржа заявок между турагентствами Узбекистана. Гиды, транспорт, гостиницы и туры под ключ — от партнёров по всей стране.</p>
-    <p class="foot-note">Ташкент, Узбекистан</p>
-    <p class="foot-note" style="margin-top:4px">Команда Madat · Tourism Hackathon 2026</p>
+    <p>Команда Madat · Tourism Hackathon 2026</p>
    </div>
-   <div><h2 class="foot-h">Платформа</h2><ul><li>Биржа заявок</li><li>Разместить заявку</li><li>Как это работает</li><li>Тарифы</li></ul></div>
    <div><h2 class="foot-h">Компания</h2><ul><li>О проекте</li><li>Партнёрам</li><li>Новости</li><li>Контакты</li></ul></div>
    <div><h2 class="foot-h">Поддержка</h2><ul><li>Центр помощи</li><li>Частые вопросы</li><li>Правила площадки</li><li>Сообщить о проблеме</li></ul></div>
   </div>
@@ -502,6 +496,10 @@ const icon=(id,size=15)=>`<svg width="${size}" height="${size}"><use href="#${id
 let me=null,timers=[],pendingAuth=null;
 
 const SERVICE={tour:'Тур / группа',transport:'Транспорт',hotel:'Гостиница',guide:'Гид',food:'Питание',other:'Другое'};
+// A request can ask for several services; "Другое" shows what exactly was written for it.
+const serviceKeys=job=>job.services||[job.service];
+const serviceNames=job=>serviceKeys(job).map(k=>k==='other'&&job.other?job.other:SERVICE[k]||SERVICE.other);
+const serviceTags=job=>serviceNames(job).map(x=>`<span class="tag blue">${h(x)}</span>`).join('');
 const INCLUDES={hotel:'Гостиница',meals:'Питание',guide:'Гид',transport:'Транспорт',tickets:'Входные билеты'};
 const UNIT={person:'за человека',group:'за группу',day:'в день',night:'за ночь',total:'за всё'};
 const PARTNERS=[['dolina-avto-tur','Dolina Avto Tur'],['grand-samarkand-hotel','Grand Samarkand Hotel'],['imperial-palace-bukhara','Imperial Palace Bukhara'],['javoxir-hotel','Javoxir Hotel'],['toureast','TourEast'],['picnic-tour-agency','Picnic Tour Agency'],['konstantin-plaza-samarkand','Konstantin Plaza Samarkand'],['al-amir-palace','Al-Amir Palace'],['caravan-khiva','Caravan Khiva'],['khiva-minor-hotel','Khiva Minor Hotel'],['bagizagan-travel','Bagizagan Travel'],['asiastar','ASIASTAR']];
@@ -546,7 +544,35 @@ function nav(){
  const langs=['ru','en','uz'].map(l=>`<a href="?lang=${l}"${l===lang?' class="on"':''}>${l.toUpperCase()}</a>`).join('');
  $('#navRight').innerHTML=`<div class="lang">${langs}</div>`+(me?`<a class="avatar" href="/account" data-link title="${h(me.name)}">${h(initials(me.name))}</a>`:`<button class="btn ghost" data-open-auth="login">${'Войти'}</button><button class="btn primary" data-open-auth="register">${'Начать'}</button>`);
 }
-// The footer skyline draws itself once, the first time it scrolls into view.
+// The footer skyline is one stroke laid out in pixels for the footer's width: in along the ground,
+// over Bukhara (trading domes, Kalyan), Samarkand (Registan, Gur-e-Amir) and Khiva (Kalta Minor), and out.
+const SKY='M40 96V79H56A16 16 0 0 1 88 79H100A20 20 0 0 1 140 79H150V96H198L202 28H199V14H203A7 7 0 0 1 217 14H221V28H218L222 96H250V36A6 6 0 0 1 262 36V60H280V50C276 42 280 30 292 28L292 22L292 28C304 30 308 42 304 50V60H312V18H388V60H396V50C392 42 396 30 408 28L408 22L408 28C420 30 424 42 420 50V60H438V36A6 6 0 0 1 450 36V96H492V70H516V46C504 40 506 12 540 10L540 3L540 10C574 12 576 40 564 46V70H588V96H620L623 52H621V47H661V52H659L662 96';
+const SKY_ARGS={M:2,L:2,H:1,V:1,C:6,A:7};
+function layoutSky(){
+ const sky=$('#sky'),svg=$('svg',sky),path=$('path',sky),width=Math.round(svg.getBoundingClientRect().width);
+ if(!width||width===layoutSky.width)return;
+ layoutSky.width=width;
+ // The city (622 units wide, ground at y=96) sits near the right end and shrinks only when the footer is narrower.
+ const tail=width<700?20:56,k=Math.min(1,(width-2*tail)/622),left=width-tail-662*k,height=Math.ceil(93*k)+3,ground=height-1;
+ const x=v=>+(left+k*v).toFixed(1),y=v=>+(ground-k*(96-v)).toFixed(1),r=v=>+(k*v).toFixed(2);
+ const tokens=SKY.match(/[A-Z]|[\d.]+/g);
+ let d='M0 '+ground;
+ for(let i=0;i<tokens.length;){
+  const c=tokens[i],a=tokens.slice(i+1,i+1+SKY_ARGS[c]).map(Number);
+  i+=1+SKY_ARGS[c];
+  d+=c==='H'?'H'+x(a[0]):c==='V'?'V'+y(a[0])
+   :c==='C'?'C'+[x(a[0]),y(a[1]),x(a[2]),y(a[3]),x(a[4]),y(a[5])].join(' ')
+   :c==='A'?'A'+[r(a[0]),r(a[1]),a[2],a[3],a[4],x(a[5]),y(a[6])].join(' ')
+   :'L'+x(a[0])+' '+y(a[1]);
+ }
+ svg.setAttribute('viewBox','0 0 '+width+' '+height);svg.style.height=height+'px';
+ path.setAttribute('d',d+'H'+width);
+ sky.style.setProperty('--len',Math.ceil(path.getTotalLength())+'px');
+ sky.style.setProperty('--fade',(tail<40?16:48)+'px');
+}
+layoutSky();
+if('ResizeObserver' in window)new ResizeObserver(layoutSky).observe($('#sky'));
+// It draws itself once, the first time it scrolls into view.
 if('IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
  const sky=$('#sky');sky.classList.add('wait');let check;
  // Until a page renders, #app is empty and the footer sits in view, so draw only if it is still in view a moment later.
@@ -839,7 +865,7 @@ function setupVoice(field,after){
 function jobCard(job){
  const n=job.bids||0;
  return `<a class="card link" href="/jobs/${job.id}" data-link>
-  <div class="job-top"><span class="tag blue">${h(SERVICE[job.service]||SERVICE.other)}</span>${job.answered?`<span class="tag ok">${'Вы откликнулись'}</span>`:''}<span class="muted" style="font-size:12px;margin-left:auto">${h(ago(job.created))}</span></div>
+  <div class="job-top">${serviceTags(job)}${job.answered?`<span class="tag ok">${'Вы откликнулись'}</span>`:''}<span class="muted" style="font-size:12px;margin-left:auto">${h(ago(job.created))}</span></div>
   <div class="job-title">${h(job.title)}</div>
   ${facts(job)}
   <div class="job-foot"><span class="muted">${h(job.owner?.name||'')}${job.owner?.city?' · '+h(job.owner.city):''}</span><span><span class="count${n?'':' zero'}">${n}</span> <span class="muted">${h(plural(n,'отклик','отклика','откликов'))}</span></span></div>
@@ -863,7 +889,8 @@ async function draftPage(){
   <div class="ai-note">${icon('i-spark',20)}<div><b>${'Заявка готова.'}</b> ${'Проверьте и поправьте, если нужно. Ваш текст:'} <q>${h(saved.text)}</q></div></div>
   <form class="card" id="draftForm">
    <div class="field"><label for="dTitle">${'Заголовок'}</label><input class="input title-input" id="dTitle" value="${val(d.title)}" maxlength="80" required></div>
-   <div class="field"><label>${'Что нужно'}</label><div class="seg">${Object.entries(SERVICE).map(([k,v])=>`<label><input type="radio" name="service" value="${k}"${d.service===k?' checked':''}><span>${h(v)}</span></label>`).join('')}</div></div>
+   <div class="field"><label>${'Что нужно'}</label><div class="seg" id="dServices">${Object.entries(SERVICE).map(([k,v])=>`<label><input type="checkbox" name="service" value="${k}"${serviceKeys(d).includes(k)?' checked':''}><span>${h(v)}</span></label>`).join('')}</div>
+    <input class="input" id="dOther" value="${val(d.other)}" maxlength="80" placeholder="${'Что именно нужно?'}" aria-label="${'Что именно нужно?'}"></div>
    <div class="row c4">
     <div class="field"><label for="dCity">${'Город'}</label><input class="input" id="dCity" value="${val(d.city)}" maxlength="40"></div>
     <div class="field"><label for="dFrom">${'Откуда'}</label><input class="input" id="dFrom" value="${val(d.from)}" maxlength="40"></div>
@@ -881,15 +908,21 @@ async function draftPage(){
     <div class="field"><label for="dTransport">${'Транспорт'}</label><input class="input" id="dTransport" value="${val(d.transport)}" maxlength="80"></div>
     <div class="field"><label for="dBudget">${'Бюджет'}</label><input class="input" id="dBudget" value="${val(d.budget)}" maxlength="60"></div>
    </div>
-   <div class="field"><label for="dDetails">${'Требования — по одному на строку'}</label><textarea class="input" id="dDetails" rows="4">${h((d.details||[]).join('\n'))}</textarea></div>
+   <div class="field"><label for="dDetails">${'Требования'}</label><textarea class="input" id="dDetails" rows="4">${h((d.details||[]).join('\n'))}</textarea></div>
    <div class="actions"><a class="btn line lg" href="/" data-link>${'Отмена'}</a><button class="btn primary lg" id="publish" type="submit">${'Опубликовать заявку'}</button></div>
   </form>
  </div></div>`;
- const read=()=>({title:$('#dTitle').value,service:($('input[name=service]:checked')||{}).value||'other',city:$('#dCity').value,from:$('#dFrom').value,start:$('#dStart').value,days:+$('#dDays').value||0,groups:+$('#dGroups').value||1,people:+$('#dPeople').value||0,language:$('#dLang').value,hotel:$('#dHotel').value,meals:$('#dMeals').value,transport:$('#dTransport').value,budget:$('#dBudget').value,details:$('#dDetails').value.split('\n').map(s=>s.trim()).filter(Boolean)});
+ const picked=()=>$$('input[name=service]:checked').map(x=>x.value);
+ // "Другое" needs a word on what exactly: the field shows, and is required, only while it is picked.
+ const showOther=()=>{const on=picked().includes('other');$('#dOther').classList.toggle('hidden',!on);$('#dOther').required=on;return on};
+ showOther();
+ $('#dServices').addEventListener('change',e=>{if(showOther()&&e.target.value==='other'&&e.target.checked)$('#dOther').focus()});
+ const read=()=>({title:$('#dTitle').value,services:picked(),service:picked()[0]||'other',other:$('#dOther').value,city:$('#dCity').value,from:$('#dFrom').value,start:$('#dStart').value,days:+$('#dDays').value||0,groups:+$('#dGroups').value||1,people:+$('#dPeople').value||0,language:$('#dLang').value,hotel:$('#dHotel').value,meals:$('#dMeals').value,transport:$('#dTransport').value,budget:$('#dBudget').value,details:$('#dDetails').value.split('\n').map(s=>s.trim()).filter(Boolean)});
  $('#draftForm').addEventListener('input',()=>{saved.draft=read();store.set('tm-draft',saved)});
  $('#draftForm').addEventListener('submit',e=>{
   e.preventDefault();
   saved.draft=read();store.set('tm-draft',saved);
+  if(!saved.draft.services.length)return toast('Выберите, что нужно.');
   needAuth(async()=>{
    const btn=$('#publish');if(btn)btn.disabled=true;
    try{const r=await api('/api/jobs',{text:saved.text,draft:saved.draft});store.del('tm-draft');go('/jobs/'+r.id,true);toast('Заявка опубликована')}
@@ -907,16 +940,16 @@ async function feed(){
  </div>`;
  const data=await api(me?'/api/jobs':'/api/jobs/latest');
  let filter='';
- const draw=()=>{const list=data.jobs.filter(j=>!filter||j.service===filter);$('#feed').innerHTML=list.map(jobCard).join('')||`<div class="empty" style="grid-column:1/-1"><h3>${'Пока пусто'}</h3>${'Новых заявок в этой категории нет.'}</div>`};
+ const draw=()=>{const list=data.jobs.filter(j=>!filter||serviceKeys(j).includes(filter));$('#feed').innerHTML=list.map(jobCard).join('')||`<div class="empty" style="grid-column:1/-1"><h3>${'Пока пусто'}</h3>${'Новых заявок в этой категории нет.'}</div>`};
  $('#filters').addEventListener('click',e=>{const b=e.target.closest('[data-f]');if(!b)return;filter=b.dataset.f;$$('#filters button').forEach(x=>x.classList.toggle('on',x===b));draw()});
  draw();
 }
 
 /* ---------- job ---------- */
 function summary(job,extra=''){
- const rows=[['Что нужно',SERVICE[job.service]],['Город',job.from&&job.city?job.from+' → '+job.city:job.city],['Начало',dateText(job.start)],['Дней',job.days||''],['Групп',job.groups>1?job.groups:''],['Человек',job.people||''],['Язык гида',job.language],['Гостиница',job.hotel],['Питание',job.meals],['Транспорт',job.transport],['Бюджет',job.budget]].filter(r=>r[1]);
+ const rows=[['Что нужно',serviceNames(job).join(', ')],['Город',job.from&&job.city?job.from+' → '+job.city:job.city],['Начало',dateText(job.start)],['Дней',job.days||''],['Групп',job.groups>1?job.groups:''],['Человек',job.people||''],['Язык гида',job.language],['Гостиница',job.hotel],['Питание',job.meals],['Транспорт',job.transport],['Бюджет',job.budget]].filter(r=>r[1]);
  return `<aside class="card summary">
-  <div class="job-top"><span class="tag blue">${h(SERVICE[job.service]||'')}</span>${job.status==='open'?`<span class="tag wait">${'Ждёт откликов'}</span>`:`<span class="tag ok">${'Исполнитель выбран'}</span>`}</div>
+  <div class="job-top">${serviceTags(job)}${job.status==='open'?`<span class="tag wait">${'Ждёт откликов'}</span>`:`<span class="tag ok">${'Исполнитель выбран'}</span>`}</div>
   <h1>${h(job.title)}</h1>
   ${job.owner?`<div class="muted" style="font-size:14px">${h(job.owner.name)}${job.owner.city?' · '+h(job.owner.city):''} · ${h(ago(job.created))}</div>`:''}
   <dl class="kv">${rows.map(([k,v])=>`<dt>${h(k)}</dt><dd>${h(v)}</dd>`).join('')}</dl>
@@ -1048,7 +1081,7 @@ async function myPage(){
  const draw=()=>{
   $$('#myTabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===tab));
   if(tab==='jobs'){
-   $('#myList').innerHTML=data.jobs.length?`<div class="grid">${data.jobs.map(j=>`<a class="card link" href="/jobs/${j.id}" data-link><div class="job-top"><span class="tag blue">${h(SERVICE[j.service]||'')}</span>${j.status==='open'?`<span class="tag wait">${j.bids?h(bidsLabel(j.bids)):'Ждёт откликов'}</span>`:`<span class="tag ok">${'Исполнитель выбран'}</span>`}<span class="muted" style="font-size:12px;margin-left:auto">${h(ago(j.created))}</span></div><div class="job-title">${h(j.title)}</div>${facts(j)}</a>`).join('')}</div>`:`<div class="empty"><h3>${'У вас пока нет заявок'}</h3><p>${'Опишите, что нужно, — агентства пришлют цены.'}</p><a class="btn primary" href="/" data-link>${'Разместить заявку'}</a></div>`;
+   $('#myList').innerHTML=data.jobs.length?`<div class="grid">${data.jobs.map(j=>`<a class="card link" href="/jobs/${j.id}" data-link><div class="job-top">${serviceTags(j)}${j.status==='open'?`<span class="tag wait">${j.bids?h(bidsLabel(j.bids)):'Ждёт откликов'}</span>`:`<span class="tag ok">${'Исполнитель выбран'}</span>`}<span class="muted" style="font-size:12px;margin-left:auto">${h(ago(j.created))}</span></div><div class="job-title">${h(j.title)}</div>${facts(j)}</a>`).join('')}</div>`:`<div class="empty"><h3>${'У вас пока нет заявок'}</h3><p>${'Опишите, что нужно, — агентства пришлют цены.'}</p><a class="btn primary" href="/" data-link>${'Разместить заявку'}</a></div>`;
   }else{
    $('#myList').innerHTML=data.bids.length?`<div class="grid">${data.bids.map(b=>`<a class="card link" href="${b.status==='chosen'?'/chat/'+b.id:'/jobs/'+b.job.id}" data-link><div class="job-top">${b.status==='chosen'?`<span class="tag ok">${'Вас выбрали'}</span>`:b.status==='sent'?`<span class="tag wait">${'Ждёт ответа'}</span>`:`<span class="tag">${'Закрыта'}</span>`}<span class="muted" style="font-size:12px;margin-left:auto">${h(ago(b.created))}</span></div><div class="job-title">${h(b.job.title)}</div><div class="facts"><span>${h(b.job.owner)}</span><span class="num"><b style="color:var(--ink)">${money(b.price,b.currency)}</b>&nbsp;${h(UNIT[b.unit]||'')}</span></div></a>`).join('')}</div>`:`<div class="empty"><h3>${'Вы ещё не откликались'}</h3><p>${'Посмотрите, кому сейчас нужен партнёр.'}</p><a class="btn primary" href="/jobs" data-link>${'Смотреть заявки'}</a></div>`;
   }
