@@ -12,6 +12,6 @@
     "build": "node build-market.mjs",
     "migrate:local": "wrangler d1 migrations apply DB --local",
     "dev": "npm run build && wrangler dev",
-    "deploy": "npm run build && wrangler deploy"
+    "deploy": "npm run build && mkdir -p pages/dist && cp dist/server/index.js pages/dist/_worker.js && wrangler pages deploy --cwd pages --no-bundle --branch main"
   }
 }

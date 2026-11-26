@@ -33,12 +33,19 @@ The session cookie is `Secure`; Chrome accepts it on localhost.
 
 ## Deploy
 
+Live: https://tourmesh.pages.dev (Cloudflare Pages, advanced mode: the built
+worker is uploaded as `pages/dist/_worker.js`). Bindings for production live in
+`pages/wrangler.toml`; `wrangler.toml` in the root is for local dev only.
+
 ```sh
-npx wrangler d1 create tourmesh        # put the returned id into wrangler.toml
-npx wrangler r2 bucket create tourmesh-photos
-npx wrangler d1 migrations apply DB --remote
+npx wrangler login
+npx wrangler d1 migrations apply DB --remote   # after adding a migration
 npm run deploy
 ```
+
+Photo upload needs R2: enable it in the Cloudflare dashboard, run
+`npx wrangler r2 bucket create tourmesh-photos`, then uncomment the R2 block in
+both `wrangler.toml` files.
 
 Deploy using your own Cloudflare project with D1 and R2 bindings. Project identity,
 credentials, live database records, and account sessions are not included here.

@@ -1,3 +1,5 @@
+# Local dev (`npm run dev`) and `wrangler d1` commands.
+# Production runs on Cloudflare Pages with its own config: pages/wrangler.toml.
 name = "tourmesh"
 main = "dist/server/index.js"
 compatibility_date = "2025-09-01"

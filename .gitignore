@@ -3,3 +3,4 @@ dist/server/
 .wrangler/
 .dev.vars
 .DS_Store
+pages/dist/
