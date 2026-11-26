@@ -18,18 +18,19 @@ const rand=(min,max)=>min+Math.floor(Math.random()*(max-min+1));
 
 // ---------- free text -> structured request ----------
 const schema={type:'object',properties:{
- title:{type:'string'},service:{type:'string',enum:services},city:{type:'string'},from:{type:'string'},
+ title:{type:'string'},services:{type:'array',items:{type:'string',enum:services}},other:{type:'string'},city:{type:'string'},from:{type:'string'},
  start:{type:'string'},days:{type:'integer'},groups:{type:'integer'},people:{type:'integer'},
  language:{type:'string'},hotel:{type:'string'},meals:{type:'string'},transport:{type:'string'},budget:{type:'string'},
  details:{type:'array',items:{type:'string'}}
-},required:['title','service','city','days','groups','people','details']};
+},required:['title','services','city','days','groups','people','details']};
 const languageName={ru:'русском',en:'английском',uz:'узбекском (латиница, новый алфавит 2026: ç ş ö ğ)'};
 function prompt(lang){
  const today=new Date().toISOString().slice(0,10);
  return `Ты помогаешь турагентствам Узбекистана. Агентство своими словами пишет, что ему нужно от других агентств (взять группу туристов, дать автобус, гида, гостиницу и т.п.). Преврати сообщение в аккуратную заявку. Верни только JSON по схеме. Все текстовые значения пиши на ${languageName[lang]||languageName.ru} языке.
 Поля:
 - title: короткий понятный заголовок до 60 символов, например «Тур в Самарканд на 7 дней, 2 группы» или «Автобус на 50 мест, Ташкент → Хива».
-- service: tour (принять группу, тур целиком), transport (автобус, машина, трансфер), hotel (размещение), guide (гид), food (питание), other.
+- services: всё, что нужно, списком: tour (принять группу, тур целиком), transport (автобус, машина, трансфер), hotel (размещение), guide (гид), food (питание), other (что-то ещё). Если нужен тур целиком — только tour; если отдельно нужны, например, автобус и гид — ["transport","guide"].
+- other: если в services есть other — коротко, что именно нужно (например «Визовая поддержка»); иначе пустая строка.
 - city: главный город, где нужна услуга. from: откуда едут, если сказано.
 - start: дата начала в формате ГГГГ-ММ-ДД, если указана (сегодня ${today}; «с 3 декабря» — ближайшее 3 декабря); иначе пустая строка.
 - days: сколько дней (0, если не сказано). groups: сколько групп (1 по умолчанию). people: всего человек (если «2 группы по 15» — 30; 0, если не сказано).
@@ -39,8 +40,12 @@ function prompt(lang){
 }
 export function normalizeDraft(raw){
  const d=raw&&typeof raw==='object'?raw:{};
+ // Several services can be asked for at once; `service` stays the first of them for older readers.
+ const asked=new Set([...(Array.isArray(d.services)?d.services:[]),d.service]);
+ const list=services.filter(s=>asked.has(s));
+ if(!list.length)list.push('other');
  return {
-  title:str(d.title,80),service:services.includes(d.service)?d.service:'other',city:str(d.city,40),from:str(d.from,40),
+  title:str(d.title,80),service:list[0],services:list,other:list.includes('other')?str(d.other,80):'',city:str(d.city,40),from:str(d.from,40),
   start:/^\d{4}-\d{2}-\d{2}$/.test(d.start||'')?d.start:'',days:int(d.days,0,60),groups:int(d.groups||1,1,50),people:int(d.people,0,2000),
   language:str(d.language,60),hotel:str(d.hotel,60),meals:str(d.meals,60),transport:str(d.transport,80),budget:str(d.budget,60),
   details:(Array.isArray(d.details)?d.details:[]).map(x=>str(x,120)).filter(Boolean).slice(0,6)
@@ -128,7 +133,8 @@ const profileFields='p.name,p.city,p.about,p.logo,p.demo';
 const agencyView=(row,lang)=>({id:row.id,name:row.name,city:tr(row.city,lang),logo:row.logo,demo:row.demo===1});
 function jobView(row,lang){
  const d=JSON.parse(row.data);
- for(const k of ['title','city','from','language','hotel','meals','transport','budget'])d[k]=tr(d[k],lang);
+ for(const k of ['title','city','from','language','hotel','meals','transport','budget','other'])d[k]=tr(d[k],lang);
+ d.services=d.services||[d.service];
  d.details=(d.details||[]).map(x=>tr(x,lang));
  return {id:row.id,text:tr(row.text,lang),...d,status:row.status,chosen:row.chosen,created:row.created,owner:row.ownerName?{name:row.ownerName,city:tr(row.ownerCity,lang)}:undefined,bids:row.bids};
 }
