@@ -181,6 +181,27 @@ export async function exchange({request,env,ctx,url,path,method,db,profile,body,
   const lang=['ru','en','uz'].includes(data.lang)?data.lang:'ru';
   return json({text,...await parseRequest(env,text,lang)});
  }
+ if(path==='/api/voice'&&method==='POST'){
+  if(!/^audio\//.test(request.headers.get('content-type')||''))return error('Запись не получилась. Попробуйте ещё раз.',400);
+  if(+request.headers.get('content-length')>3e6)return error('Слишком длинная запись. Уложитесь в минуту.',413);
+  const ip=request.headers.get('cf-connecting-ip')||'local';
+  if(await limited(db,'voice|'+ip,30,now))return error('Много запросов. Повторите через 15 минут.',429);
+  const bytes=new Uint8Array(await request.arrayBuffer());
+  if(bytes.length<400)return error('Запись не получилась. Попробуйте ещё раз.',400);
+  if(bytes.length>3e6)return error('Слишком длинная запись. Уложитесь в минуту.',413);
+  if(!env.AI)return error('Распознавание речи недоступно.',503);
+  let binary='';
+  for(let i=0;i<bytes.length;i+=0x8000)binary+=String.fromCharCode(...bytes.subarray(i,i+0x8000));
+  const lang=url.searchParams.get('lang');
+  const hint={ru:'Турагентство. Самарканд, Бухара, Хива, Ташкент. Группа, гид, автобус, гостиница.',en:'Travel agency. Samarkand, Bukhara, Khiva, Tashkent. Group, guide, bus, hotel.',uz:'Turagentlik. Samarqand, Buxoro, Xiva, Toshkent. Guruh, gid, avtobus, mehmonxona.'}[lang]||'';
+  try{
+   const result=await env.AI.run('@cf/openai/whisper-large-v3-turbo',{audio:btoa(binary),task:'transcribe',vad_filter:true,...(hint?{initial_prompt:hint}:{})});
+   const text=str(result?.text,1500);
+   // Whisper invents these on silence or noise (subtitle credits from its training data).
+   if(!text||/субтитр|dimatorzok|продолжение следует|редактор субтитров|корректор|спасибо за просмотр|подписывайтесь|thank you for watching|thanks for watching|please subscribe|amara\.org/i.test(text)||text===hint)throw Error();
+   return json({text});
+  }catch{return error('Не удалось распознать речь. Попробуйте ещё раз.',502)}
+ }
  if(path==='/api/jobs/latest'&&method==='GET'){
   const {results}=await db.prepare(`SELECT j.*,p.name AS ownerName,p.city AS ownerCity,(SELECT COUNT(*) FROM bids b WHERE b.job=j.id AND b.created<=?) AS bids FROM jobs j JOIN profiles p ON p.id=j.owner WHERE j.status='open' ORDER BY j.created DESC LIMIT 30`).bind(now).all();
   return json({jobs:results.map(row=>{const v=jobView(row,lang);delete v.text;return v})});

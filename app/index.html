@@ -7,9 +7,12 @@
 <meta name="description" content="TOURMESH — биржа заявок между турагентствами Узбекистана">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7.4' fill='%232F54EB'/%3E%3Cg transform='translate(6 6)'%3E%3Cpath d='M4 5 L16 5 L10 15 Z' fill='none' stroke='white' stroke-width='1.6'/%3E%3Ccircle cx='4' cy='5' r='2.6' fill='white'/%3E%3Ccircle cx='16' cy='5' r='2.6' fill='white'/%3E%3Ccircle cx='10' cy='15' r='2.6' fill='white'/%3E%3C/g%3E%3C/svg%3E">
 <style>
-@font-face{font-family:Inter;font-style:normal;font-display:swap;font-weight:100 900;src:url(/fonts/inter-cyrillic.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
-@font-face{font-family:Inter;font-style:normal;font-display:swap;font-weight:100 900;src:url(/fonts/inter-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
-@font-face{font-family:Inter;font-style:normal;font-display:swap;font-weight:100 900;src:url(/fonts/inter-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Onest;font-style:normal;font-display:swap;font-weight:400 800;src:url(/fonts/onest-cyrillic.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Onest;font-style:normal;font-display:swap;font-weight:400 800;src:url(/fonts/onest-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:Onest;font-style:normal;font-display:swap;font-weight:400 800;src:url(/fonts/onest-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Unbounded;font-style:normal;font-display:swap;font-weight:500 700;src:url(/fonts/unbounded-cyrillic.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Unbounded;font-style:normal;font-display:swap;font-weight:500 700;src:url(/fonts/unbounded-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:Unbounded;font-style:normal;font-display:swap;font-weight:500 700;src:url(/fonts/unbounded-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 :root{
  --blue:#2F54EB;--blue-hover:#2546D6;--blue-soft:#E9EDFD;
  --ink:#0E1726;--muted:#5A6474;--bg:#FFFFFF;--panel:#F7F8FA;--line:#E6E8EC;--track:#E9ECF2;
@@ -20,10 +23,11 @@
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-feature-settings:"cv11","ss01";-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Onest,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:inherit}
 button,input,select,textarea{font:inherit;color:inherit}
 h1,h2,h3{margin:0;letter-spacing:-.02em}
+.brand,.hero h1,.section-head h2,.page-head h1{font-family:Unbounded,Onest,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
 .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
 .num{font-variant-numeric:tabular-nums}
 .muted{color:var(--muted)}
@@ -33,7 +37,7 @@ h1,h2,h3{margin:0;letter-spacing:-.02em}
 .nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.86);backdrop-filter:saturate(1.6) blur(14px);-webkit-backdrop-filter:saturate(1.6) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s}
 .nav.scrolled{border-color:var(--line)}
 .nav .wrap{display:flex;align-items:center;gap:20px;height:64px}
-.brand{display:flex;align-items:center;gap:9px;text-decoration:none;font-weight:700;letter-spacing:.07em;font-size:15px}
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none;font-weight:600;letter-spacing:.03em;font-size:15px}
 .brand svg{width:22px;height:22px;color:var(--ink)}
 .links{display:flex;gap:4px;margin-left:12px}
 .links a{text-decoration:none;color:var(--muted);font-weight:500;padding:8px 12px;border-radius:var(--r-field)}
@@ -68,7 +72,7 @@ h1,h2,h3{margin:0;letter-spacing:-.02em}
 .glow{position:absolute;left:50%;top:150px;width:1100px;height:620px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(47,84,235,.16),rgba(47,84,235,.07) 55%,transparent 100%);filter:blur(20px);pointer-events:none;z-index:-1}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:var(--r-pill);padding:5px 12px 5px 6px;margin-bottom:22px}
 .eyebrow b{background:var(--blue-soft);color:var(--blue);font-weight:600;border-radius:var(--r-pill);padding:2px 8px;font-size:12px}
-.hero h1{font-size:clamp(34px,5.4vw,58px);line-height:1.06;font-weight:700;letter-spacing:-.035em;max-width:820px;margin:0 auto}
+.hero h1{font-size:clamp(29px,4.6vw,50px);line-height:1.12;font-weight:600;letter-spacing:-.02em;text-wrap:balance;max-width:820px;margin:0 auto}
 .lead{font-size:clamp(16px,1.6vw,19px);color:var(--muted);max-width:640px;margin:18px auto 0}
 .prompt{max-width:760px;margin:38px auto 0;background:#fff;border:1px solid var(--line);border-radius:26px;box-shadow:0 2px 4px rgba(14,23,38,.04),0 18px 50px rgba(47,84,235,.12);padding:16px 16px 12px 20px;text-align:left;transition:border-color .15s,box-shadow .15s}
 .prompt:focus-within{border-color:#c9d3fb;box-shadow:0 2px 4px rgba(14,23,38,.04),0 18px 50px rgba(47,84,235,.18)}
@@ -81,6 +85,21 @@ h1,h2,h3{margin:0;letter-spacing:-.02em}
 .send:hover{background:var(--blue-hover)}
 .send[disabled]{background:var(--track);color:#98a0ad;cursor:default}
 .send svg{width:18px;height:18px}
+.prompt-bar .send{margin-left:0}
+.mic{margin-left:auto;width:40px;height:40px;border-radius:50%;border:0;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;cursor:pointer;flex:none;transition:background .15s,color .15s}
+.mic:hover{background:#dde3fc}
+.mic svg{width:18px;height:18px}
+.bars{display:flex;align-items:center;gap:2.5px;height:18px}
+.bars i{display:block;width:2.6px;height:18px;border-radius:2px;background:currentColor;transform:scaleY(var(--s));transition:transform .09s ease-out}
+.bars i:nth-child(1){--s:.34}.bars i:nth-child(2){--s:.68}.bars i:nth-child(3){--s:1}.bars i:nth-child(4){--s:.56}.bars i:nth-child(5){--s:.3}
+.mic:hover:not(.on) .bars i{animation:wave .9s ease-in-out infinite}
+.mic:hover:not(.on) .bars i:nth-child(2){animation-delay:.12s}.mic:hover:not(.on) .bars i:nth-child(3){animation-delay:.24s}.mic:hover:not(.on) .bars i:nth-child(4){animation-delay:.36s}.mic:hover:not(.on) .bars i:nth-child(5){animation-delay:.48s}
+@keyframes wave{0%,100%{transform:scaleY(var(--s))}50%{transform:scaleY(calc(var(--s)*.45 + .2))}}
+.mic.on{background:var(--blue);color:#fff;animation:ping 1.6s infinite}
+.mic[disabled]{cursor:default;color:var(--blue)}
+.mic[disabled] svg{animation:spin .9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hint .dot{margin-right:2px}
 .examples{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:820px;margin:18px auto 0}
 .chip{border:1px solid var(--line);background:#fff;border-radius:var(--r-pill);padding:7px 14px;font-size:13px;color:var(--ink);cursor:pointer;transition:border-color .15s,background .15s}
 .chip:hover{border-color:#cfd3da;background:var(--panel)}
@@ -89,17 +108,55 @@ h1,h2,h3{margin:0;letter-spacing:-.02em}
 .supply a:hover{text-decoration:underline}
 .partners{margin-top:64px}
 .partners p{font-size:13px;font-weight:600;color:var(--muted);margin:0 0 20px}
-.logos{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:24px 44px;max-width:1000px;margin:0 auto}
-.logos img{height:44px;max-width:160px;object-fit:contain;filter:grayscale(1);opacity:.65;transition:filter .2s,opacity .2s}
-.logos img:hover{filter:none;opacity:1}
+/* partner logos: endless colour marquee; the list is rendered twice so -50% loops seamlessly */
+.logos{max-width:1000px;margin:0 auto;padding:12px 0;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.logos-track{display:flex;align-items:center;width:max-content;animation:marquee 45s linear infinite}
+.logos img{height:44px;max-width:160px;margin:0 26px;object-fit:contain;transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .25s,filter .3s}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@media (hover:hover){
+ .logos:hover .logos-track{animation-play-state:paused}
+ .logos:has(img:hover) img{opacity:.4}
+ .logos img:hover{opacity:1;transform:translateY(-4px) scale(1.15);filter:drop-shadow(0 8px 14px rgba(14,23,38,.16))}
+}
+@media (prefers-reduced-motion:reduce){
+ .logos{-webkit-mask-image:none;mask-image:none}
+ .logos-track{animation:none;width:auto;flex-wrap:wrap;justify-content:center;row-gap:20px}
+ .logos img[aria-hidden]{display:none}
+}
 .section{padding:56px 0}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:20px}
-.section-head h2{font-size:24px;font-weight:700}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.step{background:var(--panel);border-radius:var(--r-card);padding:22px}
-.step i{font-style:normal;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#fff;border:1px solid var(--line);font-weight:700;font-size:13px;margin-bottom:14px}
-.step h3{font-size:16px;margin-bottom:6px}
-.step p{margin:0;color:var(--muted);font-size:14px}
+.section-head h2{font-size:22px;font-weight:600;letter-spacing:-.01em}
+/* how it works: each step shows a tiny mock of that moment in the product; the mocks play in sequence when scrolled into view */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;list-style:none;margin:0;padding:0}
+.step{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r-card);padding:8px 8px 20px;transition:border-color .2s,box-shadow .2s,transform .2s}
+.step:hover{border-color:#cfd3da;box-shadow:var(--shadow);transform:translateY(-2px)}
+.step:not(:last-child)::after{content:"";position:absolute;z-index:2;right:-24px;top:100px;width:32px;height:32px;margin-top:-16px;border-radius:50%;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232F54EB' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 7l5 5-5 5'/%3E%3C/svg%3E") center/16px no-repeat;border:1px solid var(--line);box-shadow:var(--shadow)}
+.step-n{display:block;margin:18px 14px 6px;font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--blue)}
+.step h3{font-size:17px;margin:0 14px 6px}
+.step p{margin:0 14px;color:var(--muted);font-size:14px}
+.art{height:184px;border-radius:12px;padding:16px;display:flex;flex-direction:column;justify-content:center;gap:8px;overflow:hidden;font-size:12.5px;line-height:1.35;background:radial-gradient(circle,#dde1e8 1px,transparent 1.2px) 0 0/14px 14px,linear-gradient(160deg,#F5F7FF,var(--panel) 60%)}
+.art svg{flex:none}
+.say{align-self:flex-start;max-width:92%;background:#fff;border:1px solid var(--line);border-radius:14px 14px 14px 4px;padding:9px 12px;box-shadow:0 1px 2px rgba(14,23,38,.04)}
+.parsed{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:4px}
+.parsed span{display:inline-flex;align-items:center;gap:5px;height:26px;padding:0 10px;border-radius:var(--r-pill);background:var(--blue-soft);color:var(--blue);font-weight:600}
+.parsed .spark{width:26px;padding:0;justify-content:center;background:var(--blue);color:#fff}
+.ping{display:flex;align-items:center;gap:10px;background:#fff;border-radius:12px;padding:8px 12px;box-shadow:0 2px 4px rgba(14,23,38,.05),0 10px 24px rgba(14,23,38,.08)}
+.ping span{display:flex;flex-direction:column;min-width:0;color:var(--muted)}
+.ping b{font-size:11px;letter-spacing:.04em;color:var(--ink)}
+.offer{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:7px 10px 7px 7px}
+.offer i{font-style:normal;flex:none;display:grid;place-items:center;width:26px;height:26px;border-radius:8px;background:var(--c,var(--blue));color:#fff;font-size:10px;font-weight:700}
+.offer b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.offer span{display:inline-flex;align-items:center;gap:3px;color:var(--muted);font-weight:600}
+.offer span svg{color:#F5A524}
+.offer em{font-style:normal;font-weight:700;font-size:14px}
+.offer.chosen{border-color:#b9e3c6;box-shadow:0 0 0 3px var(--ok-bg)}
+.offer .ok{height:22px;padding:0 8px;border-radius:var(--r-pill);background:var(--ok-bg);color:var(--ok)}
+.offer .ok svg{color:var(--ok)}
+.line{align-self:flex-start;max-width:85%;background:#fff;border:1px solid var(--line);border-radius:14px 14px 14px 4px;padding:7px 11px}
+.line.mine{align-self:flex-end;background:var(--blue);border-color:var(--blue);color:#fff;border-radius:14px 14px 4px 14px}
+.steps.armed .a{opacity:0}
+.steps.play .a{animation:pop .5s cubic-bezier(.2,.8,.2,1) var(--d,0s) both}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
 
 /* cards & lists */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
@@ -121,7 +178,7 @@ h1,h2,h3{margin:0;letter-spacing:-.02em}
 .count.zero{background:var(--track);color:var(--muted)}
 .page{padding:36px 0 80px}
 .page-head{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:24px}
-.page-head h1{font-size:30px;font-weight:700}
+.page-head h1{font-size:26px;font-weight:600;letter-spacing:-.01em}
 .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
 .filters button{border:1px solid var(--line);background:#fff;border-radius:var(--r-pill);padding:7px 14px;font-size:13px;font-weight:500;cursor:pointer;color:var(--muted)}
 .filters button.on{background:var(--ink);border-color:var(--ink);color:#fff}
@@ -242,7 +299,8 @@ dialog::backdrop{background:rgba(14,23,38,.36);backdrop-filter:blur(2px)}
 @media (max-width:900px){
  .job-layout{grid-template-columns:minmax(0,1fr)}
  .summary{position:static}
- .steps{grid-template-columns:1fr}
+ .steps{grid-template-columns:1fr;max-width:520px}
+ .step:not(:last-child)::after{right:auto;left:50%;top:auto;bottom:-24px;margin:0 0 0 -16px;transform:rotate(90deg)}
 }
 @media (max-width:720px){
  .wrap{padding:0 16px}
@@ -259,10 +317,9 @@ dialog::backdrop{background:rgba(14,23,38,.36);backdrop-filter:blur(2px)}
  .price{text-align:left}
  .msg{max-width:86%}
  .chat{height:calc(100vh - 64px - 36px - 64px)}
- .page-head h1{font-size:24px}
+ .page-head h1{font-size:21px}
  .nav-right .btn.ghost{display:none}
- .logos{gap:18px 28px}
- .logos img{height:32px;max-width:120px}
+ .logos img{height:32px;max-width:120px;margin:0 16px}
 }
 </style>
 </head>
@@ -277,6 +334,8 @@ dialog::backdrop{background:rgba(14,23,38,.36);backdrop-filter:blur(2px)}
  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8L3.5 9.7l5.9-.8z" fill="currentColor"/></symbol>
  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+ <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+ <symbol id="i-spin" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
  <symbol id="i-tg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#2AABEE"/><path d="M10.9 23.4c7-3 11.6-5 13.9-6 6.6-2.7 8-3.2 8.9-3.2.2 0 .6 0 .9.3.2.2.3.5.3.7v.9c-.4 4-2 13.8-2.9 18.3-.4 1.9-1.1 2.5-1.8 2.6-1.5.1-2.7-1-4.2-2-2.3-1.5-3.6-2.5-5.9-4-2.6-1.7-.9-2.7.6-4.2.4-.4 7.1-6.5 7.2-7 0-.1 0-.3-.1-.4s-.4-.1-.5 0c-.2 0-3.9 2.5-11 7.3-1 .7-2 1.1-2.9 1-1-.1-2.8-.6-4.2-1-1.7-.5-3-.8-2.9-1.8.1-.5.7-1 2-1.6z" fill="#fff"/></symbol>
  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6.6 3.5h2.6l1.4 4-2 1.3a11 11 0 0 0 6.6 6.6l1.3-2 4 1.4v2.6a2 2 0 0 1-2.1 2A16 16 0 0 1 4.5 5.6a2 2 0 0 1 2.1-2.1z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
@@ -424,11 +483,11 @@ async function home(){
   <p class="lead">${'Опишите задачу своими словами. Агентства со свободными гидами, автобусами и гостиницами пришлют свои цены напрямую — без наценки посредников.'}</p>
   <form class="prompt" id="prompt">
    <textarea id="ask" rows="3" maxlength="1500" placeholder="${'Например: 2 группы по 15 человек в Самарканд на 7 дней, гид на английском, гостиница 3★'}"></textarea>
-   <div class="prompt-bar"><span class="hint">${icon('i-spark')}${'ИИ оформит аккуратную заявку'}</span><button class="send" id="send" type="submit" aria-label="${'Отправить'}" disabled><svg><use href="#i-up"/></svg></button></div>
+   <div class="prompt-bar"><span class="hint" id="hint">${icon('i-spark')}${'ИИ оформит аккуратную заявку'}</span><button class="mic" id="mic" type="button" aria-label="${'Надиктовать голосом'}" title="${'Надиктовать голосом'}"><span class="bars"><i></i><i></i><i></i><i></i><i></i></span></button><button class="send" id="send" type="submit" aria-label="${'Отправить'}" disabled><svg><use href="#i-up"/></svg></button></div>
   </form>
   <div class="examples">${EXAMPLES.map(x=>`<button class="chip" type="button" data-ex="${h(x)}">${h(x)}</button>`).join('')}</div>
   <div class="supply">${'Есть свободные автобусы, гиды или номера?'} <a href="/jobs" data-link>${'Смотреть заявки агентств →'}</a></div>
-  <div class="partners"><p>${'С нами готовы работать'}</p><div class="logos">${PARTNERS.map(([file,name])=>`<img src="/partners/${file}.png" alt="${h(name)}" title="${h(name)}">`).join('')}</div></div>
+  <div class="partners"><p>${'С нами готовы работать'}</p><div class="logos"><div class="logos-track">${[false,true].map(dup=>PARTNERS.map(([file,name])=>`<img src="/partners/${file}.png" alt="${dup?'':h(name)}" title="${h(name)}"${dup?' aria-hidden="true"':''}>`).join('')).join('')}</div></div></div>
  </div></section>
  <section class="section"><div class="wrap">
   <div class="section-head"><h2>${'Сейчас ищут партнёров'}</h2><a class="btn line sm" href="/jobs" data-link>${'Все заявки'}</a></div>
@@ -436,20 +495,122 @@ async function home(){
  </div></section>
  <section class="section" style="padding-top:8px"><div class="wrap">
   <div class="section-head"><h2>${'Как это работает'}</h2></div>
-  <div class="steps">
-   <div class="step"><i>1</i><h3>${'Опишите задачу'}</h3><p>${'Как пишете коллеге в Telegram. ИИ превратит текст в понятную заявку.'}</p></div>
-   <div class="step"><i>2</i><h3>${'Получите отклики'}</h3><p>${'Агентства со свободным ресурсом предложат цену, программу и условия. Уведомление придёт в Telegram.'}</p></div>
-   <div class="step"><i>3</i><h3>${'Выберите и договоритесь'}</h3><p>${'Сравните цены и отзывы, выберите партнёра и обсудите детали в чате.'}</p></div>
-  </div>
+  <ol class="steps" id="steps">
+   <li class="step">
+    <div class="art" aria-hidden="true">
+     <div class="say a" style="--d:.1s">${'Гид на испанском в Бухаре на 3 дня для 18 человек'}</div>
+     <div class="parsed"><span class="spark a" style="--d:.55s">${icon('i-spark',14)}</span><span class="a" style="--d:.7s">${icon('i-pin',13)}${'Бухара'}</span><span class="a" style="--d:.8s">${icon('i-cal',13)}${'3 дня'}</span><span class="a" style="--d:.9s">${icon('i-people',13)}18</span></div>
+    </div>
+    <b class="step-n">01</b><h3>${'Опишите задачу'}</h3><p>${'Как пишете коллеге в Telegram. ИИ превратит текст в понятную заявку'}</p>
+   </li>
+   <li class="step">
+    <div class="art" aria-hidden="true">
+     <div class="ping a" style="--d:1.2s">${icon('i-tg',20)}<span><b>TOURMESH</b>${'Новый отклик'}</span></div>
+     <div class="offer a" style="--d:1.45s"><i>BK</i><b>Buxoro Karvon</b><span>${icon('i-star',11)}4.9</span><em class="num">$420</em></div>
+     <div class="offer a" style="--d:1.6s"><i style="--c:#0F8A6A">GU</i><b>Gidlar Uyi</b><span>${icon('i-star',11)}4.8</span><em class="num">$465</em></div>
+    </div>
+    <b class="step-n">02</b><h3>${'Получите отклики'}</h3><p>${'Агентства со свободным ресурсом предложат цену, программу и условия. Уведомление придёт в Telegram'}</p>
+   </li>
+   <li class="step">
+    <div class="art" aria-hidden="true">
+     <div class="offer chosen a" style="--d:2.1s"><i>BK</i><b>Buxoro Karvon</b><span class="ok">${icon('i-check',12)}${'Выбран'}</span></div>
+     <div class="line a" style="--d:2.35s">${'Подтверждаем 3 декабря?'}</div>
+     <div class="line mine a" style="--d:2.6s">${'Да, высылаю договор'}</div>
+    </div>
+    <b class="step-n">03</b><h3>${'Выберите и договоритесь'}</h3><p>${'Сравните цены и отзывы, выберите партнёра и обсудите детали в чате'}</p>
+   </li>
+  </ol>
  </div></section>`;
  const ask=$('#ask'),send=$('#send');
  const sync=()=>{send.disabled=ask.value.trim().length<8;ask.style.height='auto';ask.style.height=Math.min(240,Math.max(78,ask.scrollHeight))+'px'};
  ask.addEventListener('input',sync);
  ask.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();if(!send.disabled)$('#prompt').requestSubmit()}});
  $$('[data-ex]').forEach(b=>b.addEventListener('click',()=>{ask.value=b.dataset.ex;sync();ask.focus()}));
+ typePlaceholder(ask,[EXAMPLES[0],EXAMPLES[1]]);
+ setupVoice(ask,sync);
+ playOnView($('#steps'));
  $('#prompt').addEventListener('submit',e=>{e.preventDefault();store.set('tm-draft',{text:ask.value.trim(),draft:null});go('/new')});
  const saved=store.get('tm-draft');if(saved?.text&&!saved.draft){ask.value=saved.text;sync()}
  api('/api/jobs/latest').then(d=>{$('#latest').innerHTML=d.jobs.slice(0,6).map(jobCard).join('')||`<div class="empty">${'Пока нет открытых заявок.'}</div>`}).catch(()=>{$('#latest').innerHTML=''});
+}
+// Hides the element's .a children, then plays their entrance once it scrolls into view.
+function playOnView(el){
+ if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ el.classList.add('armed');
+ const io=new IntersectionObserver(([e])=>{if(e.isIntersecting){el.classList.add('play');io.disconnect()}},{threshold:.35});
+ io.observe(el);
+}
+// Types the example requests into the empty prompt one after another, in a loop.
+function typePlaceholder(field,lines){
+ if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ let line=0,shown=0;
+ const put=caret=>{if(!field.dataset.hold)field.placeholder=lines[line].slice(0,shown)+(caret?'|':'')};
+ const wait=(ms,next)=>{let on=true;const blink=setInterval(()=>{if(!field.isConnected)return clearInterval(blink);on=!on;put(on)},500);setTimeout(()=>{clearInterval(blink);if(field.isConnected)next()},ms)};
+ const type=()=>{if(!field.isConnected)return;shown++;put(true);if(shown<lines[line].length)setTimeout(type,35+Math.random()*45);else wait(2200,erase)};
+ const erase=()=>{if(!field.isConnected)return;shown=Math.max(0,shown-3);put(true);if(shown>0)setTimeout(erase,16);else{line=(line+1)%lines.length;wait(600,type)}};
+ put(true);wait(700,type);
+}
+// Voice input: record, send to /api/voice (Whisper), put the text into the prompt.
+function setupVoice(field,after){
+ const btn=$('#mic'),hint=$('#hint');
+ if(!btn)return;
+ if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder){btn.remove();return}
+ const idle=hint.innerHTML,micIcon=btn.innerHTML;
+ let rec=null,clock=null,meter=null;
+ // While recording, the bars follow the voice level.
+ const listen=stream=>{
+  try{
+   const ac=new (window.AudioContext||window.webkitAudioContext)();
+   const an=ac.createAnalyser();an.fftSize=512;ac.createMediaStreamSource(stream).connect(an);
+   const data=new Uint8Array(an.fftSize),bars=$$('.bars i',btn),shape=[.55,.85,1,.8,.5];
+   let frame;
+   const draw=t=>{
+    an.getByteTimeDomainData(data);
+    let sum=0;for(const v of data)sum+=(v-128)*(v-128);
+    const level=Math.min(1,Math.sqrt(sum/data.length)/28);
+    bars.forEach((b,i)=>b.style.transform='scaleY('+Math.min(1,.22+level*shape[i]*(.75+.25*Math.sin(t/110+i*1.7))).toFixed(3)+')');
+    frame=requestAnimationFrame(draw);
+   };
+   frame=requestAnimationFrame(draw);
+   return()=>{cancelAnimationFrame(frame);ac.close();bars.forEach(b=>b.style.transform='')};
+  }catch{return()=>{}}
+ };
+ const finish=()=>{clearInterval(clock);delete field.dataset.hold;btn.classList.remove('on');btn.disabled=false;btn.innerHTML=micIcon;btn.setAttribute('aria-label','Надиктовать голосом');hint.innerHTML=idle};
+ btn.addEventListener('click',async()=>{
+  if(rec&&rec.state==='recording'){rec.stop();return}
+  let stream;
+  try{stream=await navigator.mediaDevices.getUserMedia({audio:true})}catch{toast('Разрешите доступ к микрофону');return}
+  const type=['audio/webm;codecs=opus','audio/mp4','audio/webm'].find(t=>MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported(t));
+  const chunks=[];
+  rec=new MediaRecorder(stream,type?{mimeType:type}:undefined);
+  rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};
+  rec.onstop=async()=>{
+   clearInterval(clock);if(meter)meter();meter=null;stream.getTracks().forEach(t=>t.stop());
+   if(!btn.isConnected)return;
+   btn.classList.remove('on');btn.disabled=true;btn.innerHTML=icon('i-spin',18);
+   hint.innerHTML=icon('i-spark')+'Распознаём речь…';
+   const blob=new Blob(chunks,{type:rec.mimeType||type||'audio/mp4'});
+   try{
+    const response=await fetch('/api/voice?lang='+lang,{method:'POST',headers:{'content-type':blob.type},body:blob,credentials:'same-origin'});
+    const data=await response.json().catch(()=>({}));
+    if(!response.ok)throw new Error(data.error||'Не удалось распознать речь. Попробуйте ещё раз.');
+    field.value=(field.value.trim()?field.value.trim()+' ':'')+data.text;
+    after();field.focus();
+   }catch(err){toast(err.message)}
+   finally{finish()}
+  };
+  rec.start();
+  const started=Date.now();
+  field.dataset.hold='1';field.placeholder='Говорите…';
+  btn.classList.add('on');btn.setAttribute('aria-label','Остановить запись');meter=listen(stream);
+  const tick=()=>{
+   if(!btn.isConnected){rec.stop();return}
+   const s=Math.floor((Date.now()-started)/1000);
+   hint.innerHTML=`<span class="dot"></span>${'Слушаю'} ${Math.floor(s/60)}:${String(s%60).padStart(2,'0')} · ${'нажмите ещё раз, чтобы закончить'}`;
+   if(s>=60)rec.stop();
+  };
+  tick();clock=setInterval(tick,250);
+ });
 }
 function jobCard(job){
  const n=job.bids||0;
