@@ -306,6 +306,12 @@ dialog::backdrop{background:rgba(14,23,38,.36);backdrop-filter:blur(2px)}
 .modal{padding:28px;display:flex;flex-direction:column;gap:16px}
 .modal h2{font-size:22px}
 .modal .tabs{align-self:flex-start}
+.text-link{align-self:center;border:0;background:none;padding:4px 8px;color:var(--blue);font-weight:600;font-size:14px;cursor:pointer}
+.text-link:hover{text-decoration:underline}
+.notice{color:var(--ok);background:var(--ok-bg);border-radius:var(--r-field);padding:10px 12px;font-size:14px;font-weight:600}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.input.mono{font-size:14px}
+.backup-code{display:block;font-size:17px;font-weight:600;padding:14px 16px;border-radius:var(--r-field);background:var(--panel);user-select:all;word-break:break-all}
 .close{position:absolute;right:14px;top:14px;width:34px;height:34px;border-radius:50%;border:0;background:var(--panel);cursor:pointer;display:grid;place-items:center}
 .error{color:var(--bad);background:var(--bad-bg);border-radius:var(--r-field);padding:10px 12px;font-size:14px}
 /* book a demo (calendar logic lives in the demo-calendar module) */
@@ -401,9 +407,12 @@ dialog::backdrop{background:rgba(14,23,38,.36);backdrop-filter:blur(2px)}
   <div class="tabs" role="tablist"><button type="button" data-auth="login" class="on">Вход</button><button type="button" data-auth="register">Регистрация</button></div>
   <div class="field hidden" id="nameField"><label for="aName">Название агентства</label><input class="input" id="aName" autocomplete="organization" maxlength="90"></div>
   <div class="field"><label for="aLogin">Логин</label><input class="input" id="aLogin" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="40"></div>
-  <div class="field"><label for="aPass">Пароль</label><input class="input" id="aPass" type="password" autocomplete="current-password"><small class="muted hidden" id="passHint">Фраза от 15 символов, можно с пробелами.</small></div>
+  <div class="field hidden" id="codeField"><label for="aCode">Резервный код</label><input class="input mono" id="aCode" autocomplete="one-time-code" autocapitalize="none" spellcheck="false" maxlength="48" placeholder="xxxx-xxxx-xxxx-xxxx-xxxx-xxxx-xxxx-xxxx"></div>
+  <div class="field"><label for="aPass" id="aPassLabel">Пароль</label><input class="input" id="aPass" type="password" autocomplete="current-password"><small class="muted hidden" id="passHint">Фраза от 15 символов, можно с пробелами.</small></div>
   <div class="error hidden" id="authError"></div>
+  <div class="notice hidden" id="authOk" role="status"></div>
   <button class="btn primary lg" id="authSubmit" type="submit">Войти</button>
+  <button class="text-link" id="forgot" type="button">Забыли пароль?</button>
  </form>
 </dialog>
 <dialog id="demo-dialog" aria-labelledby="demo-title">
@@ -508,19 +517,26 @@ function needAuth(then,mode='register'){if(me)return then();pendingAuth=then;ope
 
 /* ---------- auth ---------- */
 let authMode='login';
+const authLead=$('#authLead').textContent;
 function openAuth(mode){
  authMode=mode;
- $$('[data-auth]').forEach(b=>b.classList.toggle('on',b.dataset.auth===mode));
+ const recover=mode==='recover';
+ $$('[data-auth]').forEach(b=>b.classList.toggle('on',b.dataset.auth===(recover?'login':mode)));
  $('#nameField').classList.toggle('hidden',mode!=='register');
- $('#passHint').classList.toggle('hidden',mode!=='register');
- $('#authTitle').textContent=mode==='register'?'Регистрация агентства':'Вход в TOURMESH';
- $('#authSubmit').textContent=mode==='register'?'Создать аккаунт':'Войти';
- $('#aPass').autocomplete=mode==='register'?'new-password':'current-password';
- $('#authError').classList.add('hidden');
+ $('#codeField').classList.toggle('hidden',!recover);
+ $('#passHint').classList.toggle('hidden',mode==='login');
+ $('#forgot').classList.toggle('hidden',mode!=='login');
+ $('#authTitle').textContent=mode==='register'?'Регистрация агентства':recover?'Новый пароль':'Вход в TOURMESH';
+ $('#authLead').textContent=recover?'Введите код, который вы сохранили в кабинете.':authLead;
+ $('#aPassLabel').textContent=recover?'Новый пароль':'Пароль';
+ $('#authSubmit').textContent=mode==='register'?'Создать аккаунт':recover?'Сохранить новый пароль':'Войти';
+ $('#aPass').autocomplete=mode==='login'?'current-password':'new-password';
+ $('#authError').classList.add('hidden');$('#authOk').classList.add('hidden');
  if(!$('#auth').open)$('#auth').showModal();
  setTimeout(()=>(mode==='register'?$('#aName'):$('#aLogin')).focus(),30);
 }
 $$('[data-auth]').forEach(b=>b.addEventListener('click',()=>openAuth(b.dataset.auth)));
+$('#forgot').addEventListener('click',()=>{$('#aPass').value='';openAuth('recover')});
 $('#authClose').addEventListener('click',()=>{pendingAuth=null;$('#auth').close()});
 $('#authForm').addEventListener('submit',async e=>{
  e.preventDefault();
@@ -528,7 +544,13 @@ $('#authForm').addEventListener('submit',async e=>{
  try{
   const body={login:$('#aLogin').value,password:$('#aPass').value};
   if(authMode==='register')body.name=$('#aName').value;
+  if(authMode==='recover')body.code=$('#aCode').value;
   const data=await api('/api/auth/'+authMode,body);
+  if(authMode==='recover'){
+   $('#aCode').value='';$('#aPass').value='';openAuth('login');
+   $('#authOk').textContent='Пароль изменён. Войдите с новым паролем.';$('#authOk').classList.remove('hidden');
+   setTimeout(()=>$('#aPass').focus(),40);return;
+  }
   me=data.profile;$('#auth').close();$('#aPass').value='';
   const next=pendingAuth;pendingAuth=null;
   if(next)await next();else if(location.pathname==='/'||location.pathname==='/start')go('/jobs');else render();
@@ -974,7 +996,20 @@ async function account(){
    <div class="row c2"><div class="field"><label for="pPhone">${'Телефон'}</label><input class="input" id="pPhone" value="${h(p.phone)}" maxlength="40" inputmode="tel" placeholder="+998 90 123 45 67"></div><div class="field"><label for="pTg">${'Telegram для связи'}</label><input class="input" id="pTg" value="${h(p.telegram?'@'+p.telegram:'')}" maxlength="40" placeholder="@username"></div></div>
    <div class="actions"><button class="btn primary" type="submit">${'Сохранить'}</button></div>
   </form>
+  <form class="card" id="backupForm">
+   <h2>${'Вход и восстановление'}</h2>
+   <p class="muted" style="margin:-8px 0 0;font-size:14px">${'Сохраните резервный код отдельно. С ним можно выбрать новый пароль. При выпуске нового кода прежний перестаёт действовать.'}</p>
+   <div class="field"><label for="bPass">${'Текущий пароль'}</label><input class="input" id="bPass" type="password" autocomplete="current-password" required></div>
+   <div class="actions"><button class="btn line" type="submit">${'Получить резервный код'}</button></div>
+   <div class="hidden" id="backupOut"><output class="backup-code mono" id="backupCode"></output><p class="muted" style="margin:8px 0 0;font-size:14px">${'Сохраните код в менеджере паролей. Он показывается один раз.'}</p></div>
+  </form>
  </div></div>`;
+ $('#backupForm').addEventListener('submit',async e=>{
+  e.preventDefault();const btn=$('#backupForm [type=submit]');btn.disabled=true;$('#backupOut').classList.add('hidden');
+  try{const r=await api('/api/auth/recovery-code',{password:$('#bPass').value});$('#bPass').value='';$('#backupCode').textContent=r.code;$('#backupOut').classList.remove('hidden')}
+  catch(err){toast(err.message)}
+  finally{btn.disabled=false}
+ });
  $('#logout').addEventListener('click',async()=>{await api('/api/auth/logout',{}).catch(()=>{});me=null;go('/')});
  $('#profileForm').addEventListener('submit',async e=>{e.preventDefault();try{await api('/api/profile',{name:$('#pName').value,city:$('#pCity').value,about:$('#pAbout').value,phone:$('#pPhone').value,telegram:$('#pTg').value});me.name=$('#pName').value.trim();nav();toast('Сохранено')}catch(err){toast(err.message)}});
  const link=$('#tgLink');
