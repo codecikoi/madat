@@ -23,7 +23,8 @@
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Onest,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Onest,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
+#app{flex:1 0 auto}
 a{color:inherit}
 button,input,select,textarea{font:inherit;color:inherit}
 h1,h2,h3{margin:0;letter-spacing:-.02em}
@@ -489,7 +490,7 @@ addEventListener('scroll',()=>$('#nav').classList.toggle('scrolled',scrollY>4),{
 
 /* ---------- router ---------- */
 const routes=[[/^\/$/,home],[/^\/start$/,home],[/^\/new$/,draftPage],[/^\/jobs$/,feed],[/^\/jobs\/([a-f0-9-]{36})$/,jobPage],[/^\/my$/,myPage],[/^\/account$/,account],[/^\/chat\/([a-f0-9-]{36})$/,chatPage]];
-function go(path,replace){history[replace?'replaceState':'pushState']({},'',path);render()}
+function go(path,replace){if(replace)history.replaceState(history.state,'',path);else history.pushState({app:true},'',path);render()}
 async function render(){
  timers.forEach(clearInterval);timers=[];
  nav();
@@ -529,7 +530,14 @@ function openAuth(mode){
 }
 $$('[data-auth]').forEach(b=>b.addEventListener('click',()=>openAuth(b.dataset.auth)));
 $('#forgot').addEventListener('click',()=>{$('#aPass').value='';openAuth('recover')});
-$('#authClose').addEventListener('click',()=>{pendingAuth=null;$('#auth').close()});
+$('#authClose').addEventListener('click',()=>$('#auth').close());
+// Closing sign-in over a page that needs it leads back to where the visitor came from, or to the request feed.
+$('#auth').addEventListener('close',()=>{
+ if(me)return;
+ pendingAuth=null;
+ if(!$('#loginHere'))return;
+ if(history.state?.app)history.back();else go('/jobs',true);
+});
 $('#authForm').addEventListener('submit',async e=>{
  e.preventDefault();
  const btn=$('#authSubmit');btn.disabled=true;
