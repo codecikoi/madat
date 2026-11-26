@@ -1,5 +1,6 @@
 import {demoBooking} from './demo-booking.mjs';
 import {auth, me, session} from './accounts.mjs';
+import {exchange, telegramHook} from './exchange.mjs';
 import translations from './languages.json';
 import assets from 'tourmesh:assets';
 const categories=['hotel','transport','restaurant','guide'];
@@ -26,9 +27,10 @@ async function body(request,limit=620000){
  }finally{reader.releaseLock()}
 }
 const unpack=row=>({...JSON.parse(row.data),id:row.id,photo:JSON.parse(row.data).photo?'/api/photos/'+row.id:''});
-async function api(request,env,url){
+async function api(request,env,url,ctx,lang){
  if(!env.DB)return error('Сервис профилей временно недоступен.',503);
  const db=env.DB,path=url.pathname,method=request.method;
+ if(path==='/api/telegram/hook'&&method==='POST')return telegramHook(request,env,db);
  if(method==='POST'&&request.headers.get('origin')!==url.origin)return error('Запрос отклонён.',403);
  if(path==='/api/demo-calendar')return demoBooking(request,db,body,json);
  if(path==='/api/partners'&&method==='GET'){
@@ -42,6 +44,8 @@ async function api(request,env,url){
   try{data=await body(request,4096);if(!data||typeof data!=='object'||Array.isArray(data))throw Error()}catch{return error('Проверьте поля формы.',400)}
   return auth(path.slice('/api/auth/'.length),request,db,data,profile);
  }
+ const handled=await exchange({request,env,ctx,url,path,method,db,profile,body,json,error,lang});
+ if(handled)return handled;
  if(!profile)return error('Войдите, чтобы открыть кабинет.',401);
  const id=profile.id;
  if(method==='GET'){
@@ -111,14 +115,14 @@ async function api(request,env,url){
  }
  return error('Не найдено.',404);
 }
-export default {async fetch(request,env){
+export default {async fetch(request,env,ctx){
  const url=new URL(request.url);
  const requested=url.searchParams.get('lang');
  const stored=request.headers.get('cookie')?.match(/(?:^|;\s*)tm_lang=(en|uz|ru)(?:;|$)/)?.[1];
  const lang=['ru','en','uz'].includes(requested)?requested:stored||'ru';
  if(url.pathname.startsWith('/api/')){
   let response;
-  try{response=await api(request,env,url)}catch{response=error('Не удалось сохранить или загрузить данные. Попробуйте ещё раз.',500)}
+  try{response=await api(request,env,url,ctx,lang)}catch{response=error('Не удалось сохранить или загрузить данные. Попробуйте ещё раз.',500)}
   if(lang!=='ru'&&!response.ok){
    const data=await response.clone().json();
    const translated=translations[data.error]?.[lang==='en'?0:1];
@@ -126,18 +130,10 @@ export default {async fetch(request,env){
   }
   return response;
  }
- const page=['/','/start','/operator','/supplier','/account'].includes(url.pathname);
+ const page=/^\/(?:start|jobs|my|account|new|(?:jobs|chat)\/[a-f0-9-]{36})?$/.test(url.pathname);
  const assetPath=page?'page:'+lang:url.pathname;
  if(!page && !assetPath.startsWith('/'))return new Response(null,{status:404});
  if(!Object.hasOwn(assets,assetPath)||!['GET','HEAD'].includes(request.method))return new Response('Not found',{status:404});
- if(page && url.pathname!=='/' && url.pathname!=='/start'){
-  try{
-   const profile=env.DB&&await session(request,env.DB);
-   const allowed=profile&&(url.pathname==='/account'||can(profile,url.pathname.slice(1)));
-   const target=allowed?null:profile?'/'+profile.role:'/start';
-   if(target)return new Response(null,{status:302,headers:{location:new URL(target,url).href,'cache-control':'no-store'}});
-  }catch{return error('Кабинет временно недоступен.',503)}
- }
  const [type,value]=assets[assetPath];
  const headers={'content-type':type,'x-content-type-options':'nosniff','referrer-policy':'same-origin','cache-control':page?'private,no-store':'public,max-age=300'};
  if(page){

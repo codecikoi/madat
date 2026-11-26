@@ -13,3 +13,6 @@ database_id = "9c4f04ac-2f21-40bb-9223-fd9a0bd8fae9"
 [[r2_buckets]]
 binding = "BUCKET"
 bucket_name = "tourmesh-photos"
+
+[ai]
+binding = "AI"

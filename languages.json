@@ -2,984 +2,493 @@
   "Узнать цену": ["Ask for price", "Narxni so‘rash"],
   "Наши партнёры": ["Our partners", "Hamkorlarimiz"],
   "Заявка подана. Ждём вас на демо.": ["Request received. See you at the demo.", "So‘rov qabul qilindi. Demoda ko‘rishguncha."],
- "TOURMESH — Найдите поставщиков для тура": [
-  "TOURMESH — Find suppliers for your tour",
-  "TOURMESH — Turingiz uçun hamkor toping"
- ],
- "TOURMESH, главная": [
-  "TOURMESH home",
-  "TOURMESH boş sahifasi"
- ],
- "Язык": [
-  "Language",
-  "Til"
- ],
- "Заказать демо": [
-  "Book a demo",
-  "Demoga yoziliş"
- ],
- "Войти": [
-  "Sign in",
-  "Kiriş"
- ],
- "Для турбизнеса Узбекистана": [
-  "For Uzbekistan’s travel businesses",
-  "Özbekiston turizm biznesi uçun"
- ],
- "Что нужно": [
-  "What does your",
-  "Turingiz uçun"
- ],
- "для вашего тура?": [
-  "tour need?",
-  "nima kerak?"
- ],
- "Опишите поездку. Мы подберём поставщиков и покажем смету.": [
-  "Describe your trip to find suppliers and estimate costs.",
-  "Safaringizni tasvirlang. Sizga mos hamkorlar va taxminiy narxlarni körsatamiz."
- ],
- "Что нужно для тура": [
-  "What do you need for your tour?",
-  "Tur uçun nima kerak?"
- ],
- "Например: нужен отель в Самарканде на 2 ночи и автобус из Самарканда в Бухару для 20 человек.": [
-  "For example, a hotel in Samarkand for 2 nights and a bus from Samarkand to Bukhara for 20 people.",
-  "Masalan, Samarqandda 2 keçaga mehmonxona va 20 kişi uçun Samarqanddan Buxoroga avtobus kerak."
- ],
- "Голосом": [
-  "Dictate",
-  "Ovoz bilan"
- ],
- "Найти поставщиков": [
-  "Find suppliers",
-  "Hamkor topiş"
- ],
- "Попробовать пример": [
-  "Try an example",
-  "Misolni köriş"
- ],
- "Продолжить без ИИ": [
-  "Continue without AI",
-  "AIsiz davom etiş"
- ],
- "Подбор поставщиков": [
-  "Matching suppliers",
-  "Mos hamkorlar"
- ],
- "Изменить запрос": [
-  "Edit request",
-  "Sörovni tahrirlaş"
- ],
- "Ваш кабинет": [
-  "Your workspace",
-  "Şaxsiy kabinetingiz"
- ],
- "Выберите, как вы работаете с турами.": [
-  "Choose how you work with tours.",
-  "Turizmda qanday işlaşingizni tanlang."
- ],
- "Доступ в TOURMESH": [
-  "Access TOURMESH",
-  "TOURMESH hisobiga kiriş"
- ],
- "Регистрация": [
-  "Register",
-  "Röyxatdan ötiş"
- ],
- "Вход": [
-  "Sign in",
-  "Kiriş"
- ],
- "Привязать мой прежний кабинет": [
-  "Link my previous workspace",
-  "Avvalgi kabinetimni boğlaş"
- ],
- "Ваша роль": [
-  "Your role",
-  "Faoliyatingiz"
- ],
- "Туроператор": [
-  "Tour operator",
-  "Turoperator"
- ],
- "Ищу услуги": [
-  "I source services",
-  "Xizmat izlayman"
- ],
- "Поставщик": [
-  "Supplier",
-  "Xizmat körsatuvçi"
- ],
- "Предлагаю услуги": [
-  "I offer services",
-  "Xizmat taklif qilaman"
- ],
- "Название компании": [
-  "Company name",
-  "Kompaniya nomi"
- ],
- "Это название видят ваши партнёры.": [
-  "Your partners will see this name.",
-  "Hamkorlaringiz şu nomni köradi."
- ],
- "Логин": [
-  "Username",
-  "Login"
- ],
- "Латинские буквы, цифры, точка, дефис или подчёркивание.": [
-  "Use Latin letters, numbers, periods, hyphens or underscores.",
-  "Lotin harflari, raqamlar, nuqta, çiziqça yoki pastki çiziqdan foydalaning."
- ],
- "Резервный код": [
-  "Recovery code",
-  "Tiklaş kodi"
- ],
- "Пароль": [
-  "Password",
-  "Parol"
- ],
- "От 15 символов. Можно использовать фразу из нескольких слов.": [
-  "At least 15 characters. A short phrase works well.",
-  "Kamida 15 ta belgi. Bir neça sözdan iborat ibora ham böladi."
- ],
- "Создать кабинет": [
-  "Create account",
-  "Hisob oçiş"
- ],
- "Забыли пароль?": [
-  "Forgot password?",
-  "Parolni unutdingizmi?"
- ],
- "Кабинет поставщика": [
-  "Supplier workspace",
-  "Xizmat körsatuvçi kabineti"
- ],
- "Добавить услугу": [
-  "Add a service",
-  "Xizmat qöşiş"
- ],
- "Мой кабинет": [
-  "My workspace",
-  "Kabinetim"
- ],
- "Работа с турами": [
-  "Tour management",
-  "Turlarni boşqariş"
- ],
- "Вход и восстановление": [
-  "Sign-in and recovery",
-  "Kiriş va hisobni tiklaş"
- ],
- "Сохраните резервный код отдельно. С ним можно выбрать новый пароль. При выпуске нового кода прежний перестаёт действовать.": [
-  "Keep your recovery code somewhere safe. Use it to reset your password. Generating a new code replaces the old one.",
-  "Tiklaş kodini alohida saqlang. U bilan yangi parol tanlaysiz. Yangi kod olinsa, eskisi bekor böladi."
- ],
- "Текущий пароль": [
-  "Current password",
-  "Joriy parol"
- ],
- "Получить резервный код": [
-  "Get recovery code",
-  "Tiklaş kodini oliş"
- ],
- "Выйти": [
-  "Sign out",
-  "Çiqiş"
- ],
- "TOURMESH соединяет операторов и поставщиков. Заявка не является бронированием.": [
-  "TOURMESH connects tour operators with suppliers. A service request starts a conversation about booking.",
-  "TOURMESH turoperatorlar va xizmat körsatuvçilarni boğlaydi. Bron şartlari hamkor bilan kelişiladi."
- ],
- "Демо TOURMESH": [
-  "TOURMESH demo",
-  "TOURMESH namoyişi"
- ],
- "Закрыть календарь": [
-  "Close calendar",
-  "Taqvimni yopiş"
- ],
- "30 минут · Пн–Пт, 09:00–14:00 по Ташкенту": [
-  "30 minutes · Mon–Fri, 09:00–14:00 Tashkent time",
-  "30 daqiqa · Duş–Jum, Toşkent vaqti bilan 09:00–14:00"
- ],
- "Попробовать снова": [
-  "Try again",
-  "Qayta uriniş"
- ],
- "Ваш часовой пояс": [
-  "Your time zone",
-  "Vaqt mintaqangiz"
- ],
- "Календарь рабочих часов": [
-  "Demo availability",
-  "Namoyiş taqvimi"
- ],
- "Предыдущий месяц": [
-  "Previous month",
-  "Oldingi oy"
- ],
- "Следующий месяц": [
-  "Next month",
-  "Keyingi oy"
- ],
- "Пн": [
-  "Mo",
-  "Du"
- ],
- "Вт": [
-  "Tu",
-  "Se"
- ],
- "Ср": [
-  "We",
-  "Ço"
- ],
- "Чт": [
-  "Th",
-  "Pa"
- ],
- "Пт": [
-  "Fr",
-  "Ju"
- ],
- "Сб": [
-  "Sa",
-  "Şa"
- ],
- "Вс": [
-  "Su",
-  "Ya"
- ],
- "Оставить заявку на демо": [
-  "Request this time",
-  "Şu vaqtga yoziliş"
- ],
- "Отправить заявку": [
-  "Send request",
-  "Sörov yuboriş"
- ],
- "Закрыть": [
-  "Close",
-  "Yopiş"
- ],
- "Сообщение поставщику": [
-  "Message to supplier",
-  "Hamkorga xabar"
- ],
- "Ответ поставщика появится в вашем кабинете.": [
-  "You’ll find the supplier’s reply in your workspace.",
-  "Hamkorning javobi kabinetingizda körinadi."
- ],
- "Мои заявки": [
-  "My requests",
-  "Sörovlarim"
- ],
- "Опубликованную услугу увидят операторы, которым она подходит.": [
-  "Operators looking for this service will see your listing.",
-  "Mos xizmat izlayotgan operatorlar taklifingizni köradi."
- ],
- "Название компании / услуги": [
-  "Company or service name",
-  "Kompaniya yoki xizmat nomi"
- ],
- "Категория": [
-  "Category",
-  "Toifa"
- ],
- "Отель": [
-  "Hotel",
-  "Mehmonxona"
- ],
- "Транспорт": [
-  "Transport",
-  "Transport"
- ],
- "Ресторан": [
-  "Restaurant",
-  "Restoran"
- ],
- "Гид": [
-  "Guide",
-  "Gid"
- ],
- "Город / отправление": [
-  "City or departure point",
-  "Şahar yoki jönaş joyi"
- ],
- "Самарканд": [
-  "Samarkand",
-  "Samarqand"
- ],
- "Бухара": [
-  "Bukhara",
-  "Buxoro"
- ],
- "Ташкент": [
-  "Tashkent",
-  "Toşkent"
- ],
- "Хива": [
-  "Khiva",
-  "Xiva"
- ],
- "Куда едет транспорт": [
-  "Transport destination",
-  "Transport manzili"
- ],
- "По городу / по договорённости": [
-  "Local or by arrangement",
-  "Şahar içida yoki kelişuv asosida"
- ],
- "Цена в сумах": [
-  "Price in UZS",
-  "Narxi, sömda"
- ],
- "Цена за": [
-  "Price per",
-  "Narx birligi"
- ],
- "Человек на номер": [
-  "Guests per room",
-  "Bir xonadagi mehmonlar"
- ],
- "Номеров всего": [
-  "Total rooms",
-  "Xonalar soni"
- ],
- "Фото услуги (JPG, PNG или WebP, до 5 МБ)": [
-  "Service photo (JPG, PNG or WebP, up to 5 MB)",
-  "Xizmat rasmi (JPG, PNG yoki WebP, 5 MB gaça)"
- ],
- "Предпросмотр фото услуги": [
-  "Service photo preview",
-  "Xizmat rasmini köriş"
- ],
- "Опубликовать услугу": [
-  "Publish service",
-  "Xizmatni e’lon qiliş"
- ],
- "ночь за номер": [
-  "room per night",
-  "xona uçun bir keça"
- ],
- "поездку": [
-  "trip",
-  "qatnov"
- ],
- "Пассажиров": [
-  "Passengers",
-  "Yölovçilar"
- ],
- "человека за приём пищи": [
-  "guest per meal",
-  "bir kişilik ovqat"
- ],
- "Гостей": [
-  "Guests",
-  "Mehmonlar"
- ],
- "день": [
-  "day",
-  "kun"
- ],
- "Человек в группе": [
-  "People per group",
-  "Guruhdagi kişilar"
- ],
- "Отель у Регистана": [
-  "Hotel by Registan",
-  "Registon yonidagi mehmonxona"
- ],
- "Перевозчик Шёлкового пути": [
-  "Silk Road Transport",
-  "Ipak yöli transporti"
- ],
- "Микроавтобус": [
-  "Minibus",
-  "Mikroavtobus"
- ],
- "Ресторан в Бухаре": [
-  "Bukhara Restaurant",
-  "Buxorodagi restoran"
- ],
- "Гид по Старой Бухаре": [
-  "Old Bukhara Guide",
-  "Eski Buxoro böyiça gid"
- ],
- "Не удалось получить ответ. Проверьте соединение и попробуйте ещё раз.": [
-  "Couldn’t connect. Check your connection and try again.",
-  "Ulanib bölmadi. Internetni tekşirib, qayta urinib köring."
- ],
- "Не удалось выполнить действие.": [
-  "Couldn’t complete this action.",
-  "Amalni bajarib bölmadi."
- ],
- "Нужен отель в Самарканде на 2 ночи и автобус из Самарканда в Бухару для 20 человек. Бюджет 15 млн сум.": [
-  "A hotel in Samarkand for 2 nights and a bus from Samarkand to Bukhara for 20 people. Budget 15 million UZS.",
-  "Samarqandda 2 keçaga mehmonxona va Samarqanddan Buxoroga 20 kişi uçun avtobus kerak. Budjet 15 million söm."
- ],
- " сум": [
-  " UZS",
-  " söm"
- ],
- "Опишите, какие услуги нужны.": [
-  "Describe the services you need.",
-  "Kerakli xizmatlarni tasvirlang."
- ],
- "Уточните количество гостей или номеров и ночей.": [
-  "Specify guests or rooms and the number of nights.",
-  "Mehmonlar yoki xonalar sonini va keçalar sonini kiriting."
- ],
- " ном. × ": [
-  " rooms × ",
-  " xona × "
- ],
- " ноч.": [
-  " nights",
-  " keça"
- ],
- " гостей × один приём пищи": [
-  " guests × one meal",
-  " mehmon × bir mahal ovqat"
- ],
- "Уточните число гостей.": [
-  "Specify the number of guests.",
-  "Mehmonlar sonini kiriting."
- ],
- " дн.": [
-  " days",
-  " kun"
- ],
- "Уточните число дней работы гида.": [
-  "Specify how many days the guide is needed.",
-  "Gid neça kun kerakligini kiriting."
- ],
- "Одна поездка": [
-  "One trip",
-  "Bir qatnov"
- ],
- "ИИ анализирует запрос…": [
-  "AI is reading your request…",
-  "AI sörovingizni tahlil qilmoqda…"
- ],
- "Загружаю локальную модель…": [
-  "Loading the local model…",
-  "Mahalliy model yuklanmoqda…"
- ],
- "Тип услуг уточнён локальной моделью. Проверьте подбор.": [
-  "AI identified additional services. Review the results.",
-  "AI qöşimça xizmatlarni aniqladi. Natijalarni tekşiring."
- ],
- "ИИ не смог уверенно определить дополнительные услуги.": [
-  "AI couldn’t identify any additional services with confidence.",
-  "AI qöşimça xizmatlarni aniq taniy olmadi."
- ],
- "Локальный ИИ не использован. Показан обычный поиск.": [
-  "Showing standard search results.",
-  "Oddiy qidiruv natijalari körsatilmoqda."
- ],
- "Пример подбора": [
-  "Example results",
-  "Misol natijalari"
- ],
- "Вернуться к моему запросу": [
-  "Back to my request",
-  "Sörovimga qaytiş"
- ],
- "Укажите хотя бы одну услугу: отель, транспорт, ресторан или гид.": [
-  "Add a hotel, transport, restaurant or guide to your request.",
-  "Sörovga mehmonxona, transport, restoran yoki gid kiriting."
- ],
- " чел.": [
-  " people",
-  " kişi"
- ],
- "Количество гостей не указано": [
-  "Guest count unspecified",
-  "Mehmonlar soni kiritilmagan"
- ],
- "Бюджет ": [
-  "Budget ",
-  "Budjet "
- ],
- "Сравнение бюджета доступно только в сумах": [
-  "Budget comparison is available in UZS.",
-  "Budjet sömda taqqoslanadi."
- ],
- "Доступность уточняет поставщик": [
-  "Suppliers confirm availability",
-  "Mavjudligini hamkor tasdiqlaydi"
- ],
- "Для поиска по предложениям поставщиков войдите в кабинет. ": [
-  "Sign in to search suppliers’ offers. ",
-  "Hamkorlar takliflarini köriş uçun hisobga kiring. "
- ],
- "Открыть кабинет": [
-  "Open workspace",
-  "Kabinetga kiriş"
- ],
- "Подходящих предложений пока нет. Проверьте город, маршрут или размер группы.": [
-  "No matches yet. Check the city, route or group size.",
-  "Mos taklif topilmadi. Şahar, yönaliş yoki guruh sonini tekşiring."
- ],
- " за ": [
-  " per ",
-  " / "
- ],
- "Оставить заявку": [
-  "Send an inquiry",
-  "Sörov qoldiriş"
- ],
- "Смета от ": [
-  "Estimate from ",
-  "Taxminiy jami "
- ],
- "Известная часть сметы: ": [
-  "Partial estimate: ",
-  "Qisman hisob: "
- ],
- "Смета пока недоступна": [
-  "Estimate unavailable",
-  "Hozirça narx noma’lum"
- ],
- "Рассчитано ": [
-  "Estimated ",
-  "Hisoblandi: "
- ],
- " из ": [
-  " of ",
-  " / "
- ],
- "Запас ": [
-  "Under budget by ",
-  "Budjetdan qoladi: "
- ],
- "Выше бюджета на ": [
-  "Over budget by ",
-  "Budjetdan oşadi: "
- ],
- "По минимальным ценам": [
-  "Based on lowest prices",
-  "Eng past narxlarda"
- ],
- "В смете тестовые цены": [
-  "Example prices",
-  "Namunaviy narxlar"
- ],
- "Выберите JPG, PNG или WebP до 5 МБ.": [
-  "Choose a JPG, PNG or WebP up to 5 MB.",
-  "5 MB gaça JPG, PNG yoki WebP tanlang."
- ],
- "Укажите название услуги.": [
-  "Enter a service name.",
-  "Xizmat nomini kiriting."
- ],
- "Публикуем услугу…": [
-  "Publishing service…",
-  "Xizmat e’lon qilinmoqda…"
- ],
- "Услуга опубликована.": [
-  "Service published.",
-  "Xizmat e’lon qilindi."
- ],
- "Услуга опубликована. Обновите список услуг, чтобы её увидеть.": [
-  "Service published. Refresh the list to see it.",
-  "Xizmat e’lon qilindi. Köriş uçun röyxatni yangilang."
- ],
- "Заявка отправлена": [
-  "Request sent",
-  "Sörov yuborildi"
- ],
- "Отправляем заявку…": [
-  "Sending request…",
-  "Sörov yuborilmoqda…"
- ],
- "Заявка отправлена.": [
-  "Request sent.",
-  "Sörov yuborildi."
- ],
- "Отправлять заявки можно только со страницы оператора.": [
-  "Send inquiries from the operator workspace.",
-  "Sörovni turoperator kabinetidan yuboring."
- ],
- "Мой кабинет — TOURMESH": [
-  "My workspace — TOURMESH",
-  "Kabinetim — TOURMESH"
- ],
- "Туроператор и поставщик": [
-  "Tour operator and supplier",
-  "Turoperator va xizmat körsatuvçi"
- ],
- "Страница оператора": [
-  "Operator workspace",
-  "Turoperator kabineti"
- ],
- "Новый пароль": [
-  "New password",
-  "Yangi parol"
- ],
- "С возвращением": [
-  "Welcome back",
-  "Xuş kelibsiz"
- ],
- "В вашем кабинете можно опубликовать услугу и ответить оператору.": [
-  "Publish services and reply to operators in your workspace.",
-  "Kabinetingizda xizmat qöşing va operatorlarga javob bering."
- ],
- "В вашем кабинете можно подобрать услуги для тура и отправить заявку.": [
-  "Find services for a tour and send inquiries from your workspace.",
-  "Kabinetingizda tur uçun xizmat toping va sörov yuboring."
- ],
- "Введите код, который вы сохранили в кабинете.": [
-  "Enter the recovery code you saved.",
-  "Saqlagan tiklaş kodingizni kiriting."
- ],
- "Войдите, чтобы продолжить работу с партнёрами.": [
-  "Sign in to work with your partners.",
-  "Hamkorlar bilan işlaş uçun hisobga kiring."
- ],
- "Сохранить новый пароль": [
-  "Save new password",
-  "Yangi parolni saqlaş"
- ],
- "Пароль изменён. Войдите с новым паролем.": [
-  "Password changed. Sign in with your new password.",
-  "Parol yangilandi. Yangi parol bilan kiring."
- ],
- "Сохраните код в менеджере паролей. Он показывается один раз.": [
-  "Save this code in your password manager. It appears only once.",
-  "Kodni parol menejerida saqlang. U faqat bir marta körsatiladi."
- ],
- "Обновить заявки": [
-  "Refresh requests",
-  "Sörovlarni yangilaş"
- ],
- "Обновляем заявки…": [
-  "Refreshing requests…",
-  "Sörovlar yangilanmoqda…"
- ],
- "Мои услуги": [
-  "My services",
-  "Xizmatlarim"
- ],
- "Скрыть": [
-  "Hide",
-  "Yaşiriş"
- ],
- "Показать": [
-  "Show",
-  "Körsatiş"
- ],
- "Пока нет опубликованных услуг.": [
-  "No published services yet.",
-  "Hozirça e’lon qilingan xizmat yöq."
- ],
- "Отправлена": [
-  "Sent",
-  "Yuborildi"
- ],
- "Условия подтверждены": [
-  "Terms confirmed",
-  "Şartlar tasdiqlandi"
- ],
- "Отказ": [
-  "Declined",
-  "Rad etildi"
- ],
- "От ": [
-  "From ",
-  "Yuboruvçi: "
- ],
- "Коммерческая заявка, не бронь": [
-  "Service inquiry",
-  "Xizmat böyiça sörov"
- ],
- "Ответ: ": [
-  "Reply: ",
-  "Javob: "
- ],
- "Ответ поставщика": [
-  "Supplier reply",
-  "Hamkor javobi"
- ],
- "Подтвердить условия": [
-  "Confirm terms",
-  "Şartlarni tasdiqlaş"
- ],
- "Отказать": [
-  "Decline",
-  "Rad etiş"
- ],
- "Входящие заявки": [
-  "Incoming requests",
-  "Kelgan sörovlar"
- ],
- "Пока нет входящих заявок.": [
-  "No incoming requests yet.",
-  "Hozirça kelgan sörov yöq."
- ],
- "Пока нет отправленных заявок.": [
-  "No sent requests yet.",
-  "Hozirça yuborilgan sörov yöq."
- ],
- "Остановить": [
-  "Stop",
-  "Töxtatiş"
- ],
- "Голосовой ввод недоступен в этом браузере. Введите текст вручную.": [
-  "Voice input is unavailable in this browser. Type your request.",
-  "Bu brauzerda ovozli kiritiş işlamaydi. Sörovingizni yozing."
- ],
- "Слушаю…": [
-  "Listening…",
-  "Tinglayapman…"
- ],
- "Разрешите доступ к микрофону или введите текст.": [
-  "Allow microphone access or type your request.",
-  "Mikrofonga ruxsat bering yoki sörovni yozing."
- ],
- "Не удалось распознать речь. Попробуйте ещё раз или введите текст.": [
-  "Couldn’t recognize speech. Try again or type your request.",
-  "Ovoz tanilmadi. Qayta urinib köring yoki sörovni yozing."
- ],
- "Проверьте текст перед поиском.": [
-  "Review the text before searching.",
-  "Qidirişdan oldin matnni tekşiring."
- ],
- "Речь не распознана.": [
-  "No speech recognized.",
-  "Ovoz tanilmadi."
- ],
- "Не удалось включить микрофон.": [
-  "Couldn’t start the microphone.",
-  "Mikrofonni yoqib bölmadi."
- ],
- "Алматы": [
-  "Almaty",
-  "Olmaota"
- ],
- "Дубай": [
-  "Dubai",
-  "Dubay"
- ],
- "Калькутта": [
-  "Kolkata",
-  "Kalkutta"
- ],
- "Токио": [
-  "Tokyo",
-  "Tokio"
- ],
- "Москва": [
-  "Moscow",
-  "Moskva"
- ],
- "Стамбул": [
-  "Istanbul",
-  "Istanbul"
- ],
- "Лондон": [
-  "London",
-  "London"
- ],
- "Берлин": [
-  "Berlin",
-  "Berlin"
- ],
- "Нью-Йорк": [
-  "New York",
-  "Nyu-York"
- ],
- "Лос-Анджелес": [
-  "Los Angeles",
-  "Los-Anjeles"
- ],
- "Другие часовые пояса": [
-  "Other time zones",
-  "Boşqa vaqt mintaqalari"
- ],
- " (+1 день)": [
-  " (+1 day)",
-  " (+1 kun)"
- ],
- "Занято": [
-  "Taken",
-  "Band"
- ],
- "Загружаем расписание…": [
-  "Loading schedule…",
-  "Jadval yuklanmoqda…"
- ],
- "Не удалось загрузить расписание.": [
-  "Couldn’t load the schedule.",
-  "Jadvalni yuklab bölmadi."
- ],
- "Сохраняем заявку…": [
-  "Saving your request…",
-  "Sörovingiz saqlanmoqda…"
- ],
- "Это время уже недоступно. Выберите другое.": [
-  "This time is unavailable. Choose another slot.",
-  "Bu vaqt band. Boşqa vaqtni tanlang."
- ],
- "Слишком много попыток. Попробуйте позже.": [
-  "Too many attempts. Try again later.",
-  "Urinişlar köp. Keyinroq qayta urining."
- ],
- "Заявка на демо принята.": [
-  "Demo request received.",
-  "Demo uçun sörovingiz qabul qilindi."
- ],
- "Не удалось подтвердить запись. Попробуйте снова.": [
-  "Couldn’t confirm this time. Try again.",
-  "Vaqtni tasdiqlab bölmadi. Qayta urinib köring."
- ],
- "Используйте фразу от 15 символов и до 72 байт. Пробелы разрешены.": [
-  "Use at least 15 characters and up to 72 bytes. Spaces are allowed.",
-  "Kamida 15 belgi va köpi bilan 72 bayt kiriting. Böş joy mumkin."
- ],
- "Страница не найдена.": [
-  "Page not found.",
-  "Sahifa topilmadi."
- ],
- "Много попыток. Повторите через 15 минут.": [
-  "Too many attempts. Try again in 15 minutes.",
-  "Urinişlar köp. 15 daqiqadan keyin urinib köring."
- ],
- "Логин должен содержать от 3 до 40 латинских букв, цифр, точек, дефисов или подчёркиваний.": [
-  "Use 3–40 Latin letters, numbers, periods, hyphens or underscores.",
-  "Login uçun 3–40 ta lotin harfi, raqam, nuqta, çiziqça yoki pastki çiziq işlating."
- ],
- "Войдите в кабинет.": [
-  "Sign in to your workspace.",
-  "Kabinetingizga kiring."
- ],
- "Сначала выйдите из кабинета.": [
-  "Sign out first.",
-  "Avval hisobdan çiqing."
- ],
- "Этот кабинет уже привязан или недоступен.": [
-  "This workspace is already linked or unavailable.",
-  "Bu kabinet boğlangan yoki mavjud emas."
- ],
- "Выберите роль и укажите название компании.": [
-  "Choose your role and enter your company name.",
-  "Faoliyatingizni tanlang va kompaniya nomini kiriting."
- ],
- "Этот логин уже занят. Выберите другой.": [
-  "Username taken. Choose another.",
-  "Login band. Boşqasini tanlang."
- ],
- "Профиль или логин уже занят.": [
-  "Profile or username already in use.",
-  "Hisob yoki login band."
- ],
- "Проверьте логин и резервный код.": [
-  "Check your username and recovery code.",
-  "Login va tiklaş kodini tekşiring."
- ],
- "Код уже использован.": [
-  "This code has already been used.",
-  "Bu kod işlatilgan."
- ],
- "Проверьте логин и пароль.": [
-  "Check your username and password.",
-  "Login va parolni tekşiring."
- ],
- "Войдите в кабинет ещё раз.": [
-  "Sign in again.",
-  "Hisobga qayta kiring."
- ],
- "Сервис профилей временно недоступен.": [
-  "Accounts are temporarily unavailable.",
-  "Hisoblar hozirça işlamayapti."
- ],
- "Запрос отклонён.": [
-  "Request rejected.",
-  "Sörov rad etildi."
- ],
- "Проверьте поля формы.": [
-  "Check the form fields.",
-  "Şakl maydonlarini tekşiring."
- ],
- "Войдите, чтобы открыть кабинет.": [
-  "Sign in to open your workspace.",
-  "Kabinetni oçiş uçun hisobga kiring."
- ],
- "Фото не найдено.": [
-  "Photo not found.",
-  "Rasm topilmadi."
- ],
- "Не найдено.": [
-  "Not found.",
-  "Topilmadi."
- ],
- "Некорректные данные или слишком большой файл.": [
-  "Invalid data or file too large.",
-  "Ma’lumot notöğri yoki fayl juda katta."
- ],
- "Выберите роль поставщика в кабинете.": [
-  "Choose the supplier role in your workspace.",
-  "Kabinetda xizmat körsatuvçi rolini tanlang."
- ],
- "Проверьте параметры услуги.": [
-  "Check the service details.",
-  "Xizmat ma’lumotlarini tekşiring."
- ],
- "Хранилище фото недоступно.": [
-  "Photo storage unavailable.",
-  "Rasm ombori işlamayapti."
- ],
- "Фото должно быть в формате WebP.": [
-  "Use a WebP photo.",
-  "WebP formatidagi rasm kiriting."
- ],
- "Не удалось прочитать фото.": [
-  "Couldn’t read the photo.",
-  "Rasmni öqib bölmadi."
- ],
- "Действие недоступно.": [
-  "Action unavailable.",
-  "Amalni bajarib bölmaydi."
- ],
- "Услуга не найдена.": [
-  "Service not found.",
-  "Xizmat topilmadi."
- ],
- "Выберите роль оператора в кабинете.": [
-  "Choose the operator role in your workspace.",
-  "Kabinetda turoperator rolini tanlang."
- ],
- "Добавьте описание поездки.": [
-  "Describe your trip.",
-  "Safaringizni tasvirlang."
- ],
- "Откройте форму заявки ещё раз.": [
-  "Open the inquiry form again.",
-  "Sörov şaklini qayta oçing."
- ],
- "Проверьте отправленные заявки в кабинете.": [
-  "Check sent requests in your workspace.",
-  "Kabinetda yuborilgan sörovlarni tekşiring."
- ],
- "Выберите услугу другого поставщика.": [
-  "Choose another supplier’s service.",
-  "Boşqa hamkorning xizmatini tanlang."
- ],
- "Проверьте ответ поставщика.": [
-  "Check the supplier’s response.",
-  "Hamkor javobini tekşiring."
- ],
- "Заявка уже обработана или недоступна.": [
-  "This request is closed or unavailable.",
-  "Sörov körib çiqilgan yoki mavjud emas."
- ],
- "Не удалось сохранить или загрузить данные. Попробуйте ещё раз.": [
-  "Couldn’t save or load data. Try again.",
-  "Ma’lumotni saqlaş yoki yuklaşda xato. Qayta urinib köring."
- ],
- "Кабинет временно недоступен.": [
-  "Workspace temporarily unavailable.",
-  "Kabinet hozirça işlamayapti."
- ]
+  "TOURMESH — Найдите поставщиков для тура": ["TOURMESH — Find suppliers for your tour", "TOURMESH — Turingiz uçun hamkor toping"],
+  "TOURMESH, главная": ["TOURMESH home", "TOURMESH boş sahifasi"],
+  "Язык": ["Language", "Til"],
+  "Заказать демо": ["Book a demo", "Demoga yoziliş"],
+  "Войти": ["Sign in", "Kiriş"],
+  "Для турбизнеса Узбекистана": ["For Uzbekistan’s travel businesses", "Özbekiston turizm biznesi uçun"],
+  "Что нужно": ["What you need", "Nima kerak"],
+  "для вашего тура?": ["tour need?", "nima kerak?"],
+  "Опишите поездку. Мы подберём поставщиков и покажем смету.": ["Describe your trip to find suppliers and estimate costs.", "Safaringizni tasvirlang. Sizga mos hamkorlar va taxminiy narxlarni körsatamiz."],
+  "Что нужно для тура": ["What do you need for your tour?", "Tur uçun nima kerak?"],
+  "Например: нужен отель в Самарканде на 2 ночи и автобус из Самарканда в Бухару для 20 человек.": ["For example, a hotel in Samarkand for 2 nights and a bus from Samarkand to Bukhara for 20 people.", "Masalan, Samarqandda 2 keçaga mehmonxona va 20 kişi uçun Samarqanddan Buxoroga avtobus kerak."],
+  "Голосом": ["Dictate", "Ovoz bilan"],
+  "Найти поставщиков": ["Find suppliers", "Hamkor topiş"],
+  "Попробовать пример": ["Try an example", "Misolni köriş"],
+  "Продолжить без ИИ": ["Continue without AI", "AIsiz davom etiş"],
+  "Подбор поставщиков": ["Matching suppliers", "Mos hamkorlar"],
+  "Изменить запрос": ["Edit request", "Sörovni tahrirlaş"],
+  "Ваш кабинет": ["Your workspace", "Şaxsiy kabinetingiz"],
+  "Выберите, как вы работаете с турами.": ["Choose how you work with tours.", "Turizmda qanday işlaşingizni tanlang."],
+  "Доступ в TOURMESH": ["Access TOURMESH", "TOURMESH hisobiga kiriş"],
+  "Регистрация": ["Register", "Röyxatdan ötiş"],
+  "Вход": ["Sign in", "Kiriş"],
+  "Привязать мой прежний кабинет": ["Link my previous workspace", "Avvalgi kabinetimni boğlaş"],
+  "Ваша роль": ["Your role", "Faoliyatingiz"],
+  "Туроператор": ["Tour operator", "Turoperator"],
+  "Ищу услуги": ["I source services", "Xizmat izlayman"],
+  "Поставщик": ["Supplier", "Xizmat körsatuvçi"],
+  "Предлагаю услуги": ["I offer services", "Xizmat taklif qilaman"],
+  "Название компании": ["Company name", "Kompaniya nomi"],
+  "Это название видят ваши партнёры.": ["Your partners will see this name.", "Hamkorlaringiz şu nomni köradi."],
+  "Логин": ["Username", "Login"],
+  "Латинские буквы, цифры, точка, дефис или подчёркивание.": ["Use Latin letters, numbers, periods, hyphens or underscores.", "Lotin harflari, raqamlar, nuqta, çiziqça yoki pastki çiziqdan foydalaning."],
+  "Резервный код": ["Recovery code", "Tiklaş kodi"],
+  "Пароль": ["Password", "Parol"],
+  "От 15 символов. Можно использовать фразу из нескольких слов.": ["At least 15 characters. A short phrase works well.", "Kamida 15 ta belgi. Bir neça sözdan iborat ibora ham böladi."],
+  "Создать кабинет": ["Create account", "Hisob oçiş"],
+  "Забыли пароль?": ["Forgot password?", "Parolni unutdingizmi?"],
+  "Кабинет поставщика": ["Supplier workspace", "Xizmat körsatuvçi kabineti"],
+  "Добавить услугу": ["Add a service", "Xizmat qöşiş"],
+  "Мой кабинет": ["My workspace", "Kabinetim"],
+  "Работа с турами": ["Tour management", "Turlarni boşqariş"],
+  "Вход и восстановление": ["Sign-in and recovery", "Kiriş va hisobni tiklaş"],
+  "Сохраните резервный код отдельно. С ним можно выбрать новый пароль. При выпуске нового кода прежний перестаёт действовать.": ["Keep your recovery code somewhere safe. Use it to reset your password. Generating a new code replaces the old one.", "Tiklaş kodini alohida saqlang. U bilan yangi parol tanlaysiz. Yangi kod olinsa, eskisi bekor böladi."],
+  "Текущий пароль": ["Current password", "Joriy parol"],
+  "Получить резервный код": ["Get recovery code", "Tiklaş kodini oliş"],
+  "Выйти": ["Sign out", "Çiqiş"],
+  "TOURMESH соединяет операторов и поставщиков. Заявка не является бронированием.": ["TOURMESH connects tour operators with suppliers. A service request starts a conversation about booking.", "TOURMESH turoperatorlar va xizmat körsatuvçilarni boğlaydi. Bron şartlari hamkor bilan kelişiladi."],
+  "Демо TOURMESH": ["TOURMESH demo", "TOURMESH namoyişi"],
+  "Закрыть календарь": ["Close calendar", "Taqvimni yopiş"],
+  "30 минут · Пн–Пт, 09:00–14:00 по Ташкенту": ["30 minutes · Mon–Fri, 09:00–14:00 Tashkent time", "30 daqiqa · Duş–Jum, Toşkent vaqti bilan 09:00–14:00"],
+  "Попробовать снова": ["Try again", "Qayta uriniş"],
+  "Ваш часовой пояс": ["Your time zone", "Vaqt mintaqangiz"],
+  "Календарь рабочих часов": ["Demo availability", "Namoyiş taqvimi"],
+  "Предыдущий месяц": ["Previous month", "Oldingi oy"],
+  "Следующий месяц": ["Next month", "Keyingi oy"],
+  "Пн": ["Mo", "Du"],
+  "Вт": ["Tu", "Se"],
+  "Ср": ["We", "Ço"],
+  "Чт": ["Th", "Pa"],
+  "Пт": ["Fr", "Ju"],
+  "Сб": ["Sa", "Şa"],
+  "Вс": ["Su", "Ya"],
+  "Оставить заявку на демо": ["Request this time", "Şu vaqtga yoziliş"],
+  "Отправить заявку": ["Send request", "Sörov yuboriş"],
+  "Закрыть": ["Close", "Yopiş"],
+  "Сообщение поставщику": ["Message to supplier", "Hamkorga xabar"],
+  "Ответ поставщика появится в вашем кабинете.": ["You’ll find the supplier’s reply in your workspace.", "Hamkorning javobi kabinetingizda körinadi."],
+  "Мои заявки": ["My requests", "Sörovlarim"],
+  "Опубликованную услугу увидят операторы, которым она подходит.": ["Operators looking for this service will see your listing.", "Mos xizmat izlayotgan operatorlar taklifingizni köradi."],
+  "Название компании / услуги": ["Company or service name", "Kompaniya yoki xizmat nomi"],
+  "Категория": ["Category", "Toifa"],
+  "Отель": ["Hotel", "Mehmonxona"],
+  "Транспорт": ["Transport", "Transport"],
+  "Ресторан": ["Restaurant", "Restoran"],
+  "Гид": ["Guide", "Gid"],
+  "Город / отправление": ["City or departure point", "Şahar yoki jönaş joyi"],
+  "Самарканд": ["Samarkand", "Samarqand"],
+  "Бухара": ["Bukhara", "Buxoro"],
+  "Ташкент": ["Tashkent", "Toşkent"],
+  "Хива": ["Khiva", "Xiva"],
+  "Куда едет транспорт": ["Transport destination", "Transport manzili"],
+  "По городу / по договорённости": ["Local or by arrangement", "Şahar içida yoki kelişuv asosida"],
+  "Цена в сумах": ["Price in UZS", "Narxi, sömda"],
+  "Цена за": ["Price per", "Narx birligi"],
+  "Человек на номер": ["Guests per room", "Bir xonadagi mehmonlar"],
+  "Номеров всего": ["Total rooms", "Xonalar soni"],
+  "Фото услуги (JPG, PNG или WebP, до 5 МБ)": ["Service photo (JPG, PNG or WebP, up to 5 MB)", "Xizmat rasmi (JPG, PNG yoki WebP, 5 MB gaça)"],
+  "Предпросмотр фото услуги": ["Service photo preview", "Xizmat rasmini köriş"],
+  "Опубликовать услугу": ["Publish service", "Xizmatni e’lon qiliş"],
+  "ночь за номер": ["room per night", "xona uçun bir keça"],
+  "поездку": ["trip", "qatnov"],
+  "Пассажиров": ["Passengers", "Yölovçilar"],
+  "человека за приём пищи": ["guest per meal", "bir kişilik ovqat"],
+  "Гостей": ["Guests", "Mehmonlar"],
+  "день": ["day", "kun"],
+  "Человек в группе": ["People per group", "Guruhdagi kişilar"],
+  "Отель у Регистана": ["Hotel by Registan", "Registon yonidagi mehmonxona"],
+  "Перевозчик Шёлкового пути": ["Silk Road Transport", "Ipak yöli transporti"],
+  "Микроавтобус": ["Minibus", "Mikroavtobus"],
+  "Ресторан в Бухаре": ["Bukhara Restaurant", "Buxorodagi restoran"],
+  "Гид по Старой Бухаре": ["Old Bukhara Guide", "Eski Buxoro böyiça gid"],
+  "Не удалось получить ответ. Проверьте соединение и попробуйте ещё раз.": ["Couldn’t connect. Check your connection and try again.", "Ulanib bölmadi. Internetni tekşirib, qayta urinib köring."],
+  "Не удалось выполнить действие.": ["Couldn’t complete this action.", "Amalni bajarib bölmadi."],
+  "Нужен отель в Самарканде на 2 ночи и автобус из Самарканда в Бухару для 20 человек. Бюджет 15 млн сум.": ["A hotel in Samarkand for 2 nights and a bus from Samarkand to Bukhara for 20 people. Budget 15 million UZS.", "Samarqandda 2 keçaga mehmonxona va Samarqanddan Buxoroga 20 kişi uçun avtobus kerak. Budjet 15 million söm."],
+  " сум": [" UZS", " söm"],
+  "Опишите, какие услуги нужны.": ["Describe the services you need.", "Kerakli xizmatlarni tasvirlang."],
+  "Уточните количество гостей или номеров и ночей.": ["Specify guests or rooms and the number of nights.", "Mehmonlar yoki xonalar sonini va keçalar sonini kiriting."],
+  " ном. × ": [" rooms × ", " xona × "],
+  " ноч.": [" nights", " keça"],
+  " гостей × один приём пищи": [" guests × one meal", " mehmon × bir mahal ovqat"],
+  "Уточните число гостей.": ["Specify the number of guests.", "Mehmonlar sonini kiriting."],
+  " дн.": [" days", " kun"],
+  "Уточните число дней работы гида.": ["Specify how many days the guide is needed.", "Gid neça kun kerakligini kiriting."],
+  "Одна поездка": ["One trip", "Bir qatnov"],
+  "ИИ анализирует запрос…": ["AI is reading your request…", "AI sörovingizni tahlil qilmoqda…"],
+  "Загружаю локальную модель…": ["Loading the local model…", "Mahalliy model yuklanmoqda…"],
+  "Тип услуг уточнён локальной моделью. Проверьте подбор.": ["AI identified additional services. Review the results.", "AI qöşimça xizmatlarni aniqladi. Natijalarni tekşiring."],
+  "ИИ не смог уверенно определить дополнительные услуги.": ["AI couldn’t identify any additional services with confidence.", "AI qöşimça xizmatlarni aniq taniy olmadi."],
+  "Локальный ИИ не использован. Показан обычный поиск.": ["Showing standard search results.", "Oddiy qidiruv natijalari körsatilmoqda."],
+  "Пример подбора": ["Example results", "Misol natijalari"],
+  "Вернуться к моему запросу": ["Back to my request", "Sörovimga qaytiş"],
+  "Укажите хотя бы одну услугу: отель, транспорт, ресторан или гид.": ["Add a hotel, transport, restaurant or guide to your request.", "Sörovga mehmonxona, transport, restoran yoki gid kiriting."],
+  " чел.": [" people", " kişi"],
+  "Количество гостей не указано": ["Guest count unspecified", "Mehmonlar soni kiritilmagan"],
+  "Бюджет ": ["Budget ", "Budjet "],
+  "Сравнение бюджета доступно только в сумах": ["Budget comparison is available in UZS.", "Budjet sömda taqqoslanadi."],
+  "Доступность уточняет поставщик": ["Suppliers confirm availability", "Mavjudligini hamkor tasdiqlaydi"],
+  "Для поиска по предложениям поставщиков войдите в кабинет. ": ["Sign in to search suppliers’ offers. ", "Hamkorlar takliflarini köriş uçun hisobga kiring. "],
+  "Открыть кабинет": ["Open workspace", "Kabinetga kiriş"],
+  "Подходящих предложений пока нет. Проверьте город, маршрут или размер группы.": ["No matches yet. Check the city, route or group size.", "Mos taklif topilmadi. Şahar, yönaliş yoki guruh sonini tekşiring."],
+  " за ": [" per ", " / "],
+  "Оставить заявку": ["Send an inquiry", "Sörov qoldiriş"],
+  "Смета от ": ["Estimate from ", "Taxminiy jami "],
+  "Известная часть сметы: ": ["Partial estimate: ", "Qisman hisob: "],
+  "Смета пока недоступна": ["Estimate unavailable", "Hozirça narx noma’lum"],
+  "Рассчитано ": ["Estimated ", "Hisoblandi: "],
+  " из ": [" of ", " / "],
+  "Запас ": ["Under budget by ", "Budjetdan qoladi: "],
+  "Выше бюджета на ": ["Over budget by ", "Budjetdan oşadi: "],
+  "По минимальным ценам": ["Based on lowest prices", "Eng past narxlarda"],
+  "В смете тестовые цены": ["Example prices", "Namunaviy narxlar"],
+  "Выберите JPG, PNG или WebP до 5 МБ.": ["Choose a JPG, PNG or WebP up to 5 MB.", "5 MB gaça JPG, PNG yoki WebP tanlang."],
+  "Укажите название услуги.": ["Enter a service name.", "Xizmat nomini kiriting."],
+  "Публикуем услугу…": ["Publishing service…", "Xizmat e’lon qilinmoqda…"],
+  "Услуга опубликована.": ["Service published.", "Xizmat e’lon qilindi."],
+  "Услуга опубликована. Обновите список услуг, чтобы её увидеть.": ["Service published. Refresh the list to see it.", "Xizmat e’lon qilindi. Köriş uçun röyxatni yangilang."],
+  "Заявка отправлена": ["Request sent", "Sörov yuborildi"],
+  "Отправляем заявку…": ["Sending request…", "Sörov yuborilmoqda…"],
+  "Заявка отправлена.": ["Request sent.", "Sörov yuborildi."],
+  "Отправлять заявки можно только со страницы оператора.": ["Send inquiries from the operator workspace.", "Sörovni turoperator kabinetidan yuboring."],
+  "Мой кабинет — TOURMESH": ["My workspace — TOURMESH", "Kabinetim — TOURMESH"],
+  "Туроператор и поставщик": ["Tour operator and supplier", "Turoperator va xizmat körsatuvçi"],
+  "Страница оператора": ["Operator workspace", "Turoperator kabineti"],
+  "Новый пароль": ["New password", "Yangi parol"],
+  "С возвращением": ["Welcome back", "Xuş kelibsiz"],
+  "В вашем кабинете можно опубликовать услугу и ответить оператору.": ["Publish services and reply to operators in your workspace.", "Kabinetingizda xizmat qöşing va operatorlarga javob bering."],
+  "В вашем кабинете можно подобрать услуги для тура и отправить заявку.": ["Find services for a tour and send inquiries from your workspace.", "Kabinetingizda tur uçun xizmat toping va sörov yuboring."],
+  "Введите код, который вы сохранили в кабинете.": ["Enter the recovery code you saved.", "Saqlagan tiklaş kodingizni kiriting."],
+  "Войдите, чтобы продолжить работу с партнёрами.": ["Sign in to work with your partners.", "Hamkorlar bilan işlaş uçun hisobga kiring."],
+  "Сохранить новый пароль": ["Save new password", "Yangi parolni saqlaş"],
+  "Пароль изменён. Войдите с новым паролем.": ["Password changed. Sign in with your new password.", "Parol yangilandi. Yangi parol bilan kiring."],
+  "Сохраните код в менеджере паролей. Он показывается один раз.": ["Save this code in your password manager. It appears only once.", "Kodni parol menejerida saqlang. U faqat bir marta körsatiladi."],
+  "Обновить заявки": ["Refresh requests", "Sörovlarni yangilaş"],
+  "Обновляем заявки…": ["Refreshing requests…", "Sörovlar yangilanmoqda…"],
+  "Мои услуги": ["My services", "Xizmatlarim"],
+  "Скрыть": ["Hide", "Yaşiriş"],
+  "Показать": ["Show", "Körsatiş"],
+  "Пока нет опубликованных услуг.": ["No published services yet.", "Hozirça e’lon qilingan xizmat yöq."],
+  "Отправлена": ["Sent", "Yuborildi"],
+  "Условия подтверждены": ["Terms confirmed", "Şartlar tasdiqlandi"],
+  "Отказ": ["Declined", "Rad etildi"],
+  "От ": ["From ", "Yuboruvçi: "],
+  "Коммерческая заявка, не бронь": ["Service inquiry", "Xizmat böyiça sörov"],
+  "Ответ: ": ["Reply: ", "Javob: "],
+  "Ответ поставщика": ["Supplier reply", "Hamkor javobi"],
+  "Подтвердить условия": ["Confirm terms", "Şartlarni tasdiqlaş"],
+  "Отказать": ["Decline", "Rad etiş"],
+  "Входящие заявки": ["Incoming requests", "Kelgan sörovlar"],
+  "Пока нет входящих заявок.": ["No incoming requests yet.", "Hozirça kelgan sörov yöq."],
+  "Пока нет отправленных заявок.": ["No sent requests yet.", "Hozirça yuborilgan sörov yöq."],
+  "Остановить": ["Stop", "Töxtatiş"],
+  "Голосовой ввод недоступен в этом браузере. Введите текст вручную.": ["Voice input is unavailable in this browser. Type your request.", "Bu brauzerda ovozli kiritiş işlamaydi. Sörovingizni yozing."],
+  "Слушаю…": ["Listening…", "Tinglayapman…"],
+  "Разрешите доступ к микрофону или введите текст.": ["Allow microphone access or type your request.", "Mikrofonga ruxsat bering yoki sörovni yozing."],
+  "Не удалось распознать речь. Попробуйте ещё раз или введите текст.": ["Couldn’t recognize speech. Try again or type your request.", "Ovoz tanilmadi. Qayta urinib köring yoki sörovni yozing."],
+  "Проверьте текст перед поиском.": ["Review the text before searching.", "Qidirişdan oldin matnni tekşiring."],
+  "Речь не распознана.": ["No speech recognized.", "Ovoz tanilmadi."],
+  "Не удалось включить микрофон.": ["Couldn’t start the microphone.", "Mikrofonni yoqib bölmadi."],
+  "Алматы": ["Almaty", "Olmaota"],
+  "Дубай": ["Dubai", "Dubay"],
+  "Калькутта": ["Kolkata", "Kalkutta"],
+  "Токио": ["Tokyo", "Tokio"],
+  "Москва": ["Moscow", "Moskva"],
+  "Стамбул": ["Istanbul", "Istanbul"],
+  "Лондон": ["London", "London"],
+  "Берлин": ["Berlin", "Berlin"],
+  "Нью-Йорк": ["New York", "Nyu-York"],
+  "Лос-Анджелес": ["Los Angeles", "Los-Anjeles"],
+  "Другие часовые пояса": ["Other time zones", "Boşqa vaqt mintaqalari"],
+  " (+1 день)": [" (+1 day)", " (+1 kun)"],
+  "Занято": ["Taken", "Band"],
+  "Загружаем расписание…": ["Loading schedule…", "Jadval yuklanmoqda…"],
+  "Не удалось загрузить расписание.": ["Couldn’t load the schedule.", "Jadvalni yuklab bölmadi."],
+  "Сохраняем заявку…": ["Saving your request…", "Sörovingiz saqlanmoqda…"],
+  "Это время уже недоступно. Выберите другое.": ["This time is unavailable. Choose another slot.", "Bu vaqt band. Boşqa vaqtni tanlang."],
+  "Слишком много попыток. Попробуйте позже.": ["Too many attempts. Try again later.", "Urinişlar köp. Keyinroq qayta urining."],
+  "Заявка на демо принята.": ["Demo request received.", "Demo uçun sörovingiz qabul qilindi."],
+  "Не удалось подтвердить запись. Попробуйте снова.": ["Couldn’t confirm this time. Try again.", "Vaqtni tasdiqlab bölmadi. Qayta urinib köring."],
+  "Используйте фразу от 15 символов и до 72 байт. Пробелы разрешены.": ["Use at least 15 characters and up to 72 bytes. Spaces are allowed.", "Kamida 15 belgi va köpi bilan 72 bayt kiriting. Böş joy mumkin."],
+  "Страница не найдена.": ["Page not found.", "Sahifa topilmadi."],
+  "Много попыток. Повторите через 15 минут.": ["Too many attempts. Try again in 15 minutes.", "Urinişlar köp. 15 daqiqadan keyin urinib köring."],
+  "Логин должен содержать от 3 до 40 латинских букв, цифр, точек, дефисов или подчёркиваний.": ["Use 3–40 Latin letters, numbers, periods, hyphens or underscores.", "Login uçun 3–40 ta lotin harfi, raqam, nuqta, çiziqça yoki pastki çiziq işlating."],
+  "Войдите в кабинет.": ["Sign in to your workspace.", "Kabinetingizga kiring."],
+  "Сначала выйдите из кабинета.": ["Sign out first.", "Avval hisobdan çiqing."],
+  "Этот кабинет уже привязан или недоступен.": ["This workspace is already linked or unavailable.", "Bu kabinet boğlangan yoki mavjud emas."],
+  "Выберите роль и укажите название компании.": ["Choose your role and enter your company name.", "Faoliyatingizni tanlang va kompaniya nomini kiriting."],
+  "Этот логин уже занят. Выберите другой.": ["Username taken. Choose another.", "Login band. Boşqasini tanlang."],
+  "Профиль или логин уже занят.": ["Profile or username already in use.", "Hisob yoki login band."],
+  "Проверьте логин и резервный код.": ["Check your username and recovery code.", "Login va tiklaş kodini tekşiring."],
+  "Код уже использован.": ["This code has already been used.", "Bu kod işlatilgan."],
+  "Проверьте логин и пароль.": ["Check your username and password.", "Login va parolni tekşiring."],
+  "Войдите в кабинет ещё раз.": ["Sign in again.", "Hisobga qayta kiring."],
+  "Сервис профилей временно недоступен.": ["Accounts are temporarily unavailable.", "Hisoblar hozirça işlamayapti."],
+  "Запрос отклонён.": ["Request rejected.", "Sörov rad etildi."],
+  "Проверьте поля формы.": ["Check the form fields.", "Şakl maydonlarini tekşiring."],
+  "Войдите, чтобы открыть кабинет.": ["Sign in to open your workspace.", "Kabinetni oçiş uçun hisobga kiring."],
+  "Фото не найдено.": ["Photo not found.", "Rasm topilmadi."],
+  "Не найдено.": ["Not found.", "Topilmadi."],
+  "Некорректные данные или слишком большой файл.": ["Invalid data or file too large.", "Ma’lumot notöğri yoki fayl juda katta."],
+  "Выберите роль поставщика в кабинете.": ["Choose the supplier role in your workspace.", "Kabinetda xizmat körsatuvçi rolini tanlang."],
+  "Проверьте параметры услуги.": ["Check the service details.", "Xizmat ma’lumotlarini tekşiring."],
+  "Хранилище фото недоступно.": ["Photo storage unavailable.", "Rasm ombori işlamayapti."],
+  "Фото должно быть в формате WebP.": ["Use a WebP photo.", "WebP formatidagi rasm kiriting."],
+  "Не удалось прочитать фото.": ["Couldn’t read the photo.", "Rasmni öqib bölmadi."],
+  "Действие недоступно.": ["Action unavailable.", "Amalni bajarib bölmaydi."],
+  "Услуга не найдена.": ["Service not found.", "Xizmat topilmadi."],
+  "Выберите роль оператора в кабинете.": ["Choose the operator role in your workspace.", "Kabinetda turoperator rolini tanlang."],
+  "Добавьте описание поездки.": ["Describe your trip.", "Safaringizni tasvirlang."],
+  "Откройте форму заявки ещё раз.": ["Open the inquiry form again.", "Sörov şaklini qayta oçing."],
+  "Проверьте отправленные заявки в кабинете.": ["Check sent requests in your workspace.", "Kabinetda yuborilgan sörovlarni tekşiring."],
+  "Выберите услугу другого поставщика.": ["Choose another supplier’s service.", "Boşqa hamkorning xizmatini tanlang."],
+  "Проверьте ответ поставщика.": ["Check the supplier’s response.", "Hamkor javobini tekşiring."],
+  "Заявка уже обработана или недоступна.": ["This request is closed or unavailable.", "Sörov körib çiqilgan yoki mavjud emas."],
+  "Не удалось сохранить или загрузить данные. Попробуйте ещё раз.": ["Couldn’t save or load data. Try again.", "Ma’lumotni saqlaş yoki yuklaşda xato. Qayta urinib köring."],
+  "Кабинет временно недоступен.": ["Workspace temporarily unavailable.", "Kabinet hozirça işlamayapti."],
+  "TOURMESH — биржа заявок между турагентствами Узбекистана": ["TOURMESH — a request exchange for Uzbekistan's travel agencies", "TOURMESH — Özbekiston turagentliklari uçun sörovlar birjasi"],
+  "Команда Madat · Tourism Hackathon 2026": ["Team Madat · Tourism Hackathon 2026", "Madat jamoasi · Tourism Hackathon 2026"],
+  "Вход в TOURMESH": ["Sign in to TOURMESH", "TOURMESHga kiriş"],
+  "Один аккаунт — чтобы и размещать заявки, и откликаться на чужие.": ["One account to post requests and answer other agencies' requests.", "Bitta akkaunt — ham sörov joylaş, ham boşqalarnikiga taklif beriş uçun."],
+  "Название агентства": ["Agency name", "Agentlik nomi"],
+  "Фраза от 15 символов, можно с пробелами.": ["A phrase of 15+ characters, spaces are fine.", "Kamida 15 belgili ibora, böşliq mumkin."],
+  "Тур / группа": ["Tour / group", "Tur / guruh"],
+  "Гостиница": ["Hotel", "Mehmonxona"],
+  "Питание": ["Meals", "Ovqatlaniş"],
+  "Другое": ["Other", "Boşqa"],
+  "Входные билеты": ["Entry tickets", "Kiriş çiptalari"],
+  "за человека": ["per person", "kişi boşiga"],
+  "за группу": ["per group", "guruh uçun"],
+  "в день": ["per day", "kuniga"],
+  "за ночь": ["per night", "tuniga"],
+  "за всё": ["total", "hammasi uçun"],
+  "2 группы по 15 человек в Самарканд на 7 дней с 3 декабря, гид на английском, гостиница 3★": ["2 groups of 15 to Samarkand for 7 days from 3 December, English-speaking guide, 3★ hotel", "Samarqandga 15 kişidan 2 guruh, 3-dekabrdan 7 kunga, ingliz tilida gid, 3★ mehmonxona"],
+  "Сломался автобус — срочно нужен автобус на 50 мест с кондиционером, Ташкент → Хива": ["Our bus broke down — urgently need a 50-seat bus with A/C, Tashkent → Khiva", "Avtobusimiz buzildi — zudlik bilan 50 örinli konditsionerli avtobus kerak, Toşkent → Xiva"],
+  "Гид на испанском в Бухаре на 3 дня для 18 человек": ["Spanish-speaking guide in Bukhara for 3 days, 18 people", "Buxoroda 18 kişi uçun 3 kunga ispan tilida gid"],
+  "Нет связи. Попробуйте ещё раз.": ["No connection. Please try again.", "Aloqa yöq. Qaytadan urinib köring."],
+  "сум": ["UZS", "söm"],
+  "отклик": ["offer", "taklif"],
+  "отклика": ["offers", "taklif"],
+  "откликов": ["offers", "taklif"],
+  "только что": ["just now", "hozirgina"],
+  "мин назад": ["min ago", "daqiqa oldin"],
+  "ч назад": ["h ago", "soat oldin"],
+  "дн назад": ["d ago", "kun oldin"],
+  "дня": ["days", "kun"],
+  "дней": ["days", "kun"],
+  "человек": ["people", "kişi"],
+  "человека": ["people", "kişi"],
+  "группа": ["group", "guruh"],
+  "группы": ["groups", "guruh"],
+  "групп": ["groups", "guruh"],
+  "Лента заявок": ["Request feed", "Sörovlar lentasi"],
+  "Новая заявка": ["New request", "Yangi sörov"],
+  "Начать": ["Get started", "Boşlaş"],
+  "На главную": ["Back to home", "Boş sahifaga"],
+  "Регистрация агентства": ["Register your agency", "Agentlikni röyxatdan ötkaziş"],
+  "Создать аккаунт": ["Create account", "Akkaunt yaratiş"],
+  "Биржа заявок между турагентствами": ["Request exchange for travel agencies", "Turagentliklar örtasida sörovlar birjasi"],
+  "Найдите партнёра под вашу группу за минуты": ["Find a partner for your group in minutes", "Guruhingiz uçun hamkorni bir neça daqiqada toping"],
+  "Опишите задачу своими словами. Агентства со свободными гидами, автобусами и гостиницами пришлют свои цены напрямую — без наценки посредников.": ["Describe the job in your own words. Agencies with free guides, buses and hotel rooms will send their prices directly — with no middleman markup.", "Vazifani öz sözlaringiz bilan yozing. Böş gidlari, avtobuslari va mehmonxonalari bor agentliklar narxlarini töğridan-töğri yuboradi — vositaçilar ustamasisiz."],
+  "Например: 2 группы по 15 человек в Самарканд на 7 дней, гид на английском, гостиница 3★": ["For example: 2 groups of 15 to Samarkand for 7 days, English-speaking guide, 3★ hotel", "Masalan: Samarqandga 15 kişidan 2 guruh, 7 kunga, ingliz tilida gid, 3★ mehmonxona"],
+  "ИИ оформит аккуратную заявку": ["AI turns it into a clear request", "AI uni tartibli sörovga aylantiradi"],
+  "Отправить": ["Send", "Yuboriş"],
+  "Есть свободные автобусы, гиды или номера?": ["Have free buses, guides or rooms?", "Böş avtobus, gid yoki xonalaringiz bormi?"],
+  "Смотреть заявки агентств →": ["See agency requests →", "Agentliklar sörovlarini köriş →"],
+  "С нами готовы работать": ["Ready to work with us", "Biz bilan işlaşga tayyor"],
+  "Сейчас ищут партнёров": ["Looking for partners now", "Hozir hamkor qidirmoqda"],
+  "Все заявки": ["All requests", "Barça sörovlar"],
+  "Как это работает": ["How it works", "Bu qanday işlaydi"],
+  "Опишите задачу": ["Describe the job", "Vazifani yozing"],
+  "Как пишете коллеге в Telegram. ИИ превратит текст в понятную заявку.": ["Just like messaging a colleague on Telegram. AI turns the text into a clear request.", "Telegramda hamkasbingizga yozgandek. AI matnni tuşunarli sörovga aylantiradi."],
+  "Получите отклики": ["Get offers", "Takliflar oling"],
+  "Агентства со свободным ресурсом предложат цену, программу и условия. Уведомление придёт в Telegram.": ["Agencies with spare capacity send their price, programme and terms. You get notified on Telegram.", "Böş resursi bor agentliklar narx, dastur va şartlarni taklif qiladi. Xabar Telegramga keladi."],
+  "Выберите и договоритесь": ["Choose and agree", "Tanlang va kelişing"],
+  "Сравните цены и отзывы, выберите партнёра и обсудите детали в чате.": ["Compare prices and reviews, pick a partner and settle the details in chat.", "Narx va fikrlarni soliştiring, hamkorni tanlang va tafsilotlarni çatda kelişing."],
+  "Пока нет открытых заявок.": ["No open requests yet.", "Hozircha oçiq sörovlar yöq."],
+  "Вы откликнулись": ["You made an offer", "Siz taklif yubordingiz"],
+  "ИИ оформляет заявку…": ["AI is drafting your request…", "AI sörovni tayyorlamoqda…"],
+  "Выделяем город, даты, число людей и требования.": ["Picking out the city, dates, group size and requirements.", "Şahar, sana, odamlar soni va talablarni ajratmoqdamiz."],
+  "Изменить текст": ["Edit text", "Matnni özgartiriş"],
+  "ИИ оформил вашу заявку.": ["AI drafted your request.", "AI sörovingizni tayyorladi."],
+  "Заявка оформлена.": ["Request drafted.", "Sörov tayyor."],
+  "Проверьте и поправьте, если нужно. Ваш текст:": ["Check it and fix anything if needed. Your text:", "Tekşirib, kerak bölsa tuzating. Sizning matningiz:"],
+  "Заголовок": ["Title", "Sarlavha"],
+  "Город": ["City", "Şahar"],
+  "Откуда": ["From", "Qayerdan"],
+  "Дата начала": ["Start date", "Boşlaniş sanasi"],
+  "Дней": ["Days", "Kunlar"],
+  "Групп": ["Groups", "Guruhlar"],
+  "Человек всего": ["People in total", "Jami kişi"],
+  "Язык гида": ["Guide language", "Gid tili"],
+  "Бюджет": ["Budget", "Byudjet"],
+  "Требования — по одному на строку": ["Requirements — one per line", "Talablar — har qatorda bittadan"],
+  "Отмена": ["Cancel", "Bekor qiliş"],
+  "Опубликовать заявку": ["Publish request", "Sörovni e'lon qiliş"],
+  "Заявка опубликована": ["Request published", "Sörov e'lon qilindi"],
+  "Заявки агентств": ["Agency requests", "Agentliklar sörovlari"],
+  "Откликайтесь, если у вас есть свободные гиды, транспорт или номера.": ["Make an offer if you have free guides, transport or rooms.", "Böş gid, transport yoki xonalaringiz bölsa, taklif yuboring."],
+  "Разместить заявку": ["Post a request", "Sörov joylaş"],
+  "Все": ["All", "Barçasi"],
+  "Пока пусто": ["Nothing yet", "Hozircha böş"],
+  "Новых заявок в этой категории нет.": ["No new requests in this category.", "Bu toifada yangi sörovlar yöq."],
+  "Начало": ["Start", "Boşlaniş"],
+  "Человек": ["People", "Kişi"],
+  "Ждёт откликов": ["Awaiting offers", "Takliflar kutilmoqda"],
+  "Исполнитель выбран": ["Partner chosen", "Ijroçi tanlandi"],
+  "Войдите, чтобы продолжить": ["Sign in to continue", "Davom etiş uçun kiring"],
+  "Заявки и отклики видны только агентствам на платформе.": ["Requests and offers are visible only to agencies on the platform.", "Sörov va takliflarni faqat platformadagi agentliklar köradi."],
+  "Войти или зарегистрироваться": ["Sign in or register", "Kiriş yoki röyxatdan ötiş"],
+  "Новый на платформе": ["New on the platform", "Platformada yangi"],
+  "отзыв": ["review", "fikr"],
+  "отзыва": ["reviews", "fikr"],
+  "отзывов": ["reviews", "fikr"],
+  "демо": ["demo", "demo"],
+  "Показать отзывы": ["Show reviews", "Fikrlarni körsatiş"],
+  "Открыть чат": ["Open chat", "Çatni oçiş"],
+  "Выбрать": ["Choose", "Tanlaş"],
+  "Получайте отклики в Telegram": ["Get offers on Telegram", "Takliflarni Telegramda oling"],
+  "— сразу, как только агентство ответит.": ["— the moment an agency responds.", "— agentlik javob berişi bilan."],
+  "Подключить": ["Connect", "Ulaş"],
+  "Отклики": ["Offers", "Takliflar"],
+  "Дешевле": ["Cheapest", "Arzonroq"],
+  "Рейтинг": ["Rating", "Reyting"],
+  "Ждём отклики агентств — они появятся здесь автоматически.": ["Waiting for agencies — offers will appear here automatically.", "Agentliklar takliflarini kutyapmiz — ular şu yerda avtomatik paydo böladi."],
+  "Дешевле всех": ["Lowest price", "Eng arzon"],
+  "Лучший рейтинг": ["Top rated", "Eng yuqori reyting"],
+  "Исполнитель выбран:": ["Partner chosen:", "Ijroçi tanlandi:"],
+  "Скрыть отзывы": ["Hide reviews", "Fikrlarni yaşiriş"],
+  "Выбрать «": ["Choose “", "«"],
+  "» исполнителем? Откроется чат, остальные отклики закроются.": ["” as your partner? A chat will open and the other offers will close.", "»ni ijroçi sifatida tanlaysizmi? Çat oçiladi, qolgan takliflar yopiladi."],
+  "Новый отклик": ["New offer", "Yangi taklif"],
+  "Вас выбрали исполнителем": ["You've been chosen as the partner", "Sizni ijroçi sifatida tanlaşdi"],
+  "Ждёт ответа заказчика": ["Waiting for the client", "Buyurtmaçi javobi kutilmoqda"],
+  "Заказчик выбрал другое агентство": ["The client chose another agency", "Buyurtmaçi boşqa agentlikni tanladi"],
+  "Ваш отклик": ["Your offer", "Sizning taklifingiz"],
+  "Заявка закрыта": ["Request closed", "Sörov yopilgan"],
+  "Заказчик уже выбрал исполнителя.": ["The client has already chosen a partner.", "Buyurtmaçi allaqaçon ijroçini tanlagan."],
+  "Откликнуться": ["Make an offer", "Taklif yuboriş"],
+  "Заказчик увидит цену, условия и отзывы о вашем агентстве.": ["The client will see your price, terms and your agency's reviews.", "Buyurtmaçi narx, şartlar va agentligingiz haqidagi fikrlarni köradi."],
+  "Цена": ["Price", "Narx"],
+  "Валюта": ["Currency", "Valyuta"],
+  "UZS сум": ["UZS", "UZS söm"],
+  "За что": ["Per", "Nima uçun"],
+  "Что входит": ["What's included", "Nimalar kiradi"],
+  "3★ в центре": ["3★ in the centre", "Markazda 3★"],
+  "Программа и условия": ["Programme and terms", "Dastur va şartlar"],
+  "Что покажете, какой транспорт, что ещё важно знать заказчику": ["What you'll show, which transport, anything else the client should know", "Nimalarni körsatasiz, qanday transport, buyurtmaçi yana nimalarni bilişi kerak"],
+  "Отправить отклик": ["Send offer", "Taklif yuboriş"],
+  "Отклик отправлен — заказчик получит уведомление": ["Offer sent — the client will be notified", "Taklif yuborildi — buyurtmaçiga xabar boradi"],
+  "Я ищу партнёра": ["I need a partner", "Men hamkor qidiryapman"],
+  "Мои отклики": ["My offers", "Takliflarim"],
+  "У вас пока нет заявок": ["You have no requests yet", "Sizda hozircha sörovlar yöq"],
+  "Опишите, что нужно, — агентства пришлют цены.": ["Describe what you need — agencies will send prices.", "Nima kerakligini yozing — agentliklar narx yuboradi."],
+  "Вас выбрали": ["You were chosen", "Sizni tanlaşdi"],
+  "Ждёт ответа": ["Awaiting reply", "Javob kutilmoqda"],
+  "Закрыта": ["Closed", "Yopilgan"],
+  "Вы ещё не откликались": ["You haven't made any offers yet", "Siz hali taklif yubormagansiz"],
+  "Посмотрите, кому сейчас нужен партнёр.": ["See who needs a partner right now.", "Hozir kimga hamkor kerakligini köring."],
+  "Смотреть заявки": ["See requests", "Sörovlarni köriş"],
+  "Контакты не указаны": ["No contacts provided", "Kontaktlar körsatilmagan"],
+  "Обменяйтесь контактами и договоритесь о деталях. Договор и оплата — напрямую между агентствами.": ["Swap contacts and agree on the details. Contract and payment go directly between agencies.", "Kontakt almaşing va tafsilotlarni kelişib oling. Şartnoma va tölov — agentliklar örtasida töğridan-töğri."],
+  "Сообщение": ["Message", "Xabar"],
+  "Кабинет": ["Account", "Kabinet"],
+  "Уведомления в Telegram": ["Telegram notifications", "Telegram bildirişnomalari"],
+  "Подключено — отклики и сообщения приходят в Telegram.": ["Connected — offers and messages arrive on Telegram.", "Ulangan — takliflar va xabarlar Telegramga keladi."],
+  "Новые отклики и сообщения будут приходить в Telegram.": ["New offers and messages will arrive on Telegram.", "Yangi takliflar va xabarlar Telegramga keladi."],
+  "Подключено": ["Connected", "Ulangan"],
+  "Подключить Telegram": ["Connect Telegram", "Telegramni ulaş"],
+  "Бот скоро будет": ["Bot coming soon", "Bot tez orada"],
+  "Профиль агентства": ["Agency profile", "Agentlik profili"],
+  "Эти данные видят агентства, которым вы откликаетесь, и партнёр в чате.": ["Agencies you make offers to and your chat partner see this.", "Bu ma'lumotlarni siz taklif yuborgan agentliklar va çatdagi hamkor köradi."],
+  "О компании": ["About the company", "Kompaniya haqida"],
+  "Чем занимаетесь, какие направления, сколько лет на рынке": ["What you do, which destinations, years on the market", "Nima bilan şuğullanasiz, qaysi yönalişlar, bozorda neça yil"],
+  "Телефон": ["Phone", "Telefon"],
+  "Telegram для связи": ["Telegram for contact", "Aloqa uçun Telegram"],
+  "Сохранить": ["Save", "Saqlaş"],
+  "Сохранено": ["Saved", "Saqlandi"],
+  "Нажмите «Start» в Telegram — подключение займёт пару секунд.": ["Press “Start” in Telegram — it takes a couple of seconds.", "Telegramda «Start» tugmasini bosing — ulaniş bir-ikki soniya oladi."],
+  "Telegram подключён": ["Telegram connected", "Telegram ulandi"],
+  "Опишите, что нужно.": ["Describe what you need.", "Nima kerakligini yozing."],
+  "Опишите подробнее: куда, сколько людей, на сколько дней.": ["Add details: where, how many people, how many days.", "Batafsil yozing: qayerga, neça kişi, neça kunga."],
+  "Много запросов. Повторите через 15 минут.": ["Too many requests. Try again in 15 minutes.", "Juda köp sörov. 15 daqiqadan keyin qayta urinib köring."],
+  "Заявка не найдена.": ["Request not found.", "Sörov topilmadi."],
+  "Чат недоступен.": ["Chat unavailable.", "Çat mavjud emas."],
+  "Укажите название компании.": ["Enter your company name.", "Kompaniya nomini kiriting."],
+  "Проверьте username в Telegram.": ["Check your Telegram username.", "Telegramdagi username'ni tekşiring."],
+  "Добавьте заголовок заявки.": ["Add a title to your request.", "Sörovga sarlavha qöşing."],
+  "Много заявок подряд. Повторите через 15 минут.": ["Too many requests in a row. Try again in 15 minutes.", "Ketma-ket juda köp sörov. 15 daqiqadan keyin qayta urinib köring."],
+  "Это ваша заявка.": ["This is your own request.", "Bu sizning sörovingiz."],
+  "Укажите цену.": ["Enter a price.", "Narxni kiriting."],
+  "Вы уже откликнулись на эту заявку.": ["You've already made an offer on this request.", "Siz bu sörovga allaqaçon taklif yuborgansiz."],
+  "Отклик не найден.": ["Offer not found.", "Taklif topilmadi."],
+  "Исполнитель уже выбран.": ["A partner has already been chosen.", "Ijroçi allaqaçon tanlangan."],
+  "Напишите сообщение.": ["Write a message.", "Xabar yozing."],
+  "Telegram-бот ещё не подключён.": ["The Telegram bot isn't connected yet.", "Telegram-bot hali ulanmagan."],
+  "Программа: Регистан, Шахи-Зинда, Гур-Эмир, мастерская бумаги в Кониги. Гостиница в центре, завтраки.": ["Programme: Registan, Shah-i-Zinda, Gur-e-Amir, the Konigil paper workshop. Hotel in the centre, breakfasts.", "Dastur: Registon, Şohi Zinda, Gur Amir, Konigildagi qoğoz ustaxonasi. Markazdagi mehmonxona, nonuşta."],
+  "Встретим группу на вокзале, автобус с кондиционером все дни. Ужин с национальной программой в последний вечер.": ["We'll meet the group at the station, air-conditioned bus every day. Dinner with a folk show on the last evening.", "Guruhni vokzalda kutib olamiz, har kuni konditsionerli avtobus. Oxirgi kuni milliy dasturli keçki ovqat."],
+  "Работаем с группами 10 лет, свои гиды и транспорт. Можем взять обе группы на одни даты.": ["10 years with groups, our own guides and transport. We can take both groups on the same dates.", "10 yildan beri guruhlar bilan işlaymiz, öz gid va transportimiz bor. Ikkala guruhni bir xil sanalarga olamiz."],
+  "Гостиница у Регистана, обеды в чайхане, входные билеты включены.": ["Hotel near Registan, lunches at a chaikhana, entry tickets included.", "Registon yonidagi mehmonxona, tuşlik çoyxonada, kiriş çiptalari kiritilgan."],
+  "Yutong 51 место, кондиционер, Wi-Fi, водитель с опытом междугородних рейсов.": ["Yutong, 51 seats, A/C, Wi-Fi, driver experienced in intercity trips.", "Yutong 51 örinli, konditsioner, Wi-Fi, şaharlararo qatnovda tajribali haydovçi."],
+  "Автобус 2023 года, USB-зарядки у каждого кресла, микрофон для гида.": ["2023 bus, USB chargers at every seat, microphone for the guide.", "2023-yilgi avtobus, har bir örindiqda USB-quvvatlagiç, gid uçun mikrofon."],
+  "Можем дать два автобуса, если группа разделится.": ["We can provide two buses if the group splits.", "Guruh bölinsa, ikkita avtobus bera olamiz."],
+  "Гостиница 3★ в старом городе, двухместные номера, завтрак включён.": ["3★ hotel in the old town, twin rooms, breakfast included.", "Eski şahardagi 3★ mehmonxona, ikki kişilik xonalar, nonuşta kiritilgan."],
+  "Номера для группы до 40 человек, парковка для автобуса.": ["Rooms for groups of up to 40, bus parking.", "40 kişigaça guruh uçun xonalar, avtobus uçun turargoh."],
+  "Лицензированный гид, опыт 8 лет, работает с группами до 30 человек.": ["Licensed guide, 8 years' experience, works with groups of up to 30.", "Litsenziyali gid, 8 yillik tajriba, 30 kişigaça guruhlar bilan işlaydi."],
+  "Гид-историк, авторская программа по старому городу.": ["Historian guide with his own old-town programme.", "Tarixçi gid, eski şahar böyiça mualliflik dasturi."],
+  "Групповое меню: плов, шашлык, салаты, чай. Зал на 60 мест.": ["Group menu: plov, shashlik, salads, tea. Hall for 60.", "Guruh menyusi: palov, kabob, salatlar, çoy. 60 örinli zal."],
+  "Возьмёмся, подробности обсудим в чате.": ["We'll take it — let's discuss the details in chat.", "Olamiz, tafsilotlarni çatda kelişamiz."],
+  "4★, завтраки": ["4★, breakfasts", "4★, nonuşta"],
+  "3★ у Регистана": ["3★ near Registan", "Registon yonida 3★"],
+  "Здравствуйте! Спасибо, что выбрали нас. Программу и договор пришлём сегодня. Удобно созвониться через 15 минут?": ["Hello! Thanks for choosing us. We'll send the programme and contract today. Can we have a call in 15 minutes?", "Assalomu alaykum! Bizni tanlaganingiz uçun rahmat. Dastur va şartnomani bugun yuboramiz. 15 daqiqadan keyin qöngiroqlaşsak böladimi?"],
+  "Взяли нашу группу из 22 человек в высокий сезон, всё чётко по программе.": ["Took our group of 22 in high season, everything exactly to plan.", "Yuqori mavsumda 22 kişilik guruhimizni olişdi, hammasi dastur böyiça aniq."],
+  "Гид на французском — отличный, туристы оставили хорошие отзывы.": ["The French-speaking guide was excellent, tourists left great feedback.", "Fransuz tilidagi gid ajoyib, turistlar yaxşi fikr qoldirişdi."],
+  "Работаем третий сезон, ни одного срыва.": ["Third season together, not a single failure.", "Uçinçi mavsum birga işlayapmiz, birorta ham uzilish yöq."],
+  "Хорошо, но гостиницу подтвердили только за день.": ["Good, but the hotel was confirmed only a day before.", "Yaxşi, lekin mehmonxonani faqat bir kun oldin tasdiqlaşdi."],
+  "Быстро ответили и дали лучшую цену.": ["Replied fast and gave the best price.", "Tez javob berişdi va eng yaxşi narxni taklif qilişdi."],
+  "Удобно: и гостиница, и трансфер в одном месте.": ["Convenient: hotel and transfer in one place.", "Qulay: mehmonxona ham, transfer ham bir joyda."],
+  "Всё хорошо, автобус немного опоздал на вокзал.": ["All good, the bus was a little late to the station.", "Hammasi yaxşi, avtobus vokzalga biroz keçikdi."],
+  "Отличное соотношение цены и качества.": ["Excellent value for money.", "Narx va sifat nisbati a'lo."],
+  "Юрточный лагерь в Нурате — туристы в восторге.": ["The yurt camp in Nurata — tourists loved it.", "Nuratadagi ötov lageri — turistlar xursand."],
+  "Надёжные, берут группы даже в последний момент.": ["Reliable, they take groups even at the last minute.", "Işonçli, guruhlarni hatto oxirgi daqiqada ham olişadi."],
+  "Хорошая программа, обеды можно разнообразить.": ["Good programme, lunches could be more varied.", "Yaxşi dastur, tuşliklarni xilma-xil qiliş mumkin."],
+  "Рекомендуем.": ["Recommended.", "Tavsiya qilamiz."],
+  "Гид на немецком — профессионал.": ["The German-speaking guide is a true professional.", "Nemis tilidagi gid — haqiqiy professional."],
+  "Всё по договорённости.": ["Everything as agreed.", "Hammasi kelişilganidek."],
+  "Дали автобус за 3 часа, когда наш сломался в дороге.": ["Gave us a bus within 3 hours when ours broke down on the road.", "Avtobusimiz yölda buzilganda 3 soat içida avtobus berişdi."],
+  "Новые автобусы, водители вежливые.": ["New buses, polite drivers.", "Yangi avtobuslar, xuşmuomala haydovçilar."],
+  "Wi-Fi и кондиционер реально работают.": ["The Wi-Fi and A/C actually work.", "Wi-Fi va konditsioner haqiqatan işlaydi."],
+  "Хорошо, но нужен заказ хотя бы за день.": ["Good, but you need to book at least a day ahead.", "Yaxşi, lekin kamida bir kun oldin buyurtma beriş kerak."],
+  "Постоянный партнёр.": ["A regular partner.", "Doimiy hamkor."],
+  "Отлично.": ["Excellent.", "A'lo."],
+  "Нашли гида на испанском за вечер.": ["Found us a Spanish-speaking guide in one evening.", "Bir keçada ispan tilidagi gid topib berişdi."],
+  "Гиды подготовленные, знают историю.": ["Well-prepared guides who know their history.", "Gidlar tayyorgarlikli, tarixni yaxşi bilişadi."],
+  "Хорошо, чуть дороже рынка.": ["Good, slightly above market price.", "Yaxşi, bozordan biroz qimmatroq."],
+  "Нужен автобус на 50 мест Самарканд → Бухара на 2 дня, 5 декабря, с кондиционером": ["Need a 50-seat bus Samarkand → Bukhara for 2 days, 5 December, with A/C", "Samarqand → Buxoro, 5-dekabr, 2 kunga 50 örinli konditsionerli avtobus kerak"],
+  "Автобус на 50 мест, Самарканд → Бухара": ["50-seat bus, Samarkand → Bukhara", "50 örinli avtobus, Samarqand → Buxoro"],
+  "Автобус 50 мест, кондиционер": ["50-seat bus, A/C", "50 örinli avtobus, konditsioner"],
+  "Выезд утром 5 декабря": ["Departure on the morning of 5 December", "5-dekabr ertalab jönaş"],
+  "Кондиционер обязателен": ["A/C is a must", "Konditsioner şart"],
+  "Ночёвка водителя в Бухаре — за наш счёт": ["Driver's overnight stay in Bukhara is on us", "Haydovçining Buxorodagi tunaşi — bizning hisobimizdan"],
+  "Срочно гид на испанском в Хиве на 3 дня, группа 18 человек, с 8 декабря": ["Urgent: Spanish-speaking guide in Khiva for 3 days, group of 18, from 8 December", "Zudlik bilan Xivada 3 kunga ispan tilida gid kerak, 18 kişilik guruh, 8-dekabrdan"],
+  "Гид на испанском в Хиве на 3 дня": ["Spanish-speaking guide in Khiva for 3 days", "Xivada 3 kunga ispan tilida gid"],
+  "испанский": ["Spanish", "ispan tili"],
+  "Группа 18 человек из Испании": ["Group of 18 from Spain", "Ispaniyadan 18 kişilik guruh"],
+  "Ичан-Кала и крепости Элликкалы": ["Itchan Kala and the Ellikkala fortresses", "Ichan qal'a va Ellikqal'a qal'alari"],
+  "Нужен опыт работы с группами": ["Experience with groups required", "Guruhlar bilan işlaş tajribasi kerak"],
+  "Гостиница 3* в Бухаре на 2 ночи, 24 человека, 12 двухместных номеров, с завтраком": ["3* hotel in Bukhara for 2 nights, 24 people, 12 twin rooms, with breakfast", "Buxoroda 2 tunga 3* mehmonxona, 24 kişi, 12 ta ikki kişilik xona, nonuşta bilan"],
+  "Гостиница 3★ в Бухаре на 2 ночи, 24 человека": ["3★ hotel in Bukhara for 2 nights, 24 people", "Buxoroda 2 tunga 3★ mehmonxona, 24 kişi"],
+  "Завтраки": ["Breakfasts", "Nonuşta"],
+  "до $45 за номер": ["up to $45 per room", "xona uçun $45 gaça"],
+  "12 двухместных номеров": ["12 twin rooms", "12 ta ikki kişilik xona"],
+  "Желательно у Ляби-Хауза": ["Preferably near Lyabi-Hauz", "Labi Hovuz yonida bölsa yaxşi"],
+  "Парковка для автобуса": ["Bus parking", "Avtobus uçun turargoh"],
+  "Возьмите группу 15 человек на 5 дней Ташкент + Самарканд, гид на английском, 3*": ["Take a group of 15 for 5 days, Tashkent + Samarkand, English-speaking guide, 3*", "15 kişilik guruhni 5 kunga oling, Toşkent + Samarqand, ingliz tilida gid, 3*"],
+  "Тур Ташкент + Самарканд на 5 дней, 15 человек": ["Tashkent + Samarkand tour, 5 days, 15 people", "Toşkent + Samarqand turi, 5 kun, 15 kişi"],
+  "английский": ["English", "ingliz tili"],
+  "Завтраки и ужины": ["Breakfasts and dinners", "Nonuşta va keçki ovqat"],
+  "Гид на английском все дни": ["English-speaking guide every day", "Har kuni ingliz tilida gid"],
+  "Скоростной поезд Afrosiyob туда и обратно": ["Afrosiyob high-speed train both ways", "Afrosiyob tezyurar poyezdida borib-keliş"],
+  "Гостиницы 3★ в центре": ["3★ hotels in the centre", "Markazdagi 3★ mehmonxonalar"]
 }

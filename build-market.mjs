@@ -1,20 +1,19 @@
-import {readFileSync} from 'node:fs';
+import {readFileSync,readdirSync,existsSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {localizePage,localizeScript} from './localize.mjs';
 import {build} from 'esbuild';
-const files={'/MedeoSansVariable.woff2':['MedeoSansVariable.woff2','font/woff2'],'/medeo-license.txt':['medeo-license.txt','text/plain; charset=utf-8'],'/tourmesh-ai.mjs':['tourmesh-ai.mjs','text/javascript; charset=utf-8'],'/tourmesh-lattice-reference.png':['tourmesh-lattice-reference.png','image/png'],'/tourmesh-concept-ornament.svg':['tourmesh-concept-ornament.svg','image/svg+xml']};
-const assets=Object.fromEntries(Object.entries(files).map(([url,[path,type]])=>[url,[type,readFileSync('dist/'+path).toString('base64')]]));
-assets['/demo-calendar.mjs']=['text/javascript; charset=utf-8',readFileSync('demo-calendar.mjs').toString('base64')];
-assets['/tourmesh-relief.jpg']=['image/jpeg',readFileSync('dist/tourmesh-relief.jpg').toString('base64')];
-const html=readFileSync('dist/index.html','utf8');
+// The old landing page and its assets (Medeo font, relief photo, lattice, browser AI) stay in dist/ but are no longer served.
+const assets={};
+for(const name of readdirSync('app/fonts'))assets['/fonts/'+name]=[name.endsWith('.txt')?'text/plain; charset=utf-8':'font/woff2',readFileSync('app/fonts/'+name).toString('base64')];
+const logoTypes={png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',webp:'image/webp',svg:'image/svg+xml'};
+if(existsSync('assets/partners'))for(const name of readdirSync('assets/partners')){const type=logoTypes[name.split('.').pop().toLowerCase()];if(type&&/^[a-z0-9._-]+$/i.test(name))assets['/partners/'+name]=[type,readFileSync('assets/partners/'+name).toString('base64')]}
+const html=readFileSync('app/index.html','utf8');
 assets.hashes={};
-const calendar=readFileSync('demo-calendar.mjs','utf8');
 for(const lang of ['ru','en','uz']){
  const page=localizePage(html,lang);
  const js=page.match(/<script>([\s\S]+?)<\/script>/)[1].replace(/\r\n?/g,'\n');
  assets.hashes[lang]=createHash('sha256').update(js).digest('base64');
  assets['page:'+lang]=['text/html; charset=utf-8',Buffer.from(page).toString('base64')];
- assets['/demo-calendar.'+lang+'.mjs']=['text/javascript; charset=utf-8',Buffer.from(localizeScript(calendar,lang)).toString('base64')];
 }
 await build({
  entryPoints:['market-worker.mjs'],outfile:'dist/server/index.js',bundle:true,format:'esm',platform:'browser',target:'es2022',

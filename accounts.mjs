@@ -71,8 +71,8 @@ export async function auth(action, request, db, data, current) {
     if (!validPassword(data.password)) return fail(passwordHint,400);
     const previous = data.linkPrevious === true ? await previousProfile(request,db) : null;
     if (data.linkPrevious === true && !previous) return fail('Этот кабинет уже привязан или недоступен.',409);
-    const profile = previous || {id:'tm:'+crypto.randomUUID(),name:typeof data.name === 'string' ? data.name.trim() : '',role:data.role};
-    if (profile.name.length < 2 || profile.name.length > 90 || (!previous && !['operator','supplier'].includes(profile.role))) return fail('Выберите роль и укажите название компании.',400);
+    const profile = previous || {id:'tm:'+crypto.randomUUID(),name:typeof data.name === 'string' ? data.name.trim() : '',role:['operator','supplier'].includes(data.role)?data.role:'both'};
+    if (profile.name.length < 2 || profile.name.length > 90 || (!previous && !['operator','supplier','both'].includes(profile.role))) return fail('Укажите название компании.',400);
     const exists = await db.prepare('SELECT 1 FROM accounts WHERE login=?').bind(login).first();
     if (exists) return fail('Этот логин уже занят. Выберите другой.',409);
     const passwordHash = await bcrypt.hash(data.password,12);

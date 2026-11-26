@@ -16,3 +16,7 @@ migrations_dir = "drizzle"
 [[r2_buckets]]
 binding = "BUCKET"
 bucket_name = "tourmesh-photos"
+
+# Workers AI: turns a free-text request into a structured one.
+[ai]
+binding = "AI"
