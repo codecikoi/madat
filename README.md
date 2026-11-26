@@ -43,9 +43,8 @@ npx wrangler d1 migrations apply DB --remote   # after adding a migration
 npm run deploy
 ```
 
-Photo upload needs R2: enable it in the Cloudflare dashboard, run
-`npx wrangler r2 bucket create tourmesh-photos`, then uncomment the R2 block in
-both `wrangler.toml` files.
+Offer photos are stored in the R2 bucket `tourmesh-photos`; both `wrangler.toml`
+files bind it as `BUCKET`.
 
 Deploy using your own Cloudflare project with D1 and R2 bindings. Project identity,
 credentials, live database records, and account sessions are not included here.
