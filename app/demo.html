@@ -206,11 +206,16 @@ const plural=(n,one,few,many)=>{const a=n%10,b=n%100;return a===1&&b!==11?one:a>
 const stage=$('#stage'),screen=$('#screen'),scroller=$('#scroll'),chat=$('#chat'),cursor=$('#cursor');
 let K=1,run=0,paused=false,step=0;
 const STOP=Symbol('stop');
+// The demo plays at twice its written pace; /demo?speed=1 gives the original timing.
+const SPEED=+new URLSearchParams(location.search).get('speed')||2;
+// One-off CSS transitions and animations keep up with it; endless loops (spinner, pulse) keep their own pace.
+const pace=()=>{for(const a of document.getAnimations())if(a.playbackRate!==SPEED&&a.effect?.getTiming().iterations!==Infinity)a.playbackRate=SPEED};
+addEventListener('transitionrun',pace,true);addEventListener('animationstart',pace,true);
 // Waits that respect pause and stop when the demo jumps elsewhere.
 function wait(ms){
  const id=run;
  return new Promise((resolve,reject)=>{
-  let left=ms,last=performance.now();
+  let left=ms/SPEED,last=performance.now();
   const tick=now=>{if(id!==run)return reject(STOP);if(!paused)left-=now-last;last=now;if(left<=0)resolve();else requestAnimationFrame(tick)};
   requestAnimationFrame(tick);
  });
@@ -228,9 +233,14 @@ function point(el,dx=0,dy=0){
 }
 async function moveTo(el,dx,dy){const [x,y]=point(el,dx,dy);cursor.style.left=x+'px';cursor.style.top=y+'px';await wait(800)}
 async function click(el,dx,dy){if(el)await moveTo(el,dx,dy);cursor.classList.add('press');await wait(220);cursor.classList.remove('press');await wait(120)}
-async function scrollTo(top){scroller.scrollTo({top,behavior:'smooth'});await wait(700)}
+// Scrolled by hand: the browser's smooth scroll has its own timing and would lag behind SPEED.
+async function scrollTo(top){
+ const id=run,from=scroller.scrollTop,T=560/SPEED,t0=performance.now();
+ await new Promise(done=>{const f=now=>{if(id!==run)return done();const p=Math.min(1,(now-t0)/T);scroller.scrollTop=from+(top-from)*(p<.5?2*p*p:1-(-2*p+2)**2/2);p<1?requestAnimationFrame(f):done()};requestAnimationFrame(f)});
+ await wait(140);
+}
 async function type(el,text,speed=34){for(let i=1;i<=text.length;i++){el.value=text.slice(0,i);el.dispatchEvent(new Event('input'));await wait(speed+(text[i-1]===' '?speed:0))}}
-function toast(text){const t=$('#toast');t.textContent=text;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2600)}
+function toast(text){const t=$('#toast');t.textContent=text;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2600/SPEED)}
 
 // ---------- phone ----------
 let minute=24;
@@ -339,7 +349,7 @@ function drawBids(){
  $('#bids').innerHTML=list.map(b=>bidCard(b,{best:b===cheapest&&list.length>1,badges:[b===cheapest&&list.length>1?'<span class="tag ok">Дешевле всех</span>':'',b===top&&list.length>1?'<span class="tag blue">Лучший рейтинг</span>':''].join('')})).join('');
  for(const el of $$('#bids .bid')){
   const was=before.get(el.dataset.bid);
-  if(was!==undefined){const dy=(was-el.getBoundingClientRect().top)/K/.8891;if(Math.abs(dy)>1)el.animate([{transform:`translateY(${dy}px)`},{transform:'none'}],{duration:450,easing:'cubic-bezier(.2,.8,.2,1)'})}
+  if(was!==undefined){const dy=(was-el.getBoundingClientRect().top)/K/.8891;if(Math.abs(dy)>1)el.animate([{transform:`translateY(${dy}px)`},{transform:'none'}],{duration:450,easing:'cubic-bezier(.2,.8,.2,1)'}).playbackRate=SPEED}
   shown.add(el.dataset.bid);
  }
  $('#bidsTitle').textContent=list.length?list.length+' '+plural(list.length,'отклик','отклика','откликов'):'Отклики';
