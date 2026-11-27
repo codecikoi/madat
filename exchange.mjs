@@ -1,6 +1,7 @@
 // Request exchange between travel agencies: post a request, collect bids, choose one, chat.
 import {limited} from './accounts.mjs';
 import {tg,botUsername,hookSecret,hookUpdates,loginUpdate} from './telegram.mjs';
+import {demoUpdate} from './demo-booking.mjs';
 import catalog from './languages.json';
 // Sample content (demo agencies, reviews, canned notes) is stored in Russian and shown in the viewer's language.
 const tr=(value,lang)=>lang&&lang!=='ru'&&typeof value==='string'&&catalog[value]?catalog[value][lang==='en'?0:1]:value;
@@ -405,6 +406,7 @@ export async function telegramHook(request,env,db){
  if(!env.TELEGRAM_BOT_TOKEN||request.headers.get('x-telegram-bot-api-secret-token')!==await hookSecret(env))return new Response('forbidden',{status:403});
  let update;try{update=await request.json()}catch{return new Response('ok')}
  if(await loginUpdate(update,env,db))return new Response('ok');
+ if(await demoUpdate(update,env,db))return new Response('ok');
  const message=update?.message,chat=message?.chat?.id,text=typeof message?.text==='string'?message.text:'';
  if(!chat||message.chat.type!=='private')return new Response('ok');
  const code=text.match(/^\/start\s+([a-f0-9]{24})$/)?.[1];

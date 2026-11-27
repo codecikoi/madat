@@ -1,4 +1,4 @@
-import {demoBooking} from './demo-booking.mjs';
+import {demoBooking,demoReminders} from './demo-booking.mjs';
 import {auth, me, session} from './accounts.mjs';
 import {exchange, telegramHook} from './exchange.mjs';
 import {telegramLogin} from './telegram.mjs';
@@ -33,12 +33,12 @@ async function api(request,env,url,ctx,lang){
  const db=env.DB,path=url.pathname,method=request.method;
  if(path==='/api/telegram/hook'&&method==='POST')return telegramHook(request,env,db);
  if(method==='POST'&&request.headers.get('origin')!==url.origin)return error('Запрос отклонён.',403);
- if(path==='/api/demo-calendar')return demoBooking(request,db,body,json);
  if(path==='/api/partners'&&method==='GET'){
   const {results}=await db.prepare('SELECT name,city,category,services,contacts FROM trusted_partners ORDER BY rowid').all();
   return json({partners:results.map(row=>({...row,contacts:JSON.parse(row.contacts)}))});
  }
  const profile=await session(request,db);
+ if(path==='/api/demo-calendar')return demoBooking({request,env,db,readBody:body,json,profile,lang,later:promise=>ctx?.waitUntil?ctx.waitUntil(promise):promise});
  if(path==='/api/me'&&method==='GET')return me(request,db,profile);
  if(path.startsWith('/api/auth/telegram/')&&method==='POST'){
   let data;
@@ -121,7 +121,11 @@ async function api(request,env,url,ctx,lang){
  }
  return error('Не найдено.',404);
 }
-export default {async fetch(request,env,ctx){
+// Pages has no cron, so any request may send the demo reminders that are due, at most once a minute per isolate.
+let reminded=0;
+export default {async scheduled(event,env,ctx){ctx.waitUntil(demoReminders(env,env.DB))},
+async fetch(request,env,ctx){
+ if(env.DB&&ctx?.waitUntil&&Date.now()-reminded>60000){reminded=Date.now();ctx.waitUntil(demoReminders(env,env.DB).catch(()=>{}))}
  const url=new URL(request.url);
  const requested=url.searchParams.get('lang');
  const stored=request.headers.get('cookie')?.match(/(?:^|;\s*)tm_lang=(en|uz|ru)(?:;|$)/)?.[1];

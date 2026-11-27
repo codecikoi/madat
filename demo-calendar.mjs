@@ -146,12 +146,7 @@ async function loadCalendar(message='',source=null){
  try{
   const data=await (source||fetchCalendar());
   if(current!==revision)return;
-  if(data.mine){
-   id('hours').hidden=true;id('receipt').hidden=false;
-   id('receipt').textContent='Заявка подана. Ждём вас на демо.';
-   id('status').textContent='';
-   return;
-  }
+  if(data.mine){showReceipt(data);return}
   id('receipt').hidden=true;
   starts=workingStarts(data.now);busy=new Set(data.busy);ready=true;
   id('hours').hidden=false;rebuild(selected);id('status').textContent=message;
@@ -166,7 +161,7 @@ id('confirm').onclick=async()=>{
  if(attempt?.start!==start)attempt={start,requestId:crypto.randomUUID()};
  sending=true;renderHours();id('status').textContent='Сохраняем заявку…';
  try{
-  const res=await fetch('/api/demo-calendar',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(attempt),signal:AbortSignal.timeout(10000)});
+  const res=await fetch('/api/demo-calendar',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({...attempt,zone:id('zone').value,lang:document.documentElement.lang}),signal:AbortSignal.timeout(10000)});
   if(res.status===409||res.status===400){
    const result=await res.json();
    attempt=null;
@@ -174,14 +169,36 @@ id('confirm').onclick=async()=>{
    await loadCalendar('Это время уже недоступно. Выберите другое.');return;
   }
   if(res.status===429){id('status').textContent='Слишком много попыток. Попробуйте позже.';return}
-  if(!res.ok||(await res.json()).start!==start)throw Error();
+  if(!res.ok)throw Error();
+  const result=await res.json();
+  if(result.start!==start)throw Error();
   busy.add(start);chosen=null;attempt=null;
-  id('hours').hidden=true;id('receipt').hidden=false;
-  id('receipt').textContent='Заявка подана. Ждём вас на демо.';
-  id('status').textContent='';
+  showReceipt({...result,mine:start});
  }catch{id('status').textContent='Не удалось подтвердить запись. Попробуйте снова.'}
  finally{sending=false;if(ready)renderHours()}
 };
+// The receipt names the slot in the visitor's time zone and says how Telegram will tell them about it.
+function showReceipt(data){
+ const zone=id('zone').value,time=localeDate(zone,{hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
+ const line=(text,className)=>{const p=document.createElement('p');p.textContent=text;if(className)p.className=className;return p};
+ const parts=[line('Заявка подана. Ждём вас на демо.'),
+  line(localeDate(zone,{weekday:'long',day:'numeric',month:'long'}).format(data.mine)+', '+time.format(data.mine)+'–'+time.format(data.mine+halfHour)+' · '+(zoneNames.get(zone)||zone.replaceAll('_',' ')),'demo-slot')];
+ if(data.telegram)parts.push(line('Подтверждение отправили в Telegram.','demo-telegram'));
+ else if(data.link){
+  const open=document.createElement('a');
+  open.className='btn line';open.href=data.link;open.target='_blank';open.rel='noopener';open.textContent='Открыть Telegram';
+  parts.push(line('Получите подтверждение и напоминание в Telegram.','demo-telegram'),open);
+ }
+ id('receipt').dataset.waiting=data.link&&!data.telegram?'1':'';
+ id('receipt').replaceChildren(...parts);
+ id('hours').hidden=true;id('receipt').hidden=false;id('status').textContent='';
+}
+// Back from Telegram: the receipt switches to "sent" once the bot has the chat.
+function recheck(){
+ if(document.hidden||!id('dialog').open||id('receipt').hidden||!id('receipt').dataset.waiting)return;
+ fetchCalendar().then(data=>{if(data.mine&&data.telegram)showReceipt(data)}).catch(()=>{});
+}
+addEventListener('focus',recheck);document.addEventListener('visibilitychange',recheck);
 let opening=false;
 async function openDemo(){
  if(id('dialog').open||opening)return;
