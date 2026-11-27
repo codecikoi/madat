@@ -14,7 +14,6 @@ const uuid=/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}
 const str=(value,max)=>typeof value==='string'?value.replace(/\s+/g,' ').trim().slice(0,max):'';
 const int=(value,min,max)=>{const n=Math.round(Number(value));return Number.isFinite(n)?Math.min(max,Math.max(min,n)):min};
 const esc=value=>String(value).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'})[c]);
-const rand=(min,max)=>min+Math.floor(Math.random()*(max-min+1));
 
 // ---------- free text -> structured request ----------
 const schema={type:'object',properties:{
@@ -88,44 +87,107 @@ const money=(price,currency)=>currency==='USD'?'$'+price.toLocaleString('ru-RU')
 async function rating(db,id){
  return db.prepare('SELECT ROUND(AVG(rating),1) AS score,COUNT(*) AS count FROM reviews WHERE target=?').bind(id).first();
 }
-async function bidNotice(env,db,origin,bid){
- const row=await db.prepare('SELECT j.id,j.data,o.tg_chat,p.name,p.id AS agency FROM bids b JOIN jobs j ON j.id=b.job JOIN profiles o ON o.id=j.owner JOIN profiles p ON p.id=b.owner WHERE b.id=?').bind(bid.id).first();
+// Each offer is announced once, by whichever gets to it first: the sender, the owner's page, or a demo timer.
+async function bidNotice(env,db,origin,id){
+ const bid=await db.prepare('UPDATE bids SET notified=1 WHERE id=? AND notified=0 RETURNING price,currency,data').bind(id).first();
+ if(!bid)return;
+ const row=await db.prepare('SELECT j.id,j.data,o.tg_chat,p.name,p.id AS agency FROM bids b JOIN jobs j ON j.id=b.job JOIN profiles o ON o.id=j.owner JOIN profiles p ON p.id=b.owner WHERE b.id=?').bind(id).first();
  if(!row?.tg_chat)return;
  const job=JSON.parse(row.data),score=await rating(db,row.agency);
  const stars=score?.count?' · ★ '+score.score:'';
- await notify(env,row.tg_chat,`🔔 <b>Новый отклик на вашу заявку</b>\n«${esc(job.title)}»\n\n<b>${esc(row.name)}</b>${stars}\n${money(bid.price,bid.currency)} ${unitText[bid.unit]||''}`,origin+'/jobs/'+row.id,'Открыть заявку');
+ await notify(env,row.tg_chat,`🔔 <b>Новый отклик на вашу заявку</b>\n«${esc(job.title)}»\n\n<b>${esc(row.name)}</b>${stars}\n${money(bid.price,bid.currency)} ${unitText[JSON.parse(bid.data).unit]||''}`,origin+'/jobs/'+row.id,'Открыть заявку');
 }
 
 // ---------- sample answers for the presenter's demo requests ----------
-const demoPlans={
- tour:job=>({price:job.days?job.days*rand(36,64):rand(180,420),unit:'person',includes:['hotel','meals','guide','transport']}),
- transport:()=>({price:rand(9,16)*10,unit:'day',includes:['transport']}),
- hotel:()=>({price:rand(7,16)*5,unit:'night',includes:['hotel','meals']}),
- guide:()=>({price:rand(8,16)*5,unit:'day',includes:['guide']}),
- food:()=>({price:rand(8,15),unit:'person',includes:['meals']}),
- other:()=>({price:rand(15,40)*10,unit:'group',includes:[]})
+// A sample agency answers only for what it does, about the city asked for, at the hotel level asked for.
+// Better-rated agencies ask a little more, so "cheapest" and "best rated" land on different offers.
+// Every sentence is fixed and listed in languages.json, so a sample offer reads in the viewer's language.
+const demoDoes={
+ 'demo:registan':['tour','guide','hotel','food'],
+ 'demo:zarafshon':['tour','transport','hotel','food','guide'],
+ 'demo:karvon':['tour','transport','hotel','food','guide'],
+ 'demo:darvoza':['tour','guide','hotel','food'],
+ 'demo:ekspress':['transport'],
+ 'demo:gidlar':['guide']
 };
-const demoNotes={
- tour:['Программа: Регистан, Шахи-Зинда, Гур-Эмир, мастерская бумаги в Кониги. Гостиница в центре, завтраки.','Встретим группу на вокзале, автобус с кондиционером все дни. Ужин с национальной программой в последний вечер.','Работаем с группами 10 лет, свои гиды и транспорт. Можем взять обе группы на одни даты.','Гостиница у Регистана, обеды в чайхане, входные билеты включены.'],
- transport:['Yutong 51 место, кондиционер, Wi-Fi, водитель с опытом междугородних рейсов.','Автобус 2023 года, USB-зарядки у каждого кресла, микрофон для гида.','Можем дать два автобуса, если группа разделится.'],
- hotel:['Гостиница 3★ в старом городе, двухместные номера, завтрак включён.','Номера для группы до 40 человек, парковка для автобуса.'],
- guide:['Лицензированный гид, опыт 8 лет, работает с группами до 30 человек.','Гид-историк, авторская программа по старому городу.'],
- food:['Групповое меню: плов, шашлык, салаты, чай. Зал на 60 мест.'],
- other:['Возьмёмся, подробности обсудим в чате.']
+const demoSights={
+ 'Самарканд':['Программа: Регистан, Шахи-Зинда, Гур-Эмир, мастерская бумаги в Конигиле.','Программа: Регистан, Биби-Ханым, обсерватория Улугбека, базар Сиаб.'],
+ 'Бухара':['Программа: Арк, Пои-Калян, Ляби-Хауз, дворец Ситораи Мохи-Хоса.','Программа: Ляби-Хауз, торговые купола, медресе Мири-Араб, мавзолей Саманидов.'],
+ 'Хива':['Программа: Ичан-Кала, Кальта-Минор, мечеть Джума, дворец Таш-Хаули.','Программа: Ичан-Кала, Куня-Арк, минарет Ислам-Ходжа, крепости Хорезма.'],
+ 'Ташкент':['Программа: Хаст-Имам, базар Чорсу, станции метро, сквер Амира Темура.','Программа: Старый город, медресе Кукельдаш, Музей прикладного искусства.'],
+ 'Фергана':['Программа: керамика Риштана, шёлковая фабрика «Ёдгорлик» в Маргилане.','Программа: Маргилан, Риштан, Коканд и дворец Худояр-хана.'],
+ 'Нукус':['Программа: музей Савицкого, поездка в Муйнак к Аральскому морю.','Программа: музей Савицкого, крепости Топрак-Кала и Аяз-Кала.'],
+ 'Шахрисабз':['Программа: дворец Ак-Сарай, Дорут-Тиловат, Дорус-Саодат.','Программа: Ак-Сарай, мечеть Кок-Гумбаз, родина Амира Темура.']
 };
+const demoNear={'Самарканд':'у Регистана','Бухара':'у Ляби-Хауза','Хива':'у Ичан-Калы'};
+const demoLines={
+ tour:{'demo:registan':'Свои гиды на 6 языках, 12 лет на рынке.','demo:zarafshon':'Встретим группу на вокзале, автобус с кондиционером все дни.',
+  'demo:karvon':'Свой транспорт, ужин с национальной программой в последний вечер.','demo:darvoza':'Входные билеты включены, обеды в чайхане.'},
+ transport:{'demo:ekspress':'Если автобус сломается в пути, подменный будет через 3 часа.','demo:zarafshon':'Встреча на вокзале или в аэропорту включена.',
+  'demo:karvon':'Водители с опытом дальних рейсов через Кызылкум.'},
+ guide:{'demo:gidlar':'Лицензированный гид, опыт 8 лет, работает с группами до 30 человек.','demo:darvoza':'Гид-историк, авторская программа по старому городу.',
+  'demo:registan':'Гид из нашей команды, наушники для группы бесплатно.','demo:karvon':'Гид с опытом работы с группами из Европы и Азии.'},
+ guideAny:'Гид встретит группу в гостинице и будет с ней все дни.',
+ hotel:['Двухместные номера, завтрак включён, парковка для автобуса.','Номера для всей группы на одном этаже, ранний заезд по запросу.'],
+ food:['Групповое меню: плов, шашлык, салаты, чай. Зал на 60 мест.','Обеды в чайхане, ужин с национальной программой.'],
+ other:'Возьмёмся, подробности обсудим в чате.'
+};
+const demoVehicles=[[7,'Hyundai Staria на 7 мест, кондиционер.','Kia Carnival на 7 мест, кондиционер.'],
+ [18,'Mercedes Sprinter на 18 мест, кондиционер, место для багажа.','Ford Transit на 18 мест, кондиционер.'],
+ [35,'Isuzu на 35 мест, кондиционер, микрофон для гида.','Higer на 35 мест 2023 года, кондиционер, USB-зарядки.'],
+ [Infinity,'Yutong на 51 место, кондиционер, Wi-Fi.','King Long на 53 места, кондиционер, микрофон для гида.']];
+// What a typical agency asks, in USD: [price per unit, unit, what the whole trip costs at that price].
+function demoRate(service,need){
+ const {days,people,stars,seats}=need;
+ if(service==='tour')return [days*(stars>=5?95:stars>=4?62:44),'person'];
+ if(service==='transport'){const p=seats<=7?70:seats<=18?100:seats<=35?120:150;return [p,'day',p*days]}
+ if(service==='guide')return [60,'day',60*days];
+ if(service==='hotel'){const p=stars>=5?140:stars>=4?80:50;return [p,'night',p*Math.max(1,days-1)*Math.ceil(people/2)]}
+ if(service==='food')return [15,'person',15*people*days];
+ return [250,'group',250];
+}
+const roundPrice=p=>p<100?Math.max(5,Math.round(p/5)*5):Math.round(p/10)*10;
 async function demoBids(db,job,draft,now){
- const {results}=await db.prepare('SELECT id,city,about FROM profiles WHERE demo=1').all();
- if(!results.length)return;
- const city=Object.keys(cityWords).find(c=>cityWords[c].test(draft.city))||draft.city;
- const local=results.filter(p=>city&&p.city===city),rest=results.filter(p=>!local.includes(p));
- const pick=[...local.sort(()=>Math.random()-.5),...rest.sort(()=>Math.random()-.5)].slice(0,4);
- const delays=[6,15,27,42];
+ const {results}=await db.prepare('SELECT p.id,p.city,AVG(r.rating) AS score,COUNT(r.id) AS count FROM profiles p LEFT JOIN reviews r ON r.target=p.id WHERE p.demo=1 GROUP BY p.id').all();
+ const asked=(draft.services||[draft.service]).filter(s=>services.includes(s));
+ const tour=asked.includes('tour');
+ // A tour agency can put together any mix of services; a specialist answers only for its own.
+ const fits=p=>{const does=demoDoes[p.id]||['tour'];return asked.every(s=>does.includes(s))||(does.includes('tour')&&(asked.length>1||asked[0]==='other'))};
+ const canon=name=>Object.keys(cityWords).find(c=>cityWords[c].test(name))||name;
+ const city=canon(draft.city),from=asked.includes('transport')&&draft.from?canon(draft.from):'';
+ // Agencies from the city come first; for a bus, so do those where the trip starts.
+ const pick=results.filter(fits).map(p=>({...p,rank:(p.city===city||p.city===from?2:0)+Math.random()})).sort((a,b)=>b.rank-a.rank).slice(0,4);
+ if(!pick.length)return;
+ const text=[draft.hotel,draft.transport,...draft.details].join(' ');
+ const stars=+(text.match(/([345])\s*(?:★|\*|зв|звезд|star|yulduz)/i)?.[1]||3);
+ const seatsAsked=+(text.match(/(\d+)\s*(?:мест|o.?rin|örin|seat)/i)?.[1]||0);
+ const need={days:draft.days||(tour?3:1),people:draft.people||15*draft.groups,stars,seats:seatsAsked||(draft.people?draft.people+1:51)};
+ // Price: the trip's usual cost, then up to 12% more for the best rated and 12% less for the least.
+ const rates=(tour?['tour']:asked).map(s=>demoRate(s,need));
+ const daily=!tour&&asked.every(s=>s==='transport'||s==='guide');
+ const base=rates.length===1?rates[0][0]:daily?rates.reduce((sum,r)=>sum+r[0],0):rates.reduce((sum,r)=>sum+r[2],0);
+ const unit=rates.length===1?rates[0][1]:daily?'day':'total';
+ const byRating=[...pick].sort((a,b)=>(b.score||0)-(a.score||0)||b.count-a.count);
+ // The last one stays under 30 s: that is how long a Worker may keep running after it answers (see /api/jobs).
+ const delays=[5,11,18,26],made=[];
  await db.batch(pick.map((agency,i)=>{
-  const plan=(demoPlans[draft.service]||demoPlans.other)(draft);
-  const notes=demoNotes[draft.service]||demoNotes.other;
-  const data={unit:plan.unit,includes:plan.includes,hotel:plan.includes.includes('hotel')?['3★ в центре','4★, завтраки','3★','3★ у Регистана'][i%4]:'',language:draft.language||'',note:notes[i%notes.length]};
-  return db.prepare('INSERT INTO bids(id,job,owner,price,currency,data,created) VALUES(?,?,?,?,?,?,?) ON CONFLICT DO NOTHING').bind(crypto.randomUUID(),job,agency.id,plan.price,'USD',JSON.stringify(data),now+delays[i]*1000);
+  const step=pick.length>1?byRating.indexOf(agency)/(pick.length-1):.5;
+  const price=roundPrice(base*(1.12-.24*step)*(.97+Math.random()*.06));
+  const includes=tour?['hotel','meals','guide','transport',...(agency.id==='demo:darvoza'?['tickets']:[])]
+   :[...new Set(asked.map(s=>({transport:'transport',guide:'guide',hotel:'hotel',food:'meals'})[s]).filter(Boolean))];
+  const notes=[];
+  if(tour){notes.push(demoSights[city]?.[i%2]||'Программу по городу составим под вашу группу.',demoLines.tour[agency.id]);if(draft.groups>1)notes.push('Возьмём все группы на одни даты.')}
+  else for(const s of asked){
+   if(s==='transport'){notes.push(demoVehicles.find(v=>need.seats<=v[0])[1+i%2]);if(asked.length===1&&demoLines.transport[agency.id])notes.push(demoLines.transport[agency.id])}
+   else if(s==='guide')notes.push(demoLines.guide[agency.id]||demoLines.guideAny);
+   else if(s==='hotel'||s==='food')notes.push(demoLines[s][i%2]);
+   else notes.push(demoLines.other);
+  }
+  const data={unit,includes,hotel:includes.includes('hotel')?stars+'★ '+(i%2&&demoNear[city]||'в центре'):'',language:includes.includes('guide')?draft.language:'',notes:notes.filter(Boolean)};
+  made.push({id:crypto.randomUUID(),delay:delays[i]});
+  return db.prepare('INSERT INTO bids(id,job,owner,price,currency,data,created) VALUES(?,?,?,?,?,?,?) ON CONFLICT DO NOTHING').bind(made[i].id,job,agency.id,price,'USD',JSON.stringify(data),now+delays[i]*1000);
  }));
+ return made;
 }
 
 // ---------- views ----------
@@ -140,6 +202,10 @@ function jobView(row,lang){
 }
 function bidView(row,lang){
  const d=JSON.parse(row.data);
+ // Sample offers keep their text as separate catalog sentences; "4★ у Ляби-Хауза" translates the part after the stars.
+ if(Array.isArray(d.notes)){d.note=d.notes.map(x=>tr(x,lang)).join(' ');delete d.notes}
+ const stars=typeof d.hotel==='string'&&!catalog[d.hotel]&&d.hotel.match(/^(\d★ )(.+)$/);
+ if(stars)d.hotel=stars[1]+tr(stars[2],lang);
  for(const k of ['hotel','language','note'])d[k]=tr(d[k],lang);
  return {id:row.id,price:row.price,currency:row.currency,...d,created:row.created};
 }
@@ -227,10 +293,7 @@ export async function exchange({request,env,ctx,url,path,method,db,profile,body,
     const {results}=await db.prepare(`SELECT b.*,${profileFields} FROM bids b JOIN profiles p ON p.id=b.owner WHERE b.job=? AND b.created<=? ORDER BY b.created`).bind(row.id,now).all();
     const reviews=await reviewsFor(db,results.map(r=>r.owner),lang);
     const pending=results.filter(r=>!r.notified);
-    if(pending.length){
-     await db.batch(pending.map(r=>db.prepare('UPDATE bids SET notified=1 WHERE id=?').bind(r.id)));
-     later(Promise.all(pending.map(r=>bidNotice(env,db,origin,{id:r.id,price:r.price,currency:r.currency,unit:JSON.parse(r.data).unit}))));
-    }
+    if(pending.length)later(Promise.all(pending.map(r=>bidNotice(env,db,origin,r.id))));
     const upcoming=await db.prepare('SELECT COUNT(*) AS n FROM bids WHERE job=? AND created>?').bind(row.id,now).first();
     return json({job,owner:true,waiting:upcoming.n>0,bids:results.map(r=>({...bidView(r,lang),agency:{...agencyView({...r,id:r.owner},lang),rating:reviews[r.owner]}}))});
    }
@@ -267,8 +330,14 @@ export async function exchange({request,env,ctx,url,path,method,db,profile,body,
   if(await limited(db,'jobs|'+me,20,now))return error('Много заявок подряд. Повторите через 15 минут.',429);
   const id=crypto.randomUUID();
   await db.prepare('INSERT INTO jobs(id,owner,text,data,created) VALUES(?,?,?,?,?)').bind(id,me,text,JSON.stringify(draft),now).run();
-  const flag=await db.prepare('SELECT demo FROM profiles WHERE id=?').bind(me).first();
-  if(flag?.demo===2||env.DEMO_BIDS==='all')await demoBids(db,id,draft,now);
+  const flag=await db.prepare('SELECT demo,tg_chat FROM profiles WHERE id=?').bind(me).first();
+  const sample=flag?.demo===2||env.DEMO_BIDS==='all'?await demoBids(db,id,draft,now)||[]:[];
+  // Telegram confirms the request went out, then announces each offer as it arrives.
+  // Sample offers are announced on their own timers, so the pings keep coming while the presenter's page is hidden (it polls only while visible).
+  later(Promise.all([
+   notify(env,flag?.tg_chat,`📤 <b>Заявка опубликована</b>\n«${esc(draft.title)}»\n\nАгентства уже видят её — отклики придут сюда.`,origin+'/jobs/'+id,'Открыть заявку'),
+   ...sample.map(b=>new Promise(r=>setTimeout(r,b.delay*1000)).then(()=>bidNotice(env,db,origin,b.id)))
+  ]));
   return json({id},201);
  }
  if(path==='/api/bids'){
@@ -282,9 +351,9 @@ export async function exchange({request,env,ctx,url,path,method,db,profile,body,
   if(!Number.isFinite(price)||price<1||price>(currency==='UZS'?1e11:1e7))return error('Укажите цену.',400);
   const details={unit:units.includes(data.unit)?data.unit:'person',includes:(Array.isArray(data.includes)?data.includes:[]).filter(x=>includesList.includes(x)),hotel:str(data.hotel,60),language:str(data.language,60),note:str(data.note,800)};
   const id=crypto.randomUUID();
-  const saved=await db.prepare('INSERT INTO bids(id,job,owner,price,currency,data,created,notified) VALUES(?,?,?,?,?,?,?,1) ON CONFLICT(job,owner) DO NOTHING').bind(id,data.job,me,price,currency,JSON.stringify(details),now).run();
+  const saved=await db.prepare('INSERT INTO bids(id,job,owner,price,currency,data,created) VALUES(?,?,?,?,?,?,?) ON CONFLICT(job,owner) DO NOTHING').bind(id,data.job,me,price,currency,JSON.stringify(details),now).run();
   if(!saved.meta.changes)return error('Вы уже откликнулись на эту заявку.',409);
-  later(bidNotice(env,db,origin,{id,price,currency,unit:details.unit}));
+  later(bidNotice(env,db,origin,id));
   return json({id},201);
  }
  if(path==='/api/choose'){
