@@ -31,7 +31,11 @@ export async function previousProfile(request, db) {
 }
 function profileView({name,role}) { return {name,role}; }
 export async function me(request, db, current) {
-  if (current) return reply({profile:profileView(current)});
+  if (current) {
+    // busy: the agency has posted a request or sent an offer, so the "В работе" tab has something to show.
+    const row = await db.prepare('SELECT EXISTS(SELECT 1 FROM jobs WHERE owner=?) OR EXISTS(SELECT 1 FROM bids WHERE owner=?) AS busy').bind(current.id, current.id).first();
+    return reply({profile:{...profileView(current),busy:!!row?.busy}});
+  }
   const previous = await previousProfile(request, db);
   return reply({profile:null,previous:previous ? profileView(previous) : null});
 }

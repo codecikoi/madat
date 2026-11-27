@@ -391,6 +391,8 @@
   "Отправить отклик": ["Send offer", "Taklif yuboriş"],
   "Отклик отправлен — заказчик получит уведомление": ["Offer sent — the client will be notified", "Taklif yuborildi — buyurtmaçiga xabar boradi"],
   "Мои отклики": ["My offers", "Takliflarim"],
+  "Заявки": ["Requests", "Sörovlar"],
+  "В работе": ["In progress", "Jarayonda"],
   "У вас пока нет заявок": ["You have no requests yet", "Sizda hozircha sörovlar yöq"],
   "Опишите, что нужно, — агентства пришлют цены.": ["Describe what you need — agencies will send prices.", "Nima kerakligini yozing — agentliklar narx yuboradi."],
   "Вас выбрали": ["You were chosen", "Sizni tanlaşdi"],

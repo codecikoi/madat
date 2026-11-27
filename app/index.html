@@ -189,6 +189,7 @@ h1,h2,h3{margin:0;letter-spacing:-.02em}
 .tabs{display:inline-flex;background:var(--panel);border-radius:var(--r-pill);padding:4px;gap:2px}
 .tabs button{border:0;background:transparent;border-radius:var(--r-pill);padding:7px 16px;font-weight:600;font-size:14px;color:var(--muted);cursor:pointer}
 .tabs button.on{background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(14,23,38,.08)}
+.tabs .n{margin-left:6px;font-weight:500;color:var(--muted)}
 .empty{text-align:center;color:var(--muted);padding:48px 16px;border:1px dashed var(--line);border-radius:var(--r-card)}
 .empty h3{color:var(--ink);font-size:17px;margin-bottom:6px}
 .back{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;margin-bottom:16px}
@@ -534,10 +535,11 @@ function facts(job){
 
 /* ---------- nav ---------- */
 // The tabs follow the two sides of the exchange: Главная is what I need (a new request and my requests),
-// Лента заявок and Мои отклики are what I can offer. A job or chat page marks its tab once it knows whose it is.
+// Лента заявок is what I can offer. В работе holds both sides at once (my offers and my requests, behind a switcher)
+// and stays hidden until there is something in it (me.busy). A job or chat page marks its tab once it knows whose it is.
 let navTab='';
 function nav(){
- const links=me?[['/','Главная'],['/jobs','Лента заявок'],['/my','Мои отклики']].map(([href,label])=>`<a href="${href}" data-link${href===navTab?' class="on"':''}>${label}</a>`).join(''):'';
+ const links=me?[['/','Главная'],['/jobs','Лента заявок'],...(me.busy||location.pathname==='/my'?[['/my','В работе']]:[])].map(([href,label])=>`<a href="${href}" data-link${href===navTab?' class="on"':''}>${label}</a>`).join(''):'';
  $('#links').innerHTML=links;
  $('#tabbar').innerHTML=links;
  $('#tabbar').classList.toggle('on',!!me);
@@ -675,6 +677,8 @@ async function pollTelegram(){
 async function signedIn(profile){
  tgStep('link');tgLogin=null;
  me=profile;$('#auth').close();$('#aPass').value='';
+ // The login replies carry no busy flag; /api/me does, and the "В работе" tab shows up once it arrives.
+ api('/api/me').then(d=>{if(me===profile&&d.profile?.busy){me.busy=true;nav()}}).catch(()=>{});
  const next=pendingAuth;pendingAuth=null;
  if(next)await next();else if(location.pathname==='/'||location.pathname==='/start')go('/jobs');else render();
 }
@@ -943,7 +947,7 @@ async function draftPage(){
   if(!saved.draft.services.length)return toast('Выберите, что нужно.');
   needAuth(async()=>{
    const btn=$('#publish');if(btn)btn.disabled=true;
-   try{const r=await api('/api/jobs',{text:saved.text,draft:saved.draft});store.del('tm-draft');go('/jobs/'+r.id,true);toast('Заявка опубликована')}
+   try{const r=await api('/api/jobs',{text:saved.text,draft:saved.draft});store.del('tm-draft');me.busy=true;go('/jobs/'+r.id,true);toast('Заявка опубликована')}
    catch(err){toast(err.message);if(btn)btn.disabled=false}
   });
  });
@@ -979,8 +983,9 @@ function summary(job,extra=''){
 async function jobPage(id){
  if(!me)return needAuthPage(()=>jobPage(id));
  const data=await api('/api/jobs/'+id);
- markTab(data.owner?'/':data.myBid?'/my':'/jobs');
- if(data.owner)return ownerView(id,data);
+ const fromMy=new URLSearchParams(location.search).get('from')==='my';
+ markTab(data.owner?(fromMy?'/my':'/'):data.myBid?'/my':'/jobs');
+ if(data.owner)return ownerView(id,data,fromMy);
  return bidderView(id,data);
 }
 function needAuthPage(retry){
@@ -1009,11 +1014,11 @@ function bidCard(b,job,opts){
   ${opts.chosen?`<a class="btn primary" href="/chat/${b.id}" data-link>${'Открыть чат'}</a>`:opts.canChoose?`<button class="btn primary" data-choose="${b.id}">${'Выбрать'}</button>`:''}</div>
  </article>`;
 }
-async function ownerView(id,data){
+async function ownerView(id,data,fromMy){
  let sort='price',known=new Set();
  const profile=await api('/api/profile').catch(()=>null);
  const tgNudge=profile&&!profile.profile.telegramConnected&&profile.bot?`<div class="nudge"><span><b>${'Получайте отклики в Telegram'}</b> ${'— сразу, как только агентство ответит.'}</span><a class="btn primary sm" href="/account" data-link>${'Подключить'}</a></div>`:'';
- app.innerHTML=`<div class="wrap page"><a class="back" href="/" data-link>${icon('i-back',16)}${'Мои заявки'}</a><div class="job-layout">
+ app.innerHTML=`<div class="wrap page"><a class="back" href="${fromMy?'/my?tab=jobs':'/'}" data-link>${icon('i-back',16)}${fromMy?'В работе':'Мои заявки'}</a><div class="job-layout">
   <section class="bids-col" style="display:flex;flex-direction:column;gap:14px">
    <div class="page-head" style="margin:0"><h1 id="bidsTitle" style="font-size:24px">${'Отклики'}</h1><div class="tabs" id="sort"><button data-s="price" class="on">${'Дешевле'}</button><button data-s="rating">${'Рейтинг'}</button></div></div>
    <div id="chosenBox"></div>
@@ -1079,28 +1084,46 @@ function bidderView(id,data){
    <button class="btn primary lg" id="bSend" type="submit">${'Отправить отклик'}</button>
   </form>`;
  }
- app.innerHTML=`<div class="wrap page">${mine?`<a class="back" href="/my" data-link>${icon('i-back',16)}${'Мои отклики'}</a>`:`<a class="back" href="/jobs" data-link>${icon('i-back',16)}${'Все заявки'}</a>`}<div class="job-layout" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)"><div>${summary(job)}</div><div>${right}</div></div></div>`;
+ app.innerHTML=`<div class="wrap page">${mine?`<a class="back" href="/my?tab=bids" data-link>${icon('i-back',16)}${'В работе'}</a>`:`<a class="back" href="/jobs" data-link>${icon('i-back',16)}${'Все заявки'}</a>`}<div class="job-layout" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)"><div>${summary(job)}</div><div>${right}</div></div></div>`;
  const form=$('#bidForm');
  if(form)form.addEventListener('submit',async e=>{
   e.preventDefault();const btn=$('#bSend');btn.disabled=true;
-  try{await api('/api/bids',{job:id,price:+$('#bPrice').value,currency:$('#bCur').value,unit:$('#bUnit').value,includes:$$('input[name=inc]:checked').map(x=>x.value),hotel:$('#bHotel').value,language:$('#bLang').value,note:$('#bNote').value});toast('Отклик отправлен — заказчик получит уведомление');jobPage(id)}
+  try{await api('/api/bids',{job:id,price:+$('#bPrice').value,currency:$('#bCur').value,unit:$('#bUnit').value,includes:$$('input[name=inc]:checked').map(x=>x.value),hotel:$('#bHotel').value,language:$('#bLang').value,note:$('#bNote').value});toast('Отклик отправлен — заказчик получит уведомление');me.busy=true;nav();jobPage(id)}
   catch(err){toast(err.message);btn.disabled=false}
  });
  if(mine&&!mine.chosen&&job.status==='open')every(async()=>{try{const d=await api('/api/jobs/'+id);if(d.myBid?.chosen||d.job.status!=='open')bidderView(id,d)}catch{}},5000);
 }
 
 /* ---------- my ---------- */
-function myJobCard(j){
- return `<a class="card link" href="/jobs/${j.id}" data-link><div class="job-top">${serviceTags(j)}${j.status==='open'?`<span class="tag wait">${j.bids?h(bidsLabel(j.bids)):'Ждёт откликов'}</span>`:`<span class="tag ok">${'Исполнитель выбран'}</span>`}<span class="muted" style="font-size:12px;margin-left:auto">${h(ago(j.created))}</span></div><div class="job-title">${h(j.title)}</div>${facts(j)}</a>`;
+// From the "В работе" page a request opens with ?from=my, so its back link returns there instead of to the home page.
+function myJobCard(j,from){
+ return `<a class="card link" href="/jobs/${j.id}${from?'?from='+from:''}" data-link><div class="job-top">${serviceTags(j)}${j.status==='open'?`<span class="tag wait">${j.bids?h(bidsLabel(j.bids)):'Ждёт откликов'}</span>`:`<span class="tag ok">${'Исполнитель выбран'}</span>`}<span class="muted" style="font-size:12px;margin-left:auto">${h(ago(j.created))}</span></div><div class="job-title">${h(j.title)}</div>${facts(j)}</a>`;
 }
-// Offers I sent to other agencies' requests; my own requests live on the home page.
+// Both sides of my work in one place: offers I sent (the default) and requests I posted, behind a switcher.
+// The chosen side stays in the URL (?tab=jobs), so coming back from a request lands on the same list.
 async function myPage(){
  if(!me)return needAuthPage(myPage);
  const data=await api('/api/my');
+ const asked=new URLSearchParams(location.search).get('tab');
+ let tab=asked==='jobs'||asked!=='bids'&&!data.bids.length&&data.jobs.length?'jobs':'bids';
+ const bidsList=()=>data.bids.length?`<div class="grid">${data.bids.map(b=>`<a class="card link" href="${b.status==='chosen'?'/chat/'+b.id:'/jobs/'+b.job.id}" data-link><div class="job-top">${b.status==='chosen'?`<span class="tag ok">${'Вас выбрали'}</span>`:b.status==='sent'?`<span class="tag wait">${'Ждёт ответа'}</span>`:`<span class="tag">${'Закрыта'}</span>`}<span class="muted" style="font-size:12px;margin-left:auto">${h(ago(b.created))}</span></div><div class="job-title">${h(b.job.title)}</div><div class="facts"><span>${h(b.job.owner)}</span><span class="num"><b style="color:var(--ink)">${money(b.price,b.currency)}</b>&nbsp;${h(UNIT[b.unit]||'')}</span></div></a>`).join('')}</div>`:`<div class="empty"><h3>${'Вы ещё не откликались'}</h3><p>${'Посмотрите, кому сейчас нужен партнёр.'}</p><a class="btn primary" href="/jobs" data-link>${'Смотреть заявки'}</a></div>`;
+ const jobsList=()=>data.jobs.length?`<div class="grid">${data.jobs.map(j=>myJobCard(j,'my')).join('')}</div>`:`<div class="empty"><h3>${'У вас пока нет заявок'}</h3><p>${'Опишите, что нужно, — агентства пришлют цены.'}</p><a class="btn primary" href="/" data-link>${'Разместить заявку'}</a></div>`;
  app.innerHTML=`<div class="wrap page">
-  <div class="page-head"><h1>${'Мои отклики'}</h1></div>
-  ${data.bids.length?`<div class="grid">${data.bids.map(b=>`<a class="card link" href="${b.status==='chosen'?'/chat/'+b.id:'/jobs/'+b.job.id}" data-link><div class="job-top">${b.status==='chosen'?`<span class="tag ok">${'Вас выбрали'}</span>`:b.status==='sent'?`<span class="tag wait">${'Ждёт ответа'}</span>`:`<span class="tag">${'Закрыта'}</span>`}<span class="muted" style="font-size:12px;margin-left:auto">${h(ago(b.created))}</span></div><div class="job-title">${h(b.job.title)}</div><div class="facts"><span>${h(b.job.owner)}</span><span class="num"><b style="color:var(--ink)">${money(b.price,b.currency)}</b>&nbsp;${h(UNIT[b.unit]||'')}</span></div></a>`).join('')}</div>`:`<div class="empty"><h3>${'Вы ещё не откликались'}</h3><p>${'Посмотрите, кому сейчас нужен партнёр.'}</p><a class="btn primary" href="/jobs" data-link>${'Смотреть заявки'}</a></div>`}
+  <div class="page-head"><h1>${'В работе'}</h1><div class="tabs" id="mySwitch" role="tablist">
+   <button type="button" role="tab" data-tab="bids">${'Отклики'}<span class="n num">${data.bids.length}</span></button>
+   <button type="button" role="tab" data-tab="jobs">${'Заявки'}<span class="n num">${data.jobs.length}</span></button>
+  </div></div>
+  <div id="myList"></div>
  </div>`;
+ const show=()=>{
+  $$('#mySwitch button').forEach(b=>{const on=b.dataset.tab===tab;b.classList.toggle('on',on);b.setAttribute('aria-selected',on)});
+  $('#myList').innerHTML=tab==='jobs'?jobsList():bidsList();
+ };
+ $('#mySwitch').addEventListener('click',e=>{
+  const b=e.target.closest('[data-tab]');if(!b||b.dataset.tab===tab)return;
+  tab=b.dataset.tab;history.replaceState(history.state,'','/my'+(tab==='jobs'?'?tab=jobs':'?tab=bids'));show();
+ });
+ show();
 }
 
 /* ---------- chat ---------- */
