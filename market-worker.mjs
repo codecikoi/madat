@@ -137,8 +137,10 @@ export default {async fetch(request,env,ctx){
   return response;
  }
  const page=/^\/(?:start|jobs|my|account|new|(?:jobs|chat)\/[a-f0-9-]{36})?$/.test(url.pathname);
- const assetPath=page?'page:'+lang:url.pathname;
- if(!page && !assetPath.startsWith('/'))return new Response(null,{status:404});
+ // /demo is a self-playing walk through the product for the pitch (app/demo.html), in Russian only.
+ const demo=url.pathname==='/demo';
+ const assetPath=demo?'page:demo':page?'page:'+lang:url.pathname;
+ if(!page && !demo && !assetPath.startsWith('/'))return new Response(null,{status:404});
  if(!Object.hasOwn(assets,assetPath)||!['GET','HEAD'].includes(request.method))return new Response('Not found',{status:404});
  const [type,value]=assets[assetPath];
  const headers={'content-type':type,'x-content-type-options':'nosniff','referrer-policy':'same-origin','cache-control':page?'private,no-store':'public,max-age=300'};
@@ -146,7 +148,7 @@ export default {async fetch(request,env,ctx){
   headers['content-language']=lang;
   if(requested===lang)headers['set-cookie']='tm_lang='+lang+'; Path=/; Max-Age=31536000; Secure; SameSite=Lax';
  }
- if(page)headers['content-security-policy']="default-src 'self'; script-src 'self' 'sha256-"+assets.hashes[lang]+"'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'self'";
+ if(page||demo)headers['content-security-policy']="default-src 'self'; script-src 'self' 'sha256-"+assets.hashes[demo?'demo':lang]+"'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'self'";
  if(assetPath==='/tourmesh-ai.mjs')headers['content-security-policy']="default-src 'none'; script-src https://cdn.jsdelivr.net 'wasm-unsafe-eval'; connect-src https://cdn.jsdelivr.net https://*.huggingface.co https://huggingface.co https://*.hf.co";
  return new Response(request.method==='HEAD'?null:decode(value),{headers});
 }};

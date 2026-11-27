@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Демо TOURMESH</title>
+<meta name="description" content="Как работает TOURMESH: запрос голосом, ИИ-заявка, отклики в Telegram, сравнение и выбор">
+<!-- The build puts the site's favicon, styles and icons here (build-market.mjs), so the demo looks like the site. -->
+<!--SITE-ICON-->
+<!--SITE-STYLE-->
+<style>
+/* A self-playing walk through the slide "Покажем на живом запросе": a 1600×900 stage scaled to the window.
+   The browser frame shows the site's own markup and styles; the phone shows the presenter's Telegram.
+   The request, offers and reviews are taken from a real run of the platform with its sample agencies. */
+html,body{height:100%}
+body.d-body{display:block;min-height:0;margin:0;overflow:hidden;background:#e7eaf0}
+.d-stage{position:absolute;left:0;top:0;width:1600px;height:900px;transform-origin:0 0;overflow:hidden;
+ background:radial-gradient(900px 520px at 88% -8%,#e6ecff 0,rgba(230,236,255,0) 70%),linear-gradient(165deg,#fdfdfe,#f2f4f7)}
+.d-head{position:absolute;left:56px;right:56px;top:30px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+.d-eyebrow{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+.d-title{font-size:32px;line-height:1.15;font-weight:700;letter-spacing:-.02em;margin-top:8px}
+.d-rail{display:flex;align-items:center;gap:8px}
+.d-rail button{height:44px;display:inline-flex;align-items:center;gap:8px;padding:0 16px;border-radius:14px;background:#fff;border:1px solid var(--line);font-weight:650;font-size:15px;color:var(--ink);cursor:pointer;transition:background .3s,border-color .3s,color .3s,box-shadow .3s}
+.d-rail button:hover{border-color:#cfd3da}
+.d-rail button svg{display:none;color:var(--ok)}
+.d-rail button.done{color:var(--muted)}
+.d-rail button.done svg{display:block}
+.d-rail button.on{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 10px 24px rgba(47,84,235,.28)}
+.d-arr{color:var(--blue);font-size:18px;font-weight:600}
+
+.d-browser{position:absolute;left:56px;top:122px;width:1140px;height:706px;background:#fff;border:1px solid #dcdfe6;border-radius:16px;overflow:hidden;
+ box-shadow:0 2px 6px rgba(14,23,38,.05),0 34px 80px rgba(14,23,38,.14)}
+.d-chrome{height:44px;display:flex;align-items:center;gap:8px;padding:0 16px;background:#f3f4f7;border-bottom:1px solid var(--line)}
+.d-chrome>i{width:12px;height:12px;border-radius:50%;background:#ff5f57}
+.d-chrome>i:nth-child(2){background:#febc2e}
+.d-chrome>i:nth-child(3){background:#28c840}
+.d-url{margin-left:20px;width:520px;height:28px;border-radius:8px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;gap:8px;padding:0 12px;font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden}
+.d-url b{color:var(--ink);font-weight:500}
+.d-url svg{flex:none;color:#98a0ad}
+.d-view{position:relative;height:660px;overflow:hidden}
+/* The site renders at 1280 px and is scaled into the frame. */
+.d-site{position:absolute;left:0;top:0;width:1280px;height:742px;transform:scale(.8891);transform-origin:0 0;display:flex;flex-direction:column;background:#fff}
+.d-site .nav{position:relative;border-color:var(--line)}
+.d-scroll{flex:1;overflow:hidden;position:relative}
+.d-site .page{padding-top:28px}
+.d-site .hero{padding-top:70px}
+.d-site .chat{height:640px;min-height:0}
+.d-site .summary{position:static}
+/* The browser's own confirm() box. */
+.d-confirm{position:absolute;left:50%;top:14px;width:420px;margin-left:-210px;background:#fff;border-radius:12px;box-shadow:0 12px 40px rgba(14,23,38,.25),0 0 0 1px rgba(14,23,38,.08);padding:18px 20px 16px;font-size:14px;z-index:40;opacity:0;transform:translateY(-8px);transition:.2s;pointer-events:none}
+.d-confirm.show{opacity:1;transform:none}
+.d-confirm small{display:block;font-size:13px;font-weight:600;margin-bottom:8px}
+.d-confirm div{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+.d-confirm button{height:32px;padding:0 16px;border-radius:16px;border:1px solid var(--line);background:#fff;font-weight:600;font-size:13px}
+.d-confirm button.ok{background:#1a73e8;border-color:#1a73e8;color:#fff}
+.d-fill{animation:dGlow 1.2s ease-out}
+input.d-fill,textarea.d-fill{animation:dGlow 1.2s ease-out,dTint 1.2s ease-out}
+@keyframes dGlow{0%{box-shadow:0 0 0 4px rgba(47,84,235,.3)}100%{box-shadow:0 0 0 4px rgba(47,84,235,0)}}
+@keyframes dTint{0%{background-color:#eef2ff}100%{background-color:#fff}}
+.d-say{position:absolute;left:50%;top:470px;width:680px;margin-left:-340px;background:var(--ink);color:#fff;border-radius:20px;padding:14px 18px 14px 50px;font-size:17px;line-height:1.45;box-shadow:0 16px 40px rgba(14,23,38,.22);opacity:0;transform:translateY(6px);transition:opacity .25s,transform .25s;z-index:5}
+.d-say.show{opacity:1;transform:none}
+.d-say svg{position:absolute;left:16px;top:15px;width:22px;height:22px;color:#8ea6ff}
+.d-say span{opacity:.28;transition:opacity .15s}
+.d-say span.said{opacity:1}
+
+.d-phone{position:absolute;left:1228px;top:122px;width:316px;height:666px;border-radius:48px;background:#111827;padding:9px;
+ box-shadow:0 2px 6px rgba(14,23,38,.08),0 34px 80px rgba(14,23,38,.22),inset 0 0 0 2px #2b3445}
+.d-phone.buzz{animation:dBuzz .38s}
+@keyframes dBuzz{20%{transform:translateX(-3px) rotate(-.6deg)}40%{transform:translateX(3px) rotate(.6deg)}60%{transform:translateX(-2px)}80%{transform:translateX(2px)}}
+.d-screen{position:relative;width:100%;height:100%;border-radius:40px;overflow:hidden;display:flex;flex-direction:column;background:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Onest,sans-serif}
+.d-island{position:absolute;left:50%;top:9px;width:96px;height:28px;margin-left:-48px;border-radius:16px;background:#111827;z-index:3}
+.d-status{height:46px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:6px 28px 0 34px;font-size:14px;font-weight:600;background:#fff}
+.d-status span{display:flex;gap:5px;align-items:center}
+.d-status i{display:block;width:16px;height:10px;border:1.5px solid #111827;border-radius:3px;position:relative}
+.d-status i::after{content:"";position:absolute;inset:1.5px;right:4px;background:#111827;border-radius:1px}
+.d-tg{flex:none;height:54px;display:flex;align-items:center;gap:10px;padding:0 12px;background:#fff;border-bottom:1px solid #e6e8ec}
+.d-tg>svg{color:#2AABEE}
+.d-tg .d-bot{width:36px;height:36px;border-radius:50%;background:var(--blue);display:grid;place-items:center;color:#fff}
+.d-tg .d-bot svg{width:20px;height:20px}
+.d-tg b{display:block;font-size:15px}
+.d-tg small{display:block;font-size:12px;color:#8a94a3}
+.d-chat{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding:10px 10px 8px;overflow:hidden;
+ background:linear-gradient(160deg,#cfe0c3,#e6ebcf 45%,#cddfc4)}
+.d-msg{align-self:flex-start;max-width:88%;background:#fff;border-radius:14px 14px 14px 4px;padding:8px 10px 6px;font-size:13px;line-height:1.38;white-space:pre-line;box-shadow:0 1px 1px rgba(0,0,0,.08);animation:dMsg .35s cubic-bezier(.2,.8,.2,1)}
+.d-msg time{display:block;text-align:right;font-size:10.5px;color:#8a94a3;margin-top:1px}
+.d-msg a{display:block;margin:6px -4px -2px;padding:7px;border-radius:9px;background:#eaf3fb;color:#2481cc;text-align:center;font-weight:600;font-size:12.5px;text-decoration:none}
+@keyframes dMsg{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
+.d-input{flex:none;height:50px;display:flex;align-items:center;gap:10px;padding:0 14px 6px;background:#fff;color:#a0a8b4;font-size:14px}
+.d-input span{flex:1;height:34px;border-radius:17px;border:1px solid #e6e8ec;display:flex;align-items:center;padding:0 14px}
+.d-plabel{position:absolute;left:1228px;width:316px;top:800px;text-align:center;font-size:13px;font-weight:600;color:var(--muted)}
+
+.d-caption{position:absolute;left:56px;width:1140px;top:846px;display:flex;align-items:center;gap:14px;font-size:19px;font-weight:600;letter-spacing:-.01em;color:var(--ink);min-height:30px}
+.d-caption em{font-style:normal;flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;font-size:14px;font-weight:700}
+.d-caption span{transition:opacity .25s}
+.d-controls{position:absolute;right:56px;top:840px;display:flex;align-items:center;gap:8px}
+.d-controls button{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:#fff;display:grid;place-items:center;cursor:pointer;color:var(--ink)}
+.d-controls button:hover{border-color:#cfd3da}
+.d-controls small{font-size:12px;color:#98a0ad;margin-right:6px}
+.d-progress{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--blue);transition:width .3s linear}
+
+.d-cursor{position:absolute;left:640px;top:520px;width:26px;height:26px;z-index:50;pointer-events:none;transition:left .75s cubic-bezier(.45,.05,.25,1),top .75s cubic-bezier(.45,.05,.25,1),opacity .3s}
+.d-cursor svg{width:26px;height:26px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.3));transition:transform .12s}
+.d-cursor.press svg{transform:scale(.82)}
+.d-cursor i{position:absolute;left:-14px;top:-14px;width:28px;height:28px;border-radius:50%;border:2px solid var(--blue);opacity:0}
+.d-cursor.press i{animation:dRing .5s ease-out}
+@keyframes dRing{from{opacity:.9;transform:scale(.3)}to{opacity:0;transform:scale(1.5)}}
+
+.d-end{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;background:rgba(253,253,254,.9);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .5s;z-index:60}
+.d-end.show{opacity:1;pointer-events:auto}
+.d-end h2{font-size:52px;line-height:1.1;font-weight:700;letter-spacing:-.025em;max-width:1400px}
+.d-end p{margin:0;font-size:22px;color:var(--muted)}
+.d-end .btn{margin-top:14px}
+@media (prefers-reduced-motion:reduce){.d-cursor{transition:none}.d-msg{animation:none}}
+</style>
+</head>
+<body class="d-body">
+<!--SITE-SPRITE-->
+<div class="d-stage" id="stage">
+ <header class="d-head">
+  <div><div class="d-eyebrow">Демо</div><h1 class="d-title">Покажем на живом запросе</h1></div>
+  <nav class="d-rail" id="rail" aria-label="Шаги демо">
+   <button type="button" data-step="0"><svg width="14" height="14"><use href="#i-check"/></svg>Запрос голосом</button><span class="d-arr">→</span>
+   <button type="button" data-step="1"><svg width="14" height="14"><use href="#i-check"/></svg>ИИ-заявка</button><span class="d-arr">→</span>
+   <button type="button" data-step="2"><svg width="14" height="14"><use href="#i-check"/></svg>Запросы и ответы в Telegram</button><span class="d-arr">→</span>
+   <button type="button" data-step="3"><svg width="14" height="14"><use href="#i-check"/></svg>Сравнение и выбор</button>
+  </nav>
+ </header>
+
+ <section class="d-browser" aria-label="Сайт TOURMESH">
+  <div class="d-chrome"><i></i><i></i><i></i>
+   <div class="d-url"><svg width="12" height="12" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2" fill="currentColor"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2.2"/></svg><b>tourmesh.pages.dev</b><span id="path"></span></div>
+  </div>
+  <div class="d-view">
+   <div class="d-site">
+    <header class="nav"><div class="wrap">
+     <span class="brand"><svg><use href="#logo"/></svg>TOURMESH</span>
+     <nav class="links"><a class="on" id="tabHome">Главная</a><a>Лента заявок</a><a>Мои отклики</a></nav>
+     <div class="nav-right"><div class="lang"><a class="on">RU</a><a>EN</a><a>UZ</a></div><span class="avatar">MT</span></div>
+    </div></header>
+    <div class="d-scroll" id="scroll"><main id="screen"></main></div>
+    <div class="toast" id="toast"></div>
+   </div>
+   <div class="d-confirm" id="confirm"><small>Сайт tourmesh.pages.dev сообщает</small><span id="confirmText"></span><div><button type="button">Отмена</button><button type="button" class="ok" id="confirmOk">ОК</button></div></div>
+  </div>
+ </section>
+
+ <aside class="d-phone" id="phone" aria-label="Telegram заказчика">
+  <div class="d-screen">
+   <div class="d-island"></div>
+   <div class="d-status"><span id="clock">10:24</span><span><svg width="16" height="11" viewBox="0 0 16 11"><path d="M1 10h2V7H1zm4 0h2V5H5zm4 0h2V3H9zm4 0h2V1h-2z" fill="#111827"/></svg><i></i></span></div>
+   <div class="d-tg"><svg width="12" height="20" viewBox="0 0 12 20"><path d="M10 2 2 10l8 8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="d-bot"><svg><use href="#logo"/></svg></span><span><b>TOURMESH</b><small>бот</small></span></div>
+   <div class="d-chat" id="chat"></div>
+   <div class="d-input"><span>Сообщение</span></div>
+  </div>
+ </aside>
+ <div class="d-plabel">Telegram агентства-заказчика</div>
+
+ <div class="d-caption" id="caption"><em id="captionN">1</em><span id="captionText"></span></div>
+ <div class="d-controls">
+  <small>Пробел — пауза · ← → — шаги</small>
+  <button type="button" id="restart" aria-label="Сначала" title="Сначала"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <button type="button" id="toggle" aria-label="Пауза" title="Пауза"></button>
+  <button type="button" id="full" aria-label="Во весь экран" title="Во весь экран"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+ </div>
+ <div class="d-progress" id="progress"></div>
+
+ <div class="d-end" id="end">
+  <h2>Один запрос вместо десятков переписок</h2>
+  <p>Предложения от подходящих поставщиков. Без посредников и комиссии.</p>
+  <button type="button" class="btn primary lg" id="again">Посмотреть ещё раз</button>
+ </div>
+ <div class="d-cursor" id="cursor"><i></i><svg viewBox="0 0 24 24"><path d="M4 2.5 19.5 13l-7 1.2 4 7.3-3 1.6-4-7.4L4 21z" fill="#0E1726" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
+</div>
+<script>
+'use strict';
+// ---------- data: one real run of the platform (sample agencies), 27 Nov 2026 ----------
+const SAID='Группа 20 человек, из Самарканда в Бухару, на 3 дня, нужен автобус, гид на английском и обед.';
+const JOB={title:'Самарканд → Бухара, 3 дня',services:['Транспорт','Гид','Питание'],from:'Самарканд',city:'Бухара',days:3,people:20,language:'английский',meals:'обед',transport:'автобус',
+ details:['Автобус на всю группу','Гид на английском все 3 дня','Обед каждый день']};
+const BIDS=[
+ {id:'karvon',name:'Buxoro Karvon',initials:'BK',city:'Бухара',score:4.8,count:4,price:1540,
+  note:'Isuzu на 35 мест, кондиционер, микрофон для гида. Гид с опытом работы с группами из Европы и Азии. Групповое меню: плов, шашлык, салаты, чай. Зал на 60 мест.',
+  reviews:[['Samo Trip',5,'Юрточный лагерь в Нурате — туристы в восторге.'],['Bahor Line',5,'Надёжные, берут группы даже в последний момент.'],['Kamalak Tour',4,'Хорошая программа, обеды можно разнообразить.'],['Yulduz Travel',5,'Рекомендуем.']]},
+ {id:'zarafshon',name:'Zarafshon Trips',initials:'ZT',city:'Самарканд',score:4.7,count:3,price:1390,
+  note:'Higer на 35 мест 2023 года, кондиционер, USB-зарядки. Гид встретит группу в гостинице и будет с ней все дни. Обеды в чайхане, ужин с национальной программой.',
+  reviews:[['Orzu Tour',5,'Удобно: и гостиница, и трансфер в одном месте.'],['Navbahor Travel',4,'Всё хорошо, автобус немного опоздал на вокзал.'],['Kamalak Tour',5,'Отличное соотношение цены и качества.']]},
+ {id:'registan',name:'Registan Way',initials:'RW',city:'Самарканд',score:4.8,count:5,price:1640,
+  note:'Isuzu на 35 мест, кондиционер, микрофон для гида. Гид из нашей команды, наушники для группы бесплатно. Групповое меню: плов, шашлык, салаты, чай. Зал на 60 мест.',
+  reviews:[['Navbahor Travel',5,'Взяли нашу группу из 22 человек в высокий сезон, всё чётко по программе.'],['Orzu Tour',5,'Гид на французском — отличный, туристы оставили хорошие отзывы.'],['Samo Trip',5,'Работаем третий сезон, ни одного срыва.']]},
+ {id:'darvoza',name:'Darvoza Tours',initials:'DT',city:'Хива',score:4.5,count:2,price:1250,
+  note:'Higer на 35 мест 2023 года, кондиционер, USB-зарядки. Гид-историк, авторская программа по старому городу. Обеды в чайхане, ужин с национальной программой.',
+  reviews:[['Navbahor Travel',5,'Гид на немецком — профессионал.'],['Orzu Tour',4,'Всё по договорённости.']]}
+];
+const CHOSEN='karvon';
+const ASK='Здравствуйте! Подтверждаем группу 20 человек, Самарканд → Бухара. Когда пришлёте программу?';
+const ANSWER='Здравствуйте! Спасибо, что выбрали нас. Программу и договор пришлём сегодня. Удобно созвониться через 15 минут?';
+const CAPTIONS=['Агентство нажимает микрофон и говорит задачу — как написало бы коллеге','ИИ оформляет заявку по эталону: маршрут, дни, люди, услуги, требования',
+ 'Заявку видят подходящие агентства, а ответы приходят заказчику в Telegram','Сравниваем цену, рейтинг и отзывы — выбираем и договариваемся напрямую'];
+
+// ---------- helpers ----------
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const h=v=>String(v).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
+const icon=(id,size=15)=>`<svg width="${size}" height="${size}"><use href="#${id}"/></svg>`;
+const money=n=>'$'+n.toLocaleString('ru-RU');
+const plural=(n,one,few,many)=>{const a=n%10,b=n%100;return a===1&&b!==11?one:a>=2&&a<=4&&(b<10||b>=20)?few:many};
+const stage=$('#stage'),screen=$('#screen'),scroller=$('#scroll'),chat=$('#chat'),cursor=$('#cursor');
+let K=1,run=0,paused=false,step=0;
+const STOP=Symbol('stop');
+// Waits that respect pause and stop when the demo jumps elsewhere.
+function wait(ms){
+ const id=run;
+ return new Promise((resolve,reject)=>{
+  let left=ms,last=performance.now();
+  const tick=now=>{if(id!==run)return reject(STOP);if(!paused)left-=now-last;last=now;if(left<=0)resolve();else requestAnimationFrame(tick)};
+  requestAnimationFrame(tick);
+ });
+}
+function fit(){
+ K=Math.min(innerWidth/1600,innerHeight/900);
+ stage.style.transform=`translate(${(innerWidth-1600*K)/2}px,${(innerHeight-900*K)/2}px) scale(${K})`;
+}
+addEventListener('resize',fit);fit();
+
+// ---------- cursor ----------
+function point(el,dx=0,dy=0){
+ const r=el.getBoundingClientRect(),s=stage.getBoundingClientRect();
+ return [(r.left+r.width/2-s.left)/K+dx,(r.top+r.height/2-s.top)/K+dy];
+}
+async function moveTo(el,dx,dy){const [x,y]=point(el,dx,dy);cursor.style.left=x+'px';cursor.style.top=y+'px';await wait(800)}
+async function click(el,dx,dy){if(el)await moveTo(el,dx,dy);cursor.classList.add('press');await wait(220);cursor.classList.remove('press');await wait(120)}
+async function scrollTo(top){scroller.scrollTo({top,behavior:'smooth'});await wait(700)}
+async function type(el,text,speed=34){for(let i=1;i<=text.length;i++){el.value=text.slice(0,i);el.dispatchEvent(new Event('input'));await wait(speed+(text[i-1]===' '?speed:0))}}
+function toast(text){const t=$('#toast');t.textContent=text;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2600)}
+
+// ---------- phone ----------
+let minute=24;
+function phoneMsg(text,button){
+ const time='10:'+String(minute).padStart(2,'0');
+ $('#clock').textContent=time;
+ chat.insertAdjacentHTML('beforeend',`<div class="d-msg">${text}<time>${time}</time>${button?`<a>${h(button)} ↗</a>`:''}</div>`);
+ while(chat.children.length>6)chat.firstElementChild.remove();
+ const p=$('#phone');p.classList.remove('buzz');void p.offsetWidth;p.classList.add('buzz');
+}
+const bidPing=b=>phoneMsg(`🔔 <b>Новый отклик на вашу заявку</b>\n«${h(JOB.title)}»\n\n<b>${h(b.name)}</b> · ★ ${b.score}\n${money(b.price)} за всё`,'Открыть заявку');
+function phoneReset(){chat.innerHTML='';phoneMsg('✅ Вы вошли в TOURMESH. Вернитесь в браузер — страница обновится сама.\n\nСюда же будут приходить новые отклики и сообщения.')}
+
+// ---------- site screens (markup follows app/index.html) ----------
+function setPath(p){$('#path').textContent=p}
+function caption(n){$('#captionN').textContent=n+1;$('#captionText').textContent=CAPTIONS[n]}
+function homeScreen(){
+ setPath('/');scroller.scrollTop=0;
+ screen.innerHTML=`<section class="hero"><div class="wrap">
+  <div class="eyebrow"><b>${icon('i-check',12)}</b>Только проверенные турагентства</div>
+  <h1>Что нужно для вашего тура?</h1>
+  <p class="lead">От гида до тура под ключ — и не только. Получите предложения под свой запрос и выберете лучшее</p>
+  <div class="prompt">
+   <textarea id="ask" rows="3" placeholder="Например: 2 группы по 15 человек в Самарканд на 7 дней, гид на английском, гостиница 3★"></textarea>
+   <div class="prompt-bar"><span class="hint" id="hint"></span><button class="mic" id="mic" type="button"><span class="bars"><i></i><i></i><i></i><i></i><i></i></span></button><button class="send" id="send" type="button" disabled><svg><use href="#i-up"/></svg></button></div>
+  </div>
+  <div class="examples"><button class="chip" type="button">2 группы по 15 человек в Самарканд на 7 дней с 3 декабря, гид на английском, гостиница 3★</button><button class="chip" type="button">Сломался автобус — срочно нужен автобус на 50 мест с кондиционером, Ташкент → Хива</button><button class="chip" type="button">Гид на испанском в Бухаре на 3 дня для 18 человек</button></div>
+  <div class="supply">Есть свободные автобусы, гиды или номера? <a>Смотреть заявки агентств →</a></div>
+ </div></section>
+ <div class="d-say" id="say">${icon('i-spark',22)}${SAID.split(' ').map(w=>`<span>${h(w)}</span>`).join(' ')}</div>`;
+ const ask=$('#ask');
+ ask.addEventListener('input',()=>{$('#send').disabled=ask.value.trim().length<8;ask.style.height='auto';ask.style.height=Math.min(240,Math.max(78,ask.scrollHeight))+'px'});
+}
+function loadingScreen(){
+ setPath('/new');scroller.scrollTop=0;
+ screen.innerHTML=`<div class="wrap page"><div class="loading"><div class="spinner"><svg viewBox="0 0 20 20"><path d="M4 5 L16 5 L10 15 Z" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".35"/><circle cx="4" cy="5" r="2.6" fill="currentColor"/><circle cx="16" cy="5" r="2.6" fill="currentColor"/><circle cx="10" cy="15" r="2.6" fill="currentColor"/></svg></div><h2 style="font-size:22px">Оформляем заявку…</h2><p class="muted">Выделяем город, даты, число людей и требования.</p><div class="skeleton" style="width:70%;margin-top:28px"></div><div class="skeleton" style="width:85%"></div><div class="skeleton" style="width:55%"></div></div></div>`;
+}
+const SERVICE={tour:'Тур / группа',transport:'Транспорт',hotel:'Гостиница',guide:'Гид',food:'Питание',other:'Другое'};
+const FIELDS=[['dTitle',JOB.title],['dCity',JOB.city],['dFrom',JOB.from],['dDays',JOB.days],['dPeople',JOB.people],['dLang',JOB.language],['dMeals',JOB.meals],['dTransport',JOB.transport],['dDetails',JOB.details.join('\n')]];
+function draftScreen(filled){
+ setPath('/new');scroller.scrollTop=0;
+ const v=id=>filled?h(FIELDS.find(f=>f[0]===id)?.[1]??''):'';
+ const picked=['transport','guide','food'];
+ screen.innerHTML=`<div class="wrap page"><div class="draft">
+  <a class="back">${icon('i-back',16)}Изменить текст</a>
+  <div class="ai-note">${icon('i-spark',20)}<div><b>Заявка готова.</b> Проверьте и поправьте, если нужно. Ваш текст: <q>${h(SAID)}</q></div></div>
+  <div class="card">
+   <div class="field"><label>Заголовок</label><input class="input title-input" id="dTitle" value="${v('dTitle')}"></div>
+   <div class="field"><label>Что нужно</label><div class="seg">${Object.entries(SERVICE).map(([k,name])=>`<label><input type="checkbox" data-s="${k}"${filled&&picked.includes(k)?' checked':''}><span>${name}</span></label>`).join('')}</div></div>
+   <div class="row c4">
+    <div class="field"><label>Город</label><input class="input" id="dCity" value="${v('dCity')}"></div>
+    <div class="field"><label>Откуда</label><input class="input" id="dFrom" value="${v('dFrom')}"></div>
+    <div class="field"><label>Дата начала</label><input class="input" id="dStart" placeholder="дд.мм.гггг"></div>
+    <div class="field"><label>Дней</label><input class="input num" id="dDays" value="${v('dDays')}"></div>
+   </div>
+   <div class="row c4">
+    <div class="field"><label>Групп</label><input class="input num" value="1"></div>
+    <div class="field"><label>Человек всего</label><input class="input num" id="dPeople" value="${v('dPeople')}"></div>
+    <div class="field"><label>Язык гида</label><input class="input" id="dLang" value="${v('dLang')}"></div>
+    <div class="field"><label>Гостиница</label><input class="input"></div>
+   </div>
+   <div class="row c3">
+    <div class="field"><label>Питание</label><input class="input" id="dMeals" value="${v('dMeals')}"></div>
+    <div class="field"><label>Транспорт</label><input class="input" id="dTransport" value="${v('dTransport')}"></div>
+    <div class="field"><label>Бюджет</label><input class="input"></div>
+   </div>
+   <div class="field"><label>Требования</label><textarea class="input" id="dDetails" rows="4">${v('dDetails')}</textarea></div>
+   <div class="actions"><a class="btn line lg">Отмена</a><button class="btn primary lg" id="publish" type="button">Опубликовать заявку</button></div>
+  </div>
+ </div></div>`;
+}
+let sort='price',open=false,arrived=[],chosen=null,shown=new Set();
+function summaryCard(){
+ const rows=[['Что нужно',JOB.services.join(', ')],['Город',JOB.from+' → '+JOB.city],['Дней',JOB.days],['Человек',JOB.people],['Язык гида',JOB.language],['Питание',JOB.meals],['Транспорт',JOB.transport]];
+ return `<aside class="card summary">
+  <div class="job-top">${JOB.services.map(s=>`<span class="tag blue">${s}</span>`).join('')}${chosen?'<span class="tag ok">Исполнитель выбран</span>':'<span class="tag wait">Ждёт откликов</span>'}</div>
+  <h1>${h(JOB.title)}</h1>
+  <div class="muted" style="font-size:14px">Madat Travel · только что</div>
+  <dl class="kv">${rows.map(([k,x])=>`<dt>${k}</dt><dd>${h(x)}</dd>`).join('')}</dl>
+  <ul class="bullets">${JOB.details.map(x=>`<li>${h(x)}</li>`).join('')}</ul>
+  <div class="original">«${h(SAID)}»</div>
+ </aside>`;
+}
+function bidCard(b,opts){
+ const reviews=b.reviews.map(([who,stars,text])=>`<div><b>${h(who)}</b> <span class="stars">${icon('i-star',12)}${stars}</span><br>${h(text)}</div>`).join('');
+ return `<article class="bid${opts.best?' best':''}" data-bid="${b.id}"${shown.has(b.id)?' style="animation:none"':''}>
+  <div class="agency"><span class="avatar lg">${b.initials}</span><div><b>${h(b.name)}</b><div class="job-top" style="margin-top:3px"><span class="muted" style="font-size:13px">${h(b.city)}</span><span class="stars">${icon('i-star',14)}${String(b.score).replace('.',',')}</span><span class="muted" style="font-size:13px">${b.count} ${plural(b.count,'отзыв','отзыва','отзывов')}</span></div></div></div>
+  <div class="price"><strong class="num">${money(b.price)}</strong><small>за всё</small></div>
+  <div class="bid-body">
+   ${opts.badges?`<div class="job-top">${opts.badges}</div>`:''}
+   <div class="job-top"><span class="tag">Транспорт</span><span class="tag">Гид · английский</span><span class="tag">Питание</span></div>
+   <p>${h(b.note)}</p>
+  </div>
+  <div class="reviews${open===b.id?'':' hidden'}">${reviews}</div>
+  <div class="bid-actions"><span><button class="linkbtn" data-reviews="${b.id}">${open===b.id?'Скрыть отзывы':'Показать отзывы'}</button></span>
+  ${chosen===b.id?'<a class="btn primary">Открыть чат</a>':chosen?'':`<button class="btn primary" data-choose="${b.id}">Выбрать</button>`}</div>
+ </article>`;
+}
+function drawBids(){
+ const list=BIDS.filter(b=>arrived.includes(b.id));
+ const cheapest=list.length?list.reduce((a,b)=>b.price<a.price?b:a):null;
+ const top=[...list].sort((a,b)=>b.score-a.score||b.count-a.count)[0];
+ list.sort(sort==='price'?(a,b)=>a.price-b.price:(a,b)=>b.score-a.score||a.price-b.price);
+ // FLIP: cards that move slide to their new place.
+ const before=new Map($$('#bids .bid').map(el=>[el.dataset.bid,el.getBoundingClientRect().top]));
+ $('#bids').innerHTML=list.map(b=>bidCard(b,{best:b===cheapest&&list.length>1,badges:[b===cheapest&&list.length>1?'<span class="tag ok">Дешевле всех</span>':'',b===top&&list.length>1?'<span class="tag blue">Лучший рейтинг</span>':''].join('')})).join('');
+ for(const el of $$('#bids .bid')){
+  const was=before.get(el.dataset.bid);
+  if(was!==undefined){const dy=(was-el.getBoundingClientRect().top)/K/.8891;if(Math.abs(dy)>1)el.animate([{transform:`translateY(${dy}px)`},{transform:'none'}],{duration:450,easing:'cubic-bezier(.2,.8,.2,1)'})}
+  shown.add(el.dataset.bid);
+ }
+ $('#bidsTitle').textContent=list.length?list.length+' '+plural(list.length,'отклик','отклика','откликов'):'Отклики';
+ $('#live').classList.toggle('hidden',!!chosen);
+ $$('#sort button').forEach(x=>x.classList.toggle('on',x.dataset.s===sort));
+}
+function jobScreen(){
+ setPath('/jobs/6466b054-597e-488d-8537-30cf60fc2c52');scroller.scrollTop=0;
+ screen.innerHTML=`<div class="wrap page"><a class="back">${icon('i-back',16)}Мои заявки</a><div class="job-layout">
+  <section class="bids-col" style="display:flex;flex-direction:column;gap:14px">
+   <div class="page-head" style="margin:0"><h1 id="bidsTitle" style="font-size:24px">Отклики</h1><div class="tabs" id="sort"><button data-s="price" class="on">Дешевле</button><button data-s="rating">Рейтинг</button></div></div>
+   <div class="bids" id="bids"></div>
+   <div class="live" id="live"><span class="dot"></span><span>Ждём отклики агентств — они появятся здесь автоматически.</span></div>
+  </section>
+  <div>${summaryCard()}</div>
+ </div></div>`;
+ drawBids();
+}
+function chatScreen(){
+ const b=BIDS.find(x=>x.id===CHOSEN);
+ setPath('/chat/'+'a3c1e2f0-5b7d-4e19-9c2a-7f4d8b6e1a90');scroller.scrollTop=0;
+ screen.innerHTML=`<div class="wrap page" style="padding-bottom:0"><div class="chat">
+  <div class="chat-head"><a class="back" style="margin:0">${icon('i-back',18)}</a><span class="avatar lg">${b.initials}</span><div><h1>${h(b.name)}</h1><div class="muted" style="font-size:13px">${h(JOB.title)}</div></div><div class="contacts"><span class="muted" style="font-size:13px">Контакты не указаны</span></div></div>
+  <div class="messages" id="messages"><div class="system">Обменяйтесь контактами и договоритесь о деталях. Договор и оплата — напрямую между агентствами.</div></div>
+  <div class="composer"><textarea id="msg" rows="1" placeholder="Сообщение"></textarea><button class="send" id="msgSend" type="button"><svg><use href="#i-up"/></svg></button></div>
+ </div></div>`;
+}
+const chatMsg=(text,mine)=>$('#messages').insertAdjacentHTML('beforeend',`<div class="msg${mine?' mine':''}">${h(text)}<time>10:${String(minute).padStart(2,'0')}</time></div>`);
+
+// ---------- the four steps ----------
+// Each step can start on its own (jumping with ← → or the rail), so setup() draws where the step begins.
+const STEPS=[
+ {setup(){homeScreen();phoneReset();arrived=[];chosen=null;open=false;sort='price';shown=new Set();minute=24},
+  async play(){
+   const mic=$('#mic'),hint=$('#hint'),ask=$('#ask'),say=$('#say');
+   await wait(900);
+   await click(mic);
+   mic.classList.add('on');ask.placeholder='Говорите…';
+   const bars=[...mic.querySelectorAll('.bars i')],shape=[.55,.85,1,.8,.5],t0=performance.now();
+   let talking=true;
+   const level=()=>{if(!talking||!mic.isConnected)return bars.forEach(b=>b.style.transform='');const t=performance.now();
+    bars.forEach((b,i)=>b.style.transform='scaleY('+Math.min(1,.25+(.35+.5*Math.abs(Math.sin(t/170+i)))*shape[i]).toFixed(3)+')');requestAnimationFrame(level)};
+   level();
+   const clock=setInterval(()=>{const s=Math.floor((performance.now()-t0)/1000);hint.innerHTML=`<span class="dot"></span>Слушаю 0:${String(s).padStart(2,'0')} · нажмите ещё раз, чтобы закончить`},250);
+   try{
+    // The bubble with what is being said sits under the prompt, wherever the heading's wrap puts it.
+    const prompt=$('.prompt');say.style.top=(prompt.offsetTop+prompt.offsetHeight+16)+'px';
+    say.classList.add('show');
+    for(const w of say.querySelectorAll('span')){w.classList.add('said');await wait(330)}
+    await wait(500);
+    await click(mic);
+   }finally{talking=false;clearInterval(clock)}
+   mic.classList.remove('on');mic.disabled=true;mic.innerHTML=icon('i-spin',18);hint.innerHTML=icon('i-spark')+'Распознаём речь…';
+   await wait(1300);
+   say.classList.remove('show');
+   ask.value=SAID;ask.dispatchEvent(new Event('input'));
+   mic.disabled=false;mic.innerHTML='<span class="bars"><i></i><i></i><i></i><i></i><i></i></span>';hint.innerHTML='';
+   await wait(1500);
+   await click($('#send'));
+  }},
+ {setup(){loadingScreen();phoneReset();arrived=[];chosen=null;minute=24},
+  async play(){
+   loadingScreen();
+   await wait(2600);
+   draftScreen(false);
+   await wait(700);
+   for(const [id,value] of FIELDS){
+    const el=$('#'+id);
+    if(id==='dCity')for(const k of ['transport','guide','food']){$(`[data-s="${k}"]`).checked=true;$(`[data-s="${k}"]`).nextElementSibling.classList.add('d-fill');await wait(260)}
+    if(id==='dMeals')await scrollTo(250);
+    el.classList.add('d-fill');
+    if(id==='dTitle')await type(el,value,28);else el.value=value;
+    await wait(id==='dTitle'?500:330);
+   }
+   await wait(1400);
+   await scrollTo(420);
+   await click($('#publish'));
+  }},
+ {setup(){jobScreen();phoneReset();arrived=[];chosen=null;minute=25},
+  async play(){
+   minute=25;jobScreen();
+   toast('Заявка опубликована');
+   await wait(900);
+   phoneMsg(`📤 <b>Заявка опубликована</b>\n«${h(JOB.title)}»\n\nАгентства уже видят её — отклики придут сюда.`,'Открыть заявку');
+   await wait(2600);
+   for(const id of ['karvon','zarafshon','registan','darvoza']){
+    const b=BIDS.find(x=>x.id===id);
+    bidPing(b);
+    await wait(900);
+    arrived.push(id);drawBids();toast('Новый отклик');
+    await wait(2700);
+   }
+   // Four offers do not fit the frame: run down the list and back.
+   await scrollTo(600);await wait(1800);await scrollTo(0);await wait(600);
+  }},
+ {setup(){
+   minute=25;jobScreen();phoneReset();
+   phoneMsg(`📤 <b>Заявка опубликована</b>\n«${h(JOB.title)}»\n\nАгентства уже видят её — отклики придут сюда.`,'Открыть заявку');
+   arrived=BIDS.map(b=>b.id);for(const b of BIDS)bidPing(b);shown=new Set(arrived);chosen=null;open=false;sort='price';drawBids();
+  },
+  async play(){
+   await wait(1800);
+   await click($('[data-s="rating"]'));sort='rating';drawBids();
+   await wait(1400);await scrollTo(600);await wait(1600);await scrollTo(0);await wait(500);
+   await click($(`[data-reviews="${CHOSEN}"]`));open=CHOSEN;drawBids();
+   await wait(3200);
+   const b=BIDS.find(x=>x.id===CHOSEN);
+   await click($(`[data-choose="${CHOSEN}"]`));
+   $('#confirmText').textContent=`Выбрать «${b.name}» исполнителем? Откроется чат, остальные отклики закроются.`;
+   $('#confirm').classList.add('show');
+   await wait(1500);
+   await click($('#confirmOk'));
+   $('#confirm').classList.remove('show');
+   chosen=CHOSEN;
+   chatScreen();
+   minute=26;
+   await wait(1100);
+   await click($('#msg'));
+   await type($('#msg'),ASK,26);
+   await wait(400);
+   await click($('#msgSend'));
+   chatMsg(ASK,true);$('#msg').value='';
+   await wait(2600);
+   chatMsg(ANSWER,false);
+   phoneMsg(`💬 <b>${h(b.name)}</b>: ${h(ANSWER)}`,'Ответить');
+   await wait(4200);
+  }}
+];
+
+// ---------- player ----------
+function mark(n){
+ step=n;caption(n);
+ $$('#rail button').forEach((b,i)=>{b.classList.toggle('on',i===n);b.classList.toggle('done',i<n)});
+ $('#progress').style.width=(n/STEPS.length*100)+'%';
+}
+async function playFrom(n){
+ const id=++run;
+ $('#end').classList.remove('show');$('#confirm').classList.remove('show');
+ STEPS[n].setup();
+ try{
+  for(let i=n;i<STEPS.length;i++){
+   mark(i);
+   await STEPS[i].play();
+   if(id!==run)return;
+  }
+  $('#progress').style.width='100%';
+  $$('#rail button').forEach(b=>{b.classList.remove('on');b.classList.add('done')});
+  await wait(600);
+  $('#end').classList.add('show');
+  // /demo?loop keeps it running on a stand.
+  if(new URLSearchParams(location.search).has('loop')){await wait(9000);playFrom(0)}
+ }catch(e){if(e!==STOP)throw e}
+}
+const PLAY='<svg width="18" height="18" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>';
+const PAUSE='<svg width="18" height="18" viewBox="0 0 24 24"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></svg>';
+function setPaused(p){paused=p;$('#toggle').innerHTML=p?PLAY:PAUSE;$('#toggle').setAttribute('aria-label',p?'Продолжить':'Пауза');$('#toggle').title=p?'Продолжить':'Пауза'}
+$('#toggle').addEventListener('click',()=>setPaused(!paused));
+$('#restart').addEventListener('click',()=>{setPaused(false);playFrom(0)});
+$('#again').addEventListener('click',()=>{setPaused(false);playFrom(0)});
+$('#full').addEventListener('click',()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen?.());
+$('#rail').addEventListener('click',e=>{const b=e.target.closest('[data-step]');if(b){b.blur();setPaused(false);playFrom(+b.dataset.step)}});
+addEventListener('keydown',e=>{
+ if(e.key===' '){e.preventDefault();setPaused(!paused)}
+ else if(e.key==='ArrowRight'&&step<STEPS.length-1){setPaused(false);playFrom(step+1)}
+ else if(e.key==='ArrowLeft'){setPaused(false);playFrom(Math.max(0,step-1))}
+ else if(e.key==='f'||e.key==='F')$('#full').click();
+});
+setPaused(false);
+(document.fonts?.ready||Promise.resolve()).then(()=>setTimeout(()=>playFrom(0),500));
+</script>
+</body>
+</html>

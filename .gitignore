@@ -4,3 +4,4 @@ dist/server/
 .dev.vars
 .DS_Store
 pages/dist/
+dist/demo/
